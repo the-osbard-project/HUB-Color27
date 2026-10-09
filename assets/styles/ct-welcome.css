@@ -1,0 +1,235 @@
+/* Color Time! — startup title/tagline intro (full viewport; stage overflow would clip). */
+
+.ct-welcome {
+  position: fixed;
+  inset: 0;
+  z-index: 620;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.72s ease;
+}
+
+.ct-welcome--visible {
+  opacity: 1;
+}
+
+.ct-welcome--out {
+  opacity: 0;
+  transition-duration: 0.92s;
+}
+
+.ct-welcome[hidden] {
+  display: none;
+}
+
+.ct-welcome__card {
+  min-width: min(31rem, 94%);
+  max-width: min(34rem, 94%);
+  padding: 1.3rem 1.6rem 1.45rem;
+  border-radius: 1rem;
+  text-align: center;
+  background: color-mix(in srgb, var(--drydock-q400-bg, #0a1e38) 84%, transparent);
+  color: #f5f5f5;
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.24),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.09);
+  transform: translateY(6px);
+  transition: transform 0.72s ease;
+}
+
+/* Color Time Machine clock — 2/3 hub size, gyrates the whole intro */
+.ct-welcome__clock {
+  --ct-welcome-clock-col: calc(4rem * 2 / 3);
+  --ct-welcome-clock-gap: calc(0.35rem * 2 / 3);
+  --ct-tater-intensity: 0.55;
+  position: relative;
+  width: fit-content;
+  margin: 0 auto 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center center;
+  will-change: transform;
+  animation: ct-welcome-clock-gyrate 0.88s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.ct-welcome__hours {
+  display: grid;
+  grid-template-columns: repeat(5, var(--ct-welcome-clock-col));
+  grid-template-rows: repeat(5, var(--ct-welcome-clock-col));
+  gap: var(--ct-welcome-clock-gap);
+  width: fit-content;
+}
+
+.ct-welcome__hours .ct-hour-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--ct-welcome-clock-col);
+  min-width: var(--ct-welcome-clock-col);
+  height: var(--ct-welcome-clock-col);
+  padding: 0;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, rgba(245, 245, 245, 0.45) 55%, transparent);
+  background: var(--ct-hour-fill, rgba(40, 24, 72, 0.55));
+  color: inherit;
+  font: 600 calc(var(--ct-welcome-clock-col) * 0.5) / 1 var(--ct-font-ui, Fredoka, system-ui, sans-serif);
+  cursor: default;
+}
+
+.ct-welcome__hours .ct-hour-btn--mirrored {
+  background: var(--ct-hour-fill, rgba(40, 24, 72, 0.55));
+}
+
+.ct-welcome__hours .ct-interior-toe {
+  display: block;
+  width: var(--ct-welcome-clock-col);
+  height: var(--ct-welcome-clock-col);
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+}
+
+.ct-welcome__clock-paw {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(var(--ct-welcome-clock-col) * 1.15);
+  height: calc(var(--ct-welcome-clock-col) * 1.15);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.ct-welcome__clock-paw::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid #f5f5f5;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.ct-welcome__clock-paw-img {
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+  display: block;
+}
+
+@keyframes ct-welcome-clock-gyrate {
+  0%,
+  100% {
+    transform: rotate(calc(var(--ct-tater-intensity) * -6deg)) translateY(0);
+  }
+  25% {
+    transform: rotate(calc(var(--ct-tater-intensity) * 8deg))
+      translateY(calc(var(--ct-tater-intensity) * -14px));
+  }
+  50% {
+    transform: rotate(calc(var(--ct-tater-intensity) * -10deg))
+      translateY(calc(var(--ct-tater-intensity) * 6px));
+  }
+  75% {
+    transform: rotate(calc(var(--ct-tater-intensity) * 7deg))
+      translateY(calc(var(--ct-tater-intensity) * -8px));
+  }
+}
+
+.ct-welcome--visible .ct-welcome__card {
+  transform: translateY(0);
+}
+
+.ct-welcome--out .ct-welcome__card {
+  transform: translateY(-4px);
+}
+
+.ct-welcome__title-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.28em;
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  /* Fredoka Bold lockup — keep the title inside the card */
+  font-size: clamp(1.15rem, 4.2vw, 1.85rem);
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.ct-welcome__name {
+  font-size: inherit;
+  line-height: inherit;
+  color: #f5f5f5;
+}
+
+.ct-welcome__machine {
+  font-family: var(--ct-font-display, 'Fredoka', system-ui, sans-serif);
+  font-size: inherit;
+  font-weight: 700;
+  line-height: inherit;
+  color: #f5f5f5;
+}
+
+.ct-welcome__machine[hidden] {
+  display: none;
+}
+
+.ct-welcome__tagline {
+  min-height: 1.35em;
+  margin-top: 0.35rem;
+  font: 600 clamp(1rem, 2.7vw, 1.35rem) / 1.25 var(--ct-font-ui, 'Fredoka', system-ui, sans-serif);
+  color: #ffe94a;
+  white-space: nowrap;
+}
+
+.ct-welcome__word {
+  display: inline-block;
+}
+
+.ct-welcome__word--pop,
+.ct-welcome__machine--pop {
+  animation: ct-hub-word-pop var(--ct-tagline-beat-ms, 857ms) ease-out forwards;
+}
+
+.ct-welcome__name--chaos,
+.ct-welcome__machine--chaos {
+  transition: color 0.08s linear;
+}
+
+.ct-welcome__name--settle,
+.ct-welcome__machine--settle {
+  display: inline-block;
+  transform-origin: center;
+  animation: ct-hub-title-settle var(--ct-tagline-settle-ms, 429ms) ease-in-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ct-welcome,
+  .ct-welcome__card {
+    transition: none;
+    transform: none;
+  }
+
+  .ct-welcome__clock {
+    animation: none;
+    transform: none;
+  }
+
+  .ct-welcome__word--pop,
+  .ct-welcome__machine--pop,
+  .ct-welcome__name--settle,
+  .ct-welcome__machine--settle {
+    animation: none;
+  }
+}

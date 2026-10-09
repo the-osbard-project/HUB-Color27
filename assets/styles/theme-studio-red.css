@@ -1,0 +1,71 @@
+/* Builder house tray — fill #ea4335 · ice-coral disc primer
+   Dark rails stay bindery night: q100/q300/nav/stage #42080f · dock #ea4335 · q400 mid */
+
+body.dd-shell.theme-studio-red {
+  --drydock-hull-light: #ea4335;
+  --drydock-hull: #9e2824;
+  --drydock-hull-dark: #42080f;
+  --drydock-primer: #f8d4d0;
+  --drydock-rail-edge: rgba(248, 212, 208, 0.45);
+  --drydock-q400-bg: #42080f;
+  --drydock-stage-bg: #42080f;
+  --drydock-stage-mat: #42080f;
+  --drydock-icon: #f5f5f5;
+  --drydock-icon-dim: #f8d4d0;
+  --drydock-hub-bg: #42080f;
+  --drydock-hub-border: rgba(248, 212, 208, 0.45);
+  --drydock-hub-glow: #f8d4d0;
+  --drydock-hub-rim: #f5f5f5;
+  --dd-letterbox: #28050a;
+  --ct-gutter-bg: var(--drydock-q400-bg);
+  --ct-slider-bg: rgba(255, 248, 247, 0.96);
+  --ct-q400-ring-outer: rgba(248, 212, 208, 0.55);
+  --ct-q400-glyph-stroke: rgba(245, 245, 245, 0.5);
+  --ct-q400-glyph-stroke-dark: rgba(40, 5, 10, 0.82);
+}
+
+body.dd-shell.theme-studio-red .dd-hub-panel {
+  border-color: rgba(245, 245, 245, 0.92);
+}
+
+body.dd-shell.theme-studio-red #q100,
+body.dd-shell.theme-studio-red #q300,
+body.dd-shell.theme-studio-red .dd-layout--phone-stack #q100,
+body.dd-shell.theme-studio-red .dd-layout--phone-stack #q300,
+body.dd-shell.theme-studio-red .dd-layout--phone-wide-stack #q100,
+body.dd-shell.theme-studio-red .dd-layout--phone-wide-stack #q300 {
+  background: var(--drydock-hull-dark);
+}
+
+body.dd-shell.theme-studio-red #q100 {
+  border-right-color: rgba(245, 245, 245, 0.14);
+}
+
+body.dd-shell.theme-studio-red #q300 {
+  border-left-color: rgba(245, 245, 245, 0.14);
+}
+
+body.dd-shell.theme-studio-red #q444-nav {
+  background: var(--drydock-hull-dark);
+}
+
+body.dd-shell.theme-studio-red #q444-dock {
+  background: var(--drydock-hull-light);
+}
+
+body.dd-shell.theme-studio-red #q400,
+body.dd-shell.theme-studio-red .dd-q400-inner,
+body.dd-shell.theme-studio-red .dd-paw-wrap,
+body.dd-shell.theme-studio-red .dd-layout--phone-stack .dd-q400-inner,
+body.dd-shell.theme-studio-red .dd-layout--phone-wide-stack .dd-q400-wing--left,
+body.dd-shell.theme-studio-red .dd-layout--phone-wide-stack .dd-q400-wing--right {
+  background: var(--drydock-hull);
+}
+
+/* q200 stage — mat, gutters, and page bed */
+body.dd-shell.theme-studio-red #q200.dd-stage,
+body.dd-shell.theme-studio-red .ct-stage-mat,
+body.dd-shell.theme-studio-red .ct-stage-gutter,
+body.dd-shell.theme-studio-red .sr-stage-scroll.dd-stage-scroll {
+  background: var(--drydock-q400-bg);
+}

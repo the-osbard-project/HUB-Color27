@@ -1,0 +1,40 @@
+/* Color Time! — screen-reader-only helpers + keyboard focus rings */
+
+.ct-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Sliders, wells, stage region, shape popup — visible keyboard focus */
+body.dd-shell .ct-vslider__input:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--drydock-hub-glow, #c9a4ff) 88%, #fff);
+  outline-offset: 2px;
+}
+
+body.dd-shell .dd-ct-toe:focus-visible {
+  outline: 2px solid rgba(245, 245, 245, 0.95);
+  outline-offset: 3px;
+  border-radius: 999px;
+}
+
+body.dd-shell #dd-stage-scroll:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--drydock-hub-glow, #c9a4ff) 75%, #fff);
+  outline-offset: 3px;
+}
+
+body.dd-shell .q300-shapes-opt:focus-visible {
+  outline: 2px solid rgba(200, 170, 255, 0.95);
+  outline-offset: 2px;
+}
+
+body.dd-shell .ct-save-as__input:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--drydock-hub-glow, #c9a4ff) 85%, #fff);
+  outline-offset: 2px;
+}

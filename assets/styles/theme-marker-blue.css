@@ -1,0 +1,55 @@
+/* Scrippy house tray — fill #006d77 · ice-teal disc primer */
+
+body.dd-shell.theme-marker-blue {
+  --ct-brand-blue: #006d77;
+  --drydock-hull-light: #006d77;
+  --drydock-hull: #00555c;
+  --drydock-hull-dark: #00343a;
+  --drydock-primer: #d6eef0;
+  --drydock-rail-edge: rgba(214, 238, 240, 0.45);
+  --drydock-q400-bg: color-mix(in srgb, var(--drydock-hull-dark) 90%, var(--drydock-hull) 10%);
+  --drydock-stage-bg: var(--drydock-q400-bg);
+  --drydock-stage-mat: var(--drydock-q400-bg);
+  --drydock-icon: #f5f5f5;
+  --drydock-icon-dim: #d6eef0;
+  --drydock-hub-bg: #00555c;
+  --drydock-hub-border: rgba(214, 238, 240, 0.45);
+  --drydock-hub-glow: #d6eef0;
+  --drydock-hub-rim: #f5f5f5;
+  --dd-letterbox: #00343a;
+  --ct-gutter-bg: var(--drydock-q400-bg);
+  --ct-slider-bg: rgba(245, 252, 252, 0.96);
+  --ct-q400-ring-outer: rgba(214, 238, 240, 0.55);
+  --ct-q400-glyph-stroke: rgba(245, 245, 245, 0.5);
+  --ct-q400-glyph-stroke-dark: rgba(0, 52, 58, 0.82);
+}
+
+body.dd-shell.theme-marker-blue .dd-hub-panel {
+  border-color: rgba(245, 245, 245, 0.92);
+}
+
+body.dd-shell.theme-marker-blue #q100,
+body.dd-shell.theme-marker-blue #q300,
+body.dd-shell.theme-marker-blue .dd-layout--phone-stack #q100,
+body.dd-shell.theme-marker-blue .dd-layout--phone-stack #q300,
+body.dd-shell.theme-marker-blue .dd-layout--phone-wide-stack #q100,
+body.dd-shell.theme-marker-blue .dd-layout--phone-wide-stack #q300 {
+  background: #006d77;
+}
+
+body.dd-shell.theme-marker-blue #q400,
+body.dd-shell.theme-marker-blue .dd-q400-inner,
+body.dd-shell.theme-marker-blue .dd-paw-wrap,
+body.dd-shell.theme-marker-blue .dd-layout--phone-stack .dd-q400-inner,
+body.dd-shell.theme-marker-blue .dd-layout--phone-wide-stack .dd-q400-wing--left,
+body.dd-shell.theme-marker-blue .dd-layout--phone-wide-stack .dd-q400-wing--right {
+  background: #00343a;
+}
+
+/* q200 stage — mat, gutters, and page bed share the q400 teal night */
+body.dd-shell.theme-marker-blue #q200.dd-stage,
+body.dd-shell.theme-marker-blue .ct-stage-mat,
+body.dd-shell.theme-marker-blue .ct-stage-gutter,
+body.dd-shell.theme-marker-blue .sr-stage-scroll.dd-stage-scroll {
+  background: var(--drydock-q400-bg);
+}

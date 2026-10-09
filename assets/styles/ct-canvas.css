@@ -1,0 +1,128 @@
+/* Color27 — 640×720 booth canvas (CSS-fit in q200; no print PPI) */
+
+.ct-canvas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.ct-canvas-stack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.ct-line-art-canvas,
+.ct-layer-canvas,
+.ct-layer-stroke-canvas,
+.ct-layer-float-canvas,
+.ct-draw-canvas,
+.ct-object-overlay {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+.ct-layer-canvas,
+.ct-layer-stroke-canvas,
+.ct-layer-float-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Bottom → top: L3 raster/strokes/float, L2…, L1…, live draw, select chrome */
+.ct-layer-canvas[data-layer="3"] { z-index: 0; }
+.ct-layer-stroke-canvas[data-layer="3"] { z-index: 1; }
+.ct-layer-float-canvas[data-layer="3"] { z-index: 2; }
+.ct-layer-canvas[data-layer="2"] { z-index: 3; }
+.ct-layer-stroke-canvas[data-layer="2"] { z-index: 4; }
+.ct-layer-float-canvas[data-layer="2"] { z-index: 5; }
+.ct-layer-canvas[data-layer="1"] { z-index: 6; }
+.ct-layer-stroke-canvas[data-layer="1"] { z-index: 7; }
+.ct-layer-float-canvas[data-layer="1"] { z-index: 8; }
+
+.ct-canvas-stack--shape .ct-layer-canvas.is-active {
+  z-index: 11;
+  pointer-events: auto;
+}
+
+.ct-canvas-stack--shape .ct-draw-canvas {
+  pointer-events: none;
+}
+
+.ct-line-art-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.ct-draw-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 9;
+  cursor: inherit;
+  background: transparent;
+}
+
+.ct-object-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.ct-object-overlay--active {
+  pointer-events: auto;
+  cursor: default;
+}
+
+/* CBN digits — above paint; tools draw through (no hit target) */
+.ct-cbn-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 11;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  touch-action: none;
+}
+
+.ct-canvas-stack--shape .ct-object-overlay--active {
+  z-index: 12;
+}
+
+/* Soft ring on active layer / backdrop thumb (Sr-style — on wrap so overflow:hidden tiles don’t clip it) */
+body.dd-shell .ct-layer-thumb-wrap:has(.ct-layer-tile.is-active),
+body.dd-shell .ct-layer-thumb-wrap:has(.ct-layer-tile[aria-pressed='true']),
+body.dd-shell .ct-layer-thumb-wrap:has(.ct-layer-bg.is-active) {
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.9),
+    0 0 0 4px color-mix(in srgb, var(--drydock-icon, #1c99ff) 48%, transparent),
+    0 0 12px color-mix(in srgb, var(--drydock-icon, #1c99ff) 28%, transparent);
+}
+
+body.dd-shell .ct-layer-tile.is-active {
+  border-color: color-mix(in srgb, var(--drydock-icon) 72%, transparent);
+}
+
+body.dd-shell .ct-layer-tile.is-active .ct-layer-tile__thumb {
+  filter: brightness(1.04);
+}
+
+body.dd-shell .dd-rail-btn--active {
+  color: var(--drydock-icon);
+  box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--drydock-icon) 65%, transparent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ct-draw-canvas {
+    cursor: inherit;
+  }
+}

@@ -1,0 +1,91 @@
+/* Drydock — centered confirm (Hub logo leave prompt, fork dialogs) */
+
+.dd-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(8, 10, 14, 0.72);
+}
+
+.dd-dialog__panel {
+  width: min(22rem, 92vw);
+  padding: 1rem 1.1rem;
+  border-radius: 0.65rem;
+  border: 1px solid var(--drydock-hub-border);
+  background: var(--drydock-hub-bg);
+  color: var(--drydock-icon);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+}
+
+.dd-dialog__title {
+  margin: 0 0 0.45rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.dd-dialog__detail,
+.dd-dialog__hint {
+  margin: 0 0 0.55rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.35;
+  opacity: 0.9;
+}
+
+.dd-dialog__hint {
+  font-weight: 300;
+  opacity: 0.75;
+}
+
+.dd-dialog__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+
+.dd-dialog__btn {
+  width: 100%;
+  padding: 0.45rem 0.65rem;
+  border-radius: 0.4rem;
+  border: 1px solid var(--drydock-hub-border);
+  background: var(--drydock-hull-dark);
+  color: var(--drydock-icon);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.dd-dialog__btn--primary {
+  background: var(--drydock-hull-light);
+  border-color: var(--drydock-hub-glow);
+}
+
+.dd-dialog__btn--ghost {
+  background: transparent;
+  opacity: 0.85;
+}
+
+.dd-dialog__btn:hover,
+.dd-dialog__btn:focus-visible {
+  filter: brightness(1.08);
+}
+
+/* Post-welcome phone heads-up — above stage chrome. */
+.dd-dialog.ct-phone-desk-notice {
+  z-index: 640;
+}
+
+.dd-dialog.ct-phone-desk-notice .dd-dialog__panel {
+  width: min(26rem, 94vw);
+}
+
+.dd-dialog.ct-phone-desk-notice .dd-dialog__detail {
+  font-size: 1.05rem;
+  line-height: 1.45;
+  text-align: center;
+}

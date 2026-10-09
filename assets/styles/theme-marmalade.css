@@ -1,0 +1,31 @@
+/* MediO house tray — Marmalade #e23c12 · disc #f9d9c8 */
+
+body.dd-shell.theme-marmalade {
+  --drydock-hull-light: #e23c12;
+  --drydock-hull: #b02f0e;
+  --drydock-hull-dark: #4a1608;
+  --drydock-primer: #f9d9c8;
+  --drydock-rail-edge: rgba(249, 217, 200, 0.45);
+  --drydock-stage-bg: #ffffff;
+  --drydock-stage-mat: #e39a7a;
+  --drydock-icon: #f5f5f5;
+  --drydock-icon-dim: #f9d9c8;
+  --drydock-hub-bg: #b02f0e;
+  --drydock-hub-border: rgba(249, 217, 200, 0.45);
+  --drydock-hub-glow: #f9d9c8;
+  --drydock-hub-rim: #f5f5f5;
+  --dd-letterbox: #3a1006;
+  --ct-gutter-bg: #e39a7a;
+  --ct-slider-bg: rgba(253, 246, 242, 0.96);
+  --ct-q400-ring-outer: rgba(249, 217, 200, 0.55);
+  --ct-q400-glyph-stroke: rgba(245, 245, 245, 0.42);
+  --ct-q400-glyph-stroke-dark: rgba(58, 16, 6, 0.72);
+}
+
+body.dd-shell.theme-marmalade #q400 {
+  --ct-q400-ring-outer: rgba(249, 217, 200, 0.55);
+}
+
+body.dd-shell.theme-marmalade .dd-hub-panel {
+  border-color: rgba(245, 245, 245, 0.92);
+}

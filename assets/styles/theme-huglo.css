@@ -1,0 +1,78 @@
+/* OSS — HUGLO contrast tray (black rails · black letterbox · ct-logo-glow.png) */
+
+body.dd-shell.theme-huglo {
+  --drydock-hull: #000000;
+  --drydock-hull-light: #000000;
+  --drydock-hull-dark: #000000;
+  --drydock-primer: #ffffff;
+  --drydock-rail-edge: rgba(255, 255, 255, 0.12);
+  --drydock-stage-bg: #ffffff;
+  --drydock-stage-mat: #1a1a1a;
+  --drydock-icon: #f5f5f5;
+  --drydock-icon-dim: #b8b8b8;
+  --drydock-hub-bg: #000000;
+  --drydock-hub-border: rgba(255, 255, 255, 0.22);
+  --drydock-hub-glow: #ffffff;
+  --drydock-hub-rim: #f5f5f5;
+  --dd-letterbox: #000000;
+  --ct-gutter-bg: #1a1a1a;
+  --ct-slider-bg: rgba(238, 238, 244, 0.96);
+  --drydock-q400-bg: #000000;
+  --ct-q400-glyph-stroke: rgba(245, 245, 245, 0.42);
+  --ct-q400-glyph-stroke-dark: rgba(0, 0, 0, 0.55);
+}
+
+body.dd-shell.theme-huglo .dd-hub-panel {
+  background: #000000;
+  border-color: rgba(245, 245, 245, 0.92);
+  --drydock-icon: #f5f5f5;
+  --drydock-icon-dim: #f5f5f5;
+  --drydock-hub-rim: #f5f5f5;
+  --ct-hub-ink: #f5f5f5;
+  --ct-hub-muted: #f5f5f5;
+  --ct-hub-opt-bg: rgba(255, 255, 255, 0.1);
+  color: #f5f5f5;
+}
+
+body.dd-shell.theme-huglo .dd-hub-head__close,
+body.dd-shell.theme-huglo .dd-hub-deck__card,
+body.dd-shell.theme-huglo .dd-hub-foot__util,
+body.dd-shell.theme-huglo .dd-settings-popup,
+body.dd-shell.theme-huglo .dd-settings-popup__close,
+body.dd-shell.theme-huglo .dd-settings-popup__meta,
+body.dd-shell.theme-huglo .dd-settings-popup__info,
+body.dd-shell.theme-huglo .dd-settings-popup__section,
+body.dd-shell.theme-huglo .dd-settings-row label,
+body.dd-shell.theme-huglo .dd-settings-glossary__section,
+body.dd-shell.theme-huglo .dd-settings-glossary__term,
+body.dd-shell.theme-huglo .dd-settings-glossary__def,
+body.dd-shell.theme-huglo .dd-settings-glossary__intro,
+body.dd-shell.theme-huglo .ct-hub-machine__paw-hint,
+body.dd-shell.theme-huglo .ct-clock-paw-hint,
+body.dd-shell.theme-huglo .ct-hub-machine .ct-popup__tray-name,
+body.dd-shell.theme-huglo .dd-hub-panel .dd-ct-paint-bar__line-label,
+body.dd-shell.theme-huglo .dd-hub-panel .dd-ct-paint-divider {
+  color: #f5f5f5;
+}
+
+body.dd-shell.theme-huglo .ct-hub-machine .ct-hour-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+body.dd-shell.theme-huglo #q100,
+body.dd-shell.theme-huglo #q300,
+body.dd-shell.theme-huglo .dd-layout--phone-stack #q100,
+body.dd-shell.theme-huglo .dd-layout--phone-stack #q300,
+body.dd-shell.theme-huglo .dd-layout--phone-wide-stack #q100,
+body.dd-shell.theme-huglo .dd-layout--phone-wide-stack #q300 {
+  background: #000000;
+}
+
+body.dd-shell.theme-huglo #q400,
+body.dd-shell.theme-huglo .dd-q400-inner,
+body.dd-shell.theme-huglo .dd-paw-wrap,
+body.dd-shell.theme-huglo .dd-layout--phone-stack .dd-q400-inner,
+body.dd-shell.theme-huglo .dd-layout--phone-wide-stack .dd-q400-wing--left,
+body.dd-shell.theme-huglo .dd-layout--phone-wide-stack .dd-q400-wing--right {
+  background: var(--drydock-q400-bg);
+}

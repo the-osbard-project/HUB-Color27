@@ -1,0 +1,26 @@
+/* OSS — Graphite contrast tray (Contrast toggle · slot 2 · all apps) */
+
+body.dd-shell.theme-graphite {
+  --drydock-hull: #252525;
+  --drydock-hull-light: #2d2d2d;
+  --drydock-hull-dark: #0f0f0f;
+  --drydock-primer: #e0e0e0;
+  --drydock-rail-edge: rgba(255, 255, 255, 0.15);
+  --drydock-stage-bg: #ffffff;
+  --drydock-stage-mat: #3d3d3d;
+  --drydock-icon: #f5f5f5;
+  --drydock-icon-dim: #b8b8b8;
+  --drydock-hub-bg: #252525;
+  --drydock-hub-border: rgba(255, 255, 255, 0.25);
+  --drydock-hub-glow: #e0e0e0;
+  --drydock-hub-rim: #f5f5f5;
+  --dd-letterbox: #0a0a0a;
+  --ct-gutter-bg: #3d3d3d;
+  --ct-slider-bg: rgba(238, 238, 244, 0.96);
+  --ct-q400-glyph-stroke: rgba(245, 245, 245, 0.4);
+  --ct-q400-glyph-stroke-dark: rgba(0, 0, 0, 0.55);
+}
+
+body.dd-shell.theme-graphite .dd-hub-panel {
+  border-color: rgba(255, 255, 255, 0.92);
+}

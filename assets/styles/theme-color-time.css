@@ -1,0 +1,60 @@
+/* Reader house tray — fill #34a853 · ice-mint disc primer */
+
+body.dd-shell.theme-color-time {
+  --drydock-hull-light: #34a853;
+  --drydock-hull: #2c8d46;
+  --drydock-hull-dark: #1a5a2c;
+  --drydock-primer: #cff1c0;
+  --drydock-rail-edge: rgba(207, 241, 192, 0.45);
+  --drydock-q400-bg: color-mix(in srgb, var(--drydock-hull-dark) 90%, var(--drydock-hull) 10%);
+  --drydock-stage-bg: var(--drydock-q400-bg);
+  --drydock-stage-mat: var(--drydock-q400-bg);
+  --drydock-icon: #f5f5f5;
+  --drydock-icon-dim: #cff1c0;
+  --drydock-hub-bg: #2c8d46;
+  --drydock-hub-border: rgba(207, 241, 192, 0.45);
+  --drydock-hub-glow: #cff1c0;
+  --drydock-hub-rim: #f5f5f5;
+  --dd-letterbox: #1a5a2c;
+  --ct-gutter-bg: var(--drydock-q400-bg);
+  --ct-slider-bg: rgba(245, 252, 242, 0.96);
+  --ct-q400-ring-outer: rgba(207, 241, 192, 0.55);
+  --ct-q400-glyph-stroke: rgba(245, 245, 245, 0.5);
+  --ct-q400-glyph-stroke-dark: rgba(13, 40, 22, 0.82);
+}
+
+body.dd-shell.theme-color-time .dd-hub-panel {
+  border-color: rgba(245, 245, 245, 0.92);
+}
+
+body.dd-shell.theme-color-time #q100,
+body.dd-shell.theme-color-time #q300,
+body.dd-shell.theme-color-time .dd-layout--phone-stack #q100,
+body.dd-shell.theme-color-time .dd-layout--phone-stack #q300,
+body.dd-shell.theme-color-time .dd-layout--phone-wide-stack #q100,
+body.dd-shell.theme-color-time .dd-layout--phone-wide-stack #q300 {
+  background: #34a853;
+}
+
+body.dd-shell.theme-color-time #q400,
+body.dd-shell.theme-color-time .dd-q400-inner,
+body.dd-shell.theme-color-time .dd-paw-wrap,
+body.dd-shell.theme-color-time .dd-layout--phone-stack .dd-q400-inner,
+body.dd-shell.theme-color-time .dd-layout--phone-wide-stack .dd-q400-wing--left,
+body.dd-shell.theme-color-time .dd-layout--phone-wide-stack .dd-q400-wing--right {
+  background: #1a5a2c;
+}
+
+/* q200 stage — mat, gutters, and page bed share the q400 forest */
+body.dd-shell.theme-color-time #q200.dd-stage,
+body.dd-shell.theme-color-time .ct-stage-mat,
+body.dd-shell.theme-color-time .ct-stage-gutter,
+body.dd-shell.theme-color-time .sr-stage-scroll.dd-stage-scroll {
+  background: var(--drydock-q400-bg);
+}
+
+/* Reader — Green Room hardcover frame */
+body.dd-shell.rr-shell.theme-color-time {
+  --rr-case-bg: #1a5a2c;
+  --rr-case-edge: #34a853;
+}

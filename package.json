@@ -1,0 +1,28 @@
+{
+  "name": "hub-color27",
+  "version": "1.0.0",
+  "description": "Color Time Machine! (Color27) — CBN-first coloring desk, forked from ColorTime26.",
+  "main": "sw.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "buffer-image-size": "^0.6.4",
+    "entities": "^7.0.1",
+    "happy-dom": "^20.10.6",
+    "undici-types": "^8.3.0",
+    "whatwg-mimetype": "^3.0.0",
+    "ws": "^8.21.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  },
+  "scripts": {
+    "build": "node scripts/build-ct.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

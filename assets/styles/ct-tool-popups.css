@@ -1,0 +1,221 @@
+/* Color Time! — OSBARD!! + Color Star! tool popups (anchored in scaled hull) */
+
+.ct-tool-popup {
+  position: absolute;
+  z-index: 100;
+  min-width: 0;
+  padding: 0.65rem 0.7rem 0.7rem;
+  border: 1px solid var(--drydock-hub-border);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--drydock-hub-bg) 97%, black);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  box-sizing: border-box;
+  font-family: var(--ct-font-ui);
+  font-size: 1rem;
+  color: var(--drydock-icon);
+}
+
+.ct-tool-popup[hidden] {
+  display: none;
+}
+
+.ct-tool-popup__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.35rem;
+  margin-bottom: 0.45rem;
+}
+
+.ct-tool-popup__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--drydock-hub-glow);
+  letter-spacing: 0.02em;
+}
+
+.ct-tool-popup__title--star {
+  color: var(--ct-icon-star, #cab33f);
+}
+
+.ct-tool-popup__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--drydock-icon-dim);
+  cursor: pointer;
+}
+
+.ct-tool-popup__close i {
+  font-size: 1.1rem;
+}
+
+.ct-tool-popup__close:hover,
+.ct-tool-popup__close:focus-visible {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--drydock-icon);
+}
+
+.ct-tool-popup__grid {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.ct-tool-popup__grid--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.ct-tool-popup__opt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  min-height: 3.5rem;
+  padding: 0.4rem 0.25rem;
+  border: 1px solid var(--drydock-rail-edge);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.22);
+  color: var(--drydock-icon);
+  font: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 0.16s ease, background 0.16s ease, box-shadow 0.16s ease;
+}
+
+.ct-tool-popup__opt i {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.ct-tool-popup__opt span {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.ct-tool-popup__opt:hover,
+.ct-tool-popup__opt:focus-visible {
+  border-color: var(--drydock-hub-glow);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.ct-tool-popup__opt:active,
+.ct-tool-popup__opt--active {
+  border-color: var(--drydock-hub-rim);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--drydock-hub-glow) 90%, transparent);
+  background: color-mix(in srgb, var(--drydock-hull-light) 55%, transparent);
+}
+
+.ct-tool-popup--osbard {
+  width: min(19rem, 94vw);
+}
+
+.ct-tool-popup__opt--smudgies i {
+  color: #f5c542;
+}
+
+.ct-tool-popup__opt--sharkies i {
+  color: var(--ct-brand-green);
+}
+
+.ct-tool-popup__opt--osbard i {
+  color: #9eb1bc;
+}
+
+.ct-tool-popup--star {
+  width: min(16rem, 94vw);
+}
+
+.ct-tool-popup--star .ct-tool-popup__opt i {
+  color: #cab33f;
+}
+
+.ct-star-mix {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.55rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--drydock-rail-edge);
+  width: 100%;
+  height: auto;
+  max-height: none;
+  padding-left: 0.15rem;
+  padding-right: 0.15rem;
+  padding-bottom: 0.1rem;
+}
+
+.ct-star-mix .ct-vslider__icon {
+  flex-shrink: 0;
+  margin: 0;
+  color: #cab33f;
+}
+
+.ct-star-mix .ct-vslider__icon i {
+  font-size: 1.05rem;
+}
+
+.ct-star-mix .ct-vslider__rail {
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
+  height: 1.6rem;
+}
+
+
+.ct-tool-popup__rainbow {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: #f5f5f5;
+  cursor: pointer;
+}
+
+.ct-tool-popup__rainbow i {
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.ct-tool-popup__rainbow:hover,
+.ct-tool-popup__rainbow:focus-visible {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.ct-tool-popup__rainbow[aria-pressed='true'] i {
+  background-image: linear-gradient(
+    90deg,
+    #ef233c 0%,
+    #ff8c00 22%,
+    #ffc107 42%,
+    #38b000 62%,
+    #0087f9 82%,
+    #5836b5 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.ct-tool-popup__head {
+  position: relative;
+}

@@ -1,0 +1,154 @@
+/* Globe Translator — Drydock hull geometry */
+
+.globe-translator-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: none;
+  background: transparent;
+  overflow: hidden;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.globe-translator-overlay[data-open='true'] {
+  display: block;
+}
+
+.globe-translator-backdrop {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: calc((100vw - var(--dd-w) * var(--dd-scale, 1)) / 2 + var(--dd-rail-w) * var(--dd-scale, 1));
+  width: calc(var(--dd-stage-w) * var(--dd-scale, 1));
+  bottom: calc((100vh - var(--dd-h) * var(--dd-scale, 1)) / 2 + var(--dd-q400-h) * var(--dd-scale, 1));
+  z-index: 0;
+  pointer-events: auto;
+  background: transparent;
+  box-sizing: border-box;
+}
+
+body.dd-layout--phone-stack .globe-translator-backdrop {
+  left: calc((100vw - var(--dd-w) * var(--dd-scale, 1)) / 2);
+  width: calc(var(--dd-w) * var(--dd-scale, 1));
+  bottom: calc(
+    (100vh - var(--dd-h) * var(--dd-scale, 1)) / 2
+    + (var(--dd-q400-h) + var(--dd-phone-paw-row-h, 0px)) * var(--dd-scale, 1)
+  );
+}
+
+.globe-translator-overlay[data-open='true'] .globe-translator-backdrop {
+  display: block;
+}
+
+.globe-translator-overlay[data-retracting='true'] .globe-translator-flag {
+  pointer-events: none !important;
+}
+
+.globe-translator-flag {
+  position: absolute;
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  color: #f0f0f0;
+  cursor: pointer;
+  padding: 0.15rem;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+  min-width: 0;
+  opacity: 0;
+  will-change: transform, opacity;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.globe-translator-flag:hover,
+.globe-translator-flag:focus-visible {
+  transform: translateY(-4px) scale(1.35);
+  border-color: rgba(255, 210, 140, 0.9);
+  box-shadow: 0 6px 18px rgba(255, 210, 140, 0.5);
+  outline: none;
+  z-index: 10;
+}
+
+.globe-translator-flag.is-active {
+  border-color: #ffc878;
+  box-shadow: 0 0 0 2px rgba(255, 210, 140, 0.55);
+}
+
+.globe-translator-flag__img {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  flex: 0 0 auto;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.globe-translator-flag__emoji {
+  font-size: 2.5rem;
+  line-height: 1;
+  font-family: 'Twemoji Mozilla', 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+  display: inline-block;
+  width: 2.5rem;
+  height: 2.5rem;
+  text-align: center;
+}
+
+.globe-translator-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 1rem;
+  transform: translateX(-50%);
+  z-index: 10001;
+  background: rgba(30, 20, 10, 0.92);
+  color: #ffe2b6;
+  padding: 0.6rem 1rem;
+  border: 1px solid rgba(255, 210, 140, 0.35);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.globe-translator-toast.is-visible {
+  opacity: 1;
+}
+
+.goog-te-banner-frame,
+.skiptranslate > iframe.skiptranslate {
+  display: none !important;
+}
+
+body.dd-shell {
+  top: 0 !important;
+}
+
+.goog-logo-link,
+.goog-te-gadget span {
+  display: none !important;
+}
+
+.goog-te-gadget {
+  font-size: 0 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .globe-translator-flag {
+    transition: background 0.18s ease, border-color 0.18s ease;
+    transform: none !important;
+  }
+}

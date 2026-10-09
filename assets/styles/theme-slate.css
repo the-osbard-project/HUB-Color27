@@ -1,0 +1,43 @@
+/* Dispatch house tray — slate fill #3b495a · ice-steel disc primer */
+
+body.dd-shell.theme-slate {
+  --drydock-hull: #324052;
+  --drydock-hull-light: #3b495a;
+  --drydock-hull-dark: #1e2834;
+  --drydock-primer: #bfcdd3;
+  --drydock-rail-edge: rgba(191, 205, 211, 0.45);
+  --drydock-stage-bg: #eef2f6;
+  --drydock-stage-mat: #3b495a;
+  --drydock-icon: #f5f5f5;
+  --drydock-icon-dim: #bfcdd3;
+  --drydock-hub-bg: #141b24;
+  --drydock-hub-border: rgba(191, 205, 211, 0.45);
+  --drydock-hub-glow: #bfcdd3;
+  --drydock-hub-rim: #f5f5f5;
+  --dd-letterbox: #0f1419;
+  --ct-gutter-bg: #3b495a;
+  --ct-slider-bg: rgba(245, 248, 249, 0.96);
+  --ct-q400-ring-outer: rgba(191, 205, 211, 0.55);
+  --drydock-q400-bg: color-mix(in srgb, var(--drydock-hull-dark) 88%, var(--drydock-hull) 12%);
+  --ct-q400-glyph-stroke: rgba(245, 245, 245, 0.42);
+  --ct-q400-glyph-stroke-dark: rgba(20, 27, 36, 0.82);
+}
+
+body.dd-shell.theme-slate .dd-hub-panel {
+  border-color: rgba(245, 245, 245, 0.92);
+}
+
+body.dd-shell.theme-slate .dd-hub-foot__legal:hover,
+body.dd-shell.theme-slate .dd-hub-foot__legal:focus-visible {
+  color: var(--drydock-hub-glow);
+}
+
+body.dd-shell.theme-slate .dd-legal-popup__link--primary {
+  border-color: color-mix(in srgb, var(--drydock-primer) 55%, transparent);
+}
+
+body.dd-shell.theme-slate #q400,
+body.dd-shell.theme-slate .dd-q400-inner,
+body.dd-shell.theme-slate .dd-paw-wrap {
+  background: var(--drydock-q400-bg);
+}

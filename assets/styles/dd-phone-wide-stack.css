@@ -1,0 +1,215 @@
+/* Wide phone stack — 19.5:9 · 20:9
+   Row 1 square canvas (w×w) · Rows 2–6 equal bands (px from profile-engine) */
+
+.dd-viewport.dd-layout--phone-wide-stack {
+  grid-template-columns: 1fr;
+  grid-template-rows:
+    var(--dd-phone-canvas-row-h, var(--dd-w))
+    repeat(5, var(--dd-phone-wide-row-h, 1fr));
+  --dd-phone-row-pad: 0.375rem;
+}
+
+.dd-layout--phone-wide-stack #q200 {
+  grid-column: 1;
+  grid-row: 1;
+  min-height: 0;
+}
+
+.dd-layout--phone-wide-stack #q200.dd-stage {
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Unpack rails wrapper — q100 and q300 each get their own row */
+.dd-layout--phone-wide-stack .dd-stack-row--rails {
+  display: contents;
+}
+
+.dd-layout--phone-wide-stack #q100,
+.dd-layout--phone-wide-stack #q300 {
+  grid-column: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  min-height: 0;
+  min-width: 0;
+  width: 100%;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  gap: var(--dd-phone-row-pad);
+  padding: var(--dd-phone-row-pad);
+  scrollbar-width: thin;
+  border-top: 1px solid var(--drydock-rail-edge);
+  background: linear-gradient(180deg, var(--drydock-hull-light) 0%, var(--drydock-hull) 100%);
+  border-left: none;
+  border-right: none;
+  box-shadow: none;
+  box-sizing: border-box;
+}
+
+.dd-layout--phone-wide-stack #q100 {
+  grid-row: 2;
+}
+
+.dd-layout--phone-wide-stack #q300 {
+  grid-row: 3;
+  background: linear-gradient(180deg, var(--drydock-hull) 0%, var(--drydock-hull-light) 100%);
+}
+
+.dd-layout--phone-wide-stack #q100 .dd-rail-main,
+.dd-layout--phone-wide-stack #q300 .dd-rail-main {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  height: auto;
+  width: auto;
+  flex: 0 0 auto;
+  padding: 0;
+  overflow: visible;
+  gap: var(--dd-phone-row-pad);
+}
+
+.dd-layout--phone-wide-stack .dd-rail-section {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--dd-phone-row-pad);
+  flex: 0 0 auto;
+  min-width: min-content;
+}
+
+.dd-layout--phone-wide-stack .dd-rail-actions,
+.dd-layout--phone-wide-stack .dd-rail-scroll {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  border-top: none;
+  margin-top: 0;
+  padding: 0;
+  gap: var(--dd-phone-row-pad);
+}
+
+.dd-layout--phone-wide-stack .dd-rail-scroll {
+  border-left: 1px dashed var(--drydock-rail-edge);
+  padding-left: var(--dd-phone-row-pad);
+}
+
+.dd-layout--phone-wide-stack .dd-rail-dock {
+  flex-shrink: 0;
+  padding: 0;
+}
+
+/* q400 — tools row + color wells row + paw row */
+.dd-layout--phone-wide-stack #q400 {
+  display: contents;
+}
+
+.dd-layout--phone-wide-stack .dd-q400-inner {
+  display: contents;
+}
+
+.dd-layout--phone-wide-stack .dd-q400-wing--left,
+.dd-layout--phone-wide-stack .dd-q400-wing--right {
+  grid-column: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  min-height: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  gap: var(--dd-phone-row-pad);
+  padding: var(--dd-phone-row-pad);
+  height: 100%;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  border-top: 1px solid var(--drydock-rail-edge);
+  background: var(--drydock-hull);
+}
+
+.dd-layout--phone-wide-stack .dd-q400-wing--left {
+  grid-row: 4;
+  justify-content: flex-start;
+}
+
+.dd-layout--phone-wide-stack .dd-q400-wing--right {
+  grid-row: 5;
+  justify-content: flex-start;
+}
+
+.dd-layout--phone-wide-stack .dd-q400-icon,
+.dd-layout--phone-wide-stack #q400 .dd-q400-tool.dd-q400-icon {
+  flex-shrink: 0;
+}
+
+/* q400 tray only — Hub paint-bar uses its own 6×2 toe rules */
+.dd-layout--phone-wide-stack #q400 .dd-ct-toe {
+  flex: 0 0 var(--ct-toe-tt);
+  width: var(--ct-toe-tt);
+  height: var(--ct-toe-tt);
+  min-width: var(--ct-toe-tt);
+  min-height: var(--ct-toe-tt);
+}
+
+/* Wells row — toe-anchored ellipse (CT-LAB 29×38.4 @ 41px toe) */
+.dd-layout--phone-wide-stack #q400 .dd-ct-well {
+  width: calc(var(--ct-toe-tt) * 29 / 41);
+  height: calc(var(--ct-toe-tt) * 38.4 / 41);
+}
+
+.dd-layout--phone-wide-stack #q400 .dd-ct-color-tray {
+  height: 100%;
+  width: auto;
+  max-width: none;
+}
+
+/* Row 6 — paw + phone faders: one scroll strip (same grammar as rows above) */
+.dd-layout--phone-wide-stack .dd-paw-wrap {
+  grid-column: 1;
+  grid-row: 6;
+  position: relative;
+  left: auto;
+  bottom: auto;
+  transform: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--dd-phone-row-pad);
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: var(--dd-phone-row-pad);
+  scrollbar-width: thin;
+  background: var(--drydock-hull);
+  border-top: 1px solid var(--drydock-rail-edge);
+  box-sizing: border-box;
+  z-index: 25;
+  pointer-events: auto;
+}
+
+.dd-layout--phone-wide-stack .dd-paw-btn {
+  flex: 0 0 auto;
+}
+
+.dd-layout--phone-wide-stack .dd-paw-btn img {
+  width: var(--dd-paw);
+  height: var(--dd-paw);
+  filter: invert(1);
+}
+
+.dd-layout--phone-wide-stack .dd-paw-btn img.dd-paw-logo {
+  filter: none;
+}

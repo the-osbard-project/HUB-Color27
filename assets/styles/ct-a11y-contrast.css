@@ -1,0 +1,84 @@
+/* Color Time! — WCAG Color & contrast (1.4.3 text · 1.4.11 UI · 1.4.1 use of color) */
+
+body.dd-shell {
+  /* Secondary copy — ≥ ~4.5:1 on dark hull / hub surfaces */
+  --ct-text-secondary: color-mix(in srgb, var(--drydock-icon) 94%, var(--drydock-hull-dark));
+  --ct-text-muted: color-mix(in srgb, var(--drydock-icon) 82%, var(--drydock-hull-dark));
+  --ct-hub-muted: var(--ct-text-muted);
+  /* Slider chrome on light fader panels (non-text 3:1 vs --ct-slider-bg) */
+  --ct-slider-chrome: #2e3530;
+  --ct-slider-rail: #4f5f4b;
+}
+
+.dd-hub-panel,
+.dd-settings-popup {
+  --ct-text-muted: color-mix(in srgb, var(--drydock-hub-rim, var(--drydock-icon)) 84%, var(--drydock-hub-bg));
+  --ct-text-secondary: color-mix(in srgb, var(--drydock-hub-rim, var(--drydock-icon)) 97%, var(--drydock-hub-bg));
+  --ct-hub-muted: var(--ct-text-muted);
+}
+
+/* Stronger secondary token on dark surfaces (HUGLO sets its own) */
+body.dd-shell:not(.theme-huglo) {
+  --drydock-icon-dim: var(--ct-text-muted);
+}
+
+/* Labels & hints */
+.dd-ct-paint-label {
+  color: var(--ct-text-secondary);
+}
+
+.ct-hub-machine {
+  --ct-hub-muted: var(--ct-text-muted);
+}
+
+/* Slider icons + rail — visible on pale stage fader cards (not Overclock dark panel) */
+.ct-stage-gutter .ct-vslider__icon {
+  color: var(--ct-slider-chrome);
+}
+
+.ct-stage-gutter .ct-vslider__icon--size span {
+  background: var(--ct-slider-chrome);
+}
+
+.ct-stage-gutter .ct-vslider__rail:not(.ct-vslider__rail--rainbow)::before {
+  background: var(--ct-slider-rail);
+}
+
+.ct-stage-gutter .ct-vslider__rail--rainbow::before {
+  background: var(--ct-canvas-rainbow);
+}
+
+/* Popup titles — glow-on-glow fails on green/red hub tints */
+.ct-tool-popup__title:not(.ct-tool-popup__title--star) {
+  color: var(--drydock-icon);
+}
+
+/* Selected options — shape + border, not color alone */
+.ct-tool-popup__opt--active,
+.ct-tool-popup__opt[aria-pressed='true'] {
+  outline: 2px solid var(--drydock-hub-rim);
+  outline-offset: 1px;
+}
+
+.q300-shapes-opt.is-active,
+.q300-shapes-opt[aria-pressed='true'] {
+  outline: 2px solid rgba(245, 245, 245, 0.88);
+  outline-offset: 1px;
+}
+
+.ct-overclock-btn.is-active,
+.ct-overclock-btn[aria-pressed='true'] {
+  outline: 2px solid var(--drydock-hub-rim);
+  outline-offset: 1px;
+}
+
+/* Pale swatches on dark trays — same white rims as other wells (inset shadow defines fill edge) */
+#q400 .dd-ct-well.dd-ct-well--light-edge,
+.dd-ct-paint-bar--hub .dd-ct-well.dd-ct-well--light-edge {
+  border-color: var(--drydock-icon, #f5f5f5);
+}
+
+#q400 .dd-ct-well.dd-ct-well--light-edge.is-active,
+.dd-ct-paint-bar--hub .dd-ct-well.dd-ct-well--light-edge.is-active {
+  border-color: var(--drydock-icon, #f5f5f5);
+}

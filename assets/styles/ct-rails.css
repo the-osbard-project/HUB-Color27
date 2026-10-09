@@ -1,0 +1,921 @@
+/* Color Time! — q100 / q300 icon stacks centered in rail column (side-rail only) */
+
+/* Side-rail — scale tiles to column (tablet 3:4 ≈108px; desktop 4:3 ≈144px).
+   Layer stack is tile-wide (drag to reorder; no caret gutter). */
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport {
+  --dd-rail-xl: min(5.25rem, calc((var(--dd-rail-w) - 0.5rem) / 1.36));
+  --dd-rail-glyph: min(5rem, calc(var(--dd-rail-xl) * 0.95));
+  --ct-layer-reorder-side: 0px;
+  --ct-layer-stack-pad-x: 0.25rem;
+  --ct-layer-reorder-pad-left: 0px;
+  --ct-layer-stack-width: var(--dd-rail-xl);
+}
+
+/* Desk / landscape fill — whole rail scrolls (Studio-style), not only thumb wells. */
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport #q100,
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport #q300 {
+  align-items: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+/* Left rail — scrollbar on the outer (physical left) edge */
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport #q100 {
+  direction: rtl;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport #q100 > * {
+  direction: ltr;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-main {
+  align-items: center;
+  width: 100%;
+  height: auto;
+  min-height: 100%;
+  flex: 0 0 auto;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-section {
+  align-items: center;
+  width: 100%;
+  flex: 1 0 auto;
+  min-height: auto;
+  overflow: visible;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-actions,
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-scroll {
+  width: 100%;
+  align-items: center;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-btn,
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-slot:not(.ct-rail-tile-xl) {
+  width: auto;
+  min-width: calc(var(--dd-rail-glyph) + 0.5rem);
+  max-width: calc(var(--dd-rail-w) - 0.7rem);
+  cursor: pointer;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-dock {
+  width: 100%;
+  justify-content: center;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-slot--xl {
+  width: var(--dd-rail-xl);
+  min-width: var(--dd-rail-xl);
+  max-width: var(--dd-rail-xl);
+}
+
+/* Phone stack — horizontal rail strip; undo side-rail width caps */
+
+html.dd-layout--phone-stack body.dd-shell .dd-viewport #q100,
+body.dd-shell .dd-viewport.dd-layout--phone-stack #q100,
+html.dd-layout--phone-stack body.dd-shell .dd-viewport #q300,
+body.dd-shell .dd-viewport.dd-layout--phone-stack #q300,
+body.dd-shell .dd-viewport.dd-layout--phone-wide-stack #q100,
+body.dd-shell .dd-viewport.dd-layout--phone-wide-stack #q300 {
+  align-items: stretch;
+  flex: 0 0 auto;
+  max-width: none;
+}
+
+html.dd-layout--phone-stack body.dd-shell .dd-viewport #q100,
+body.dd-shell .dd-viewport.dd-layout--phone-stack #q100,
+html.dd-layout--phone-stack body.dd-shell .dd-viewport #q300,
+body.dd-shell .dd-viewport.dd-layout--phone-stack #q300 {
+  width: auto;
+  overflow: visible;
+}
+
+body.dd-shell .dd-viewport.dd-layout--phone-wide-stack #q100,
+body.dd-shell .dd-viewport.dd-layout--phone-wide-stack #q300 {
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-main,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .dd-rail-main {
+  align-items: center;
+  width: auto;
+  flex: 0 0 auto;
+}
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-section,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .dd-rail-section {
+  align-items: center;
+  width: auto;
+  flex: 0 0 auto;
+}
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-actions,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .dd-rail-actions,
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-scroll,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .dd-rail-scroll {
+  width: auto;
+  flex: 0 0 auto;
+  align-items: center;
+}
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-btn,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .dd-rail-btn,
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-slot:not(.ct-rail-tile-xl):not(.ct-layer-bg),
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .dd-rail-slot:not(.ct-rail-tile-xl):not(.ct-layer-bg) {
+  width: var(--dd-phone-row-icon);
+  height: var(--dd-phone-row-icon);
+  min-width: var(--dd-phone-row-icon);
+  max-width: var(--dd-phone-row-icon);
+  min-height: var(--dd-phone-row-icon);
+  max-height: var(--dd-phone-row-icon);
+  flex: 0 0 var(--dd-phone-row-icon);
+  flex-shrink: 0;
+  aspect-ratio: 1 / 1;
+}
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-btn i,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .dd-rail-btn i,
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-slot i,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .dd-rail-slot i {
+  font-size: calc(var(--dd-phone-row-icon) * 0.72);
+}
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-dock,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .dd-rail-dock {
+  width: auto;
+  flex-shrink: 0;
+}
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-layer-bg-dock,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .ct-layer-bg-dock {
+  margin-top: 0;
+  padding: 0;
+  width: auto;
+}
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-layer-bg__fill,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .ct-layer-bg__fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-layer-tile.ct-rail-tile-xl,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .ct-layer-tile.ct-rail-tile-xl {
+  width: var(--dd-phone-row-icon);
+  height: var(--dd-phone-row-icon);
+  min-width: var(--dd-phone-row-icon);
+  min-height: var(--dd-phone-row-icon);
+  max-width: var(--dd-phone-row-icon);
+  max-height: var(--dd-phone-row-icon);
+}
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-stack-row--rails,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .dd-stack-row--rails {
+  align-items: center;
+}
+
+/* XL rail tiles — pack thumbs · layer tiles · docked toggles (one footprint) */
+body.dd-shell .ct-rail-tile-xl,
+body.dd-shell .ct-pack-item,
+body.dd-shell .ct-layer-tile,
+body.dd-shell .ct-pack-toggle,
+body.dd-shell .ct-layer-bg {
+  box-sizing: border-box;
+  width: var(--dd-rail-xl);
+  height: var(--dd-rail-xl);
+  min-width: var(--dd-rail-xl);
+  min-height: var(--dd-rail-xl);
+  max-width: var(--dd-rail-xl);
+  max-height: var(--dd-rail-xl);
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.dd-shell .ct-layer-bg {
+  padding: 0;
+}
+
+body.dd-shell .ct-layer-thumb-wrap--bg {
+  position: relative;
+  overflow: visible;
+  z-index: 5;
+}
+
+body.dd-shell .ct-layer-bg__rainbow {
+  position: absolute;
+  right: -0.2rem;
+  top: -0.2rem;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.45rem;
+  height: 1.45rem;
+  padding: 0;
+  margin: 0;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: conic-gradient(#f25, #fc0, #3d3, #3af, #93f, #f25);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+  line-height: 0;
+}
+
+body.dd-shell .ct-layer-bg__rainbow:hover,
+body.dd-shell .ct-layer-bg__rainbow:focus-visible {
+  outline: none;
+  filter: brightness(1.08);
+}
+
+body.dd-shell .ct-layer-bg__rainbow[aria-expanded='true'] {
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 8px rgba(255, 255, 255, 0.45);
+}
+
+body.dd-shell .ct-page-hex {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.28rem);
+  z-index: 6;
+  transform: translateX(-50%);
+}
+
+body.dd-shell .ct-page-hex input {
+  width: var(--dd-rail-xl);
+  border: 0;
+  border-radius: 6px;
+  background: #fff;
+  color: #1c1024;
+  text-align: center;
+  font-size: 0.85rem;
+  padding: 0.12rem 0.2rem;
+}
+
+body.dd-shell .ct-layer-bg__fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background-color: transparent;
+  background-image: linear-gradient(90deg, #f25, #fc0, #3d3, #3af, #93f);
+  transform-origin: center center;
+  transition:
+    transform 0.16s cubic-bezier(0.22, 1, 0.32, 1),
+    box-shadow 0.16s ease;
+}
+
+body.dd-shell .ct-layer-bg.is-field {
+  cursor: crosshair;
+}
+
+body.dd-shell .ct-layer-bg--transparent .ct-layer-bg__fill {
+  opacity: 1;
+}
+
+body.dd-shell .ct-pack-item,
+body.dd-shell .ct-layer-tile {
+  padding: 0;
+}
+
+body.dd-shell .ct-pack-item {
+  background: transparent;
+  border: none;
+}
+
+body.dd-shell .ct-pack-item__thumb {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid color-mix(in srgb, var(--drydock-icon) 48%, transparent);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+  transition:
+    transform 0.16s cubic-bezier(0.22, 1, 0.32, 1),
+    box-shadow 0.16s ease,
+    border-color 0.16s ease;
+}
+
+body.dd-shell .ct-pack-item__thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+body.dd-shell .ct-pack-item--active .ct-pack-item__thumb {
+  border-color: var(--drydock-icon);
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 0 12px var(--ct-rail-hover-glow-soft);
+}
+
+body.dd-shell .ct-rail-tile-xl i,
+body.dd-shell .ct-layer-tile i,
+body.dd-shell .ct-pack-toggle i {
+  font-size: calc(var(--dd-rail-xl) * 0.72);
+  line-height: 1;
+}
+
+body.dd-shell .ct-pack-item i {
+  font-size: var(--dd-rail-xl);
+  line-height: 1;
+  color: var(--drydock-icon);
+  opacity: 1;
+}
+
+/* q300 — layer stack + bg thumb ride with whole-rail scroll */
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-main--layers {
+  position: relative;
+  overflow: visible;
+  padding-bottom: 0;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-main--layers .dd-rail-section {
+  flex: 1 0 auto;
+  min-height: auto;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-main--layers .dd-rail-actions {
+  flex-shrink: 0;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-layer-well {
+  flex: 1 0 auto;
+  min-height: auto;
+  position: relative;
+  margin-top: 0.35rem;
+  border-top: 1px dashed var(--drydock-rail-edge);
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: var(--ct-layer-stack-pad-x, 0.25rem);
+  padding-right: var(--ct-layer-stack-pad-x, 0.25rem);
+  box-sizing: border-box;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-layer-scroll {
+  height: auto;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 auto;
+  min-height: auto;
+  width: 100%;
+  gap: 0;
+  --ct-layer-scroll-gap: 0.5rem;
+  padding: 0.5rem 0 0;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-layer-stack-track {
+  width: var(--ct-layer-stack-width);
+  flex-shrink: 0;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-layer-scroll .ct-layer-stack-track {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ct-layer-scroll-gap, 0.5rem);
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-layer-bg-dock {
+  position: static;
+  flex-shrink: 0;
+  width: var(--ct-layer-stack-width);
+  z-index: 4;
+  pointer-events: none;
+  margin-top: auto;
+  padding: 0 0 0.55rem;
+  box-sizing: border-box;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-layer-bg-dock .ct-layer-bg,
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-layer-bg-dock .ct-layer-tile__clear,
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-layer-bg-dock .ct-layer-bg__rainbow,
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-layer-bg-dock .ct-page-hex {
+  pointer-events: auto;
+}
+
+/* q100 — pack thumbs + backpack dock ride with whole-rail scroll */
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-main--packs {
+  position: relative;
+  overflow: visible;
+  padding-bottom: 0.55rem;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-main--packs .dd-rail-section {
+  flex: 1 0 auto;
+  min-height: auto;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-main--packs .dd-rail-actions {
+  flex-shrink: 0;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-pack-well {
+  flex: 1 0 auto;
+  min-height: auto;
+  position: relative;
+  margin-top: 0.35rem;
+  border-top: 1px dashed var(--drydock-rail-edge);
+  overflow: visible;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-pack-scroll {
+  height: auto;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.25rem 0.35rem;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-pack-toggle-dock {
+  position: static;
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+  z-index: 4;
+  pointer-events: none;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-pack-toggle {
+  pointer-events: auto;
+  padding: 0.32rem;
+  border: 2px solid var(--drydock-icon);
+  border-radius: 10px;
+  background: linear-gradient(180deg, var(--drydock-hull-light) 0%, var(--drydock-hull) 100%);
+  box-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.22),
+    0 0 0 1px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: box-shadow 0.14s ease, filter 0.14s ease;
+}
+
+/* All contrast trays — CT-LAB oss-ui-white rail glyphs */
+body.dd-shell .dd-rail-btn,
+body.dd-shell .dd-rail-slot:not(.ct-layer-bg),
+body.dd-shell .ct-pack-item,
+body.dd-shell .ct-pack-toggle {
+  color: var(--drydock-icon);
+}
+
+/* ── q100 / q300 — CT-LAB grow/glow hover (no punchout ring) ── */
+body.dd-shell #q100,
+body.dd-shell #q300 {
+  --ct-rail-hover-scale: 1.06;
+  --ct-rail-tile-hover-scale: 1.04;
+  /* White icon glow — not --drydock-hub-glow (green tray uses brand green there) */
+  --ct-rail-hover-glow: rgba(245, 245, 245, 0.85);
+  --ct-rail-hover-glow-soft: rgba(245, 245, 245, 0.62);
+  --ct-checker-a: #cfcfcf;
+  --ct-checker-b: #ffffff;
+}
+
+/* Large 2×2 gray/white checker — cute transparency cue */
+body.dd-shell .ct-checker-2x2 {
+  background-color: var(--ct-checker-b);
+  background-image:
+    linear-gradient(var(--ct-checker-a), var(--ct-checker-a)),
+    linear-gradient(var(--ct-checker-b), var(--ct-checker-b)),
+    linear-gradient(var(--ct-checker-b), var(--ct-checker-b)),
+    linear-gradient(var(--ct-checker-a), var(--ct-checker-a));
+  background-size: 50% 50%;
+  background-repeat: no-repeat;
+  background-position: left top, right top, left bottom, right bottom;
+}
+
+body.dd-shell .dd-rail-slot.ct-layer-tile.ct-rail-tile-xl {
+  border: 2px solid color-mix(in srgb, var(--drydock-icon) 48%, transparent);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+  padding: 0;
+  position: relative;
+}
+
+body.dd-shell .ct-layer-slot {
+  flex-shrink: 0;
+  width: 100%;
+}
+
+body.dd-shell .ct-layer-thumb-wrap {
+  position: relative;
+  width: var(--dd-rail-xl);
+  height: var(--dd-rail-xl);
+}
+
+body.dd-shell .ct-layer-slot__row {
+  display: grid;
+  grid-template-columns: var(--dd-rail-xl);
+  column-gap: 0;
+  align-items: center;
+  justify-items: center;
+}
+
+body.dd-shell .ct-layer-slot--reorder {
+  overflow: visible;
+  cursor: grab;
+  touch-action: none;
+}
+
+body.dd-shell .ct-layer-slot--reorder.is-dragging {
+  cursor: grabbing;
+  z-index: 6;
+  opacity: 0.92;
+}
+
+body.dd-shell .ct-layer-slot--reorder .ct-layer-slot__row {
+  overflow: visible;
+}
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) {
+  --ct-layer-reorder-side: 0px;
+  --ct-layer-phone-thumb-gap: var(--dd-phone-row-pad);
+}
+
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .ct-layer-slot {
+  width: var(--dd-phone-row-icon);
+}
+
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .ct-layer-slot__row,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .ct-layer-bg-row {
+  grid-template-columns: var(--dd-phone-row-icon);
+}
+
+body.dd-shell .ct-layer-tile__thumb {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+body.dd-shell .ct-layer-tile--empty .ct-layer-tile__thumb {
+  opacity: 0;
+}
+
+body.dd-shell .ct-layer-tile__clear {
+  position: absolute;
+  right: -0.1rem;
+  bottom: -0.1rem;
+  z-index: 3;
+  width: calc(var(--dd-rail-xl) * 0.46);
+  height: calc(var(--dd-rail-xl) * 0.46);
+  min-width: 1.65rem;
+  min-height: 1.65rem;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--drydock-icon) 55%, transparent);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--drydock-hull) 92%, #000 8%);
+  color: var(--drydock-icon);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  opacity: 0.92;
+}
+
+body.dd-shell .ct-layer-tile__clear i {
+  font-size: calc(var(--dd-rail-xl) * 0.28);
+}
+
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .ct-layer-thumb-wrap {
+  width: var(--dd-phone-row-icon);
+  height: var(--dd-phone-row-icon);
+}
+
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .ct-layer-tile__clear {
+  width: calc(var(--dd-phone-row-icon) * 0.44);
+  height: calc(var(--dd-phone-row-icon) * 0.44);
+  min-width: 1.85rem;
+  min-height: 1.85rem;
+}
+
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .ct-layer-tile__clear i {
+  font-size: calc(var(--dd-phone-row-icon) * 0.26);
+}
+
+body.dd-shell .ct-layer-tile__clear:hover,
+body.dd-shell .ct-layer-tile__clear:focus-visible {
+  opacity: 1;
+  box-shadow: 0 0 10px var(--ct-rail-hover-glow-soft);
+}
+
+body.dd-shell .ct-layer-bg {
+  cursor: pointer;
+}
+
+body.dd-shell .ct-layer-bg--focused {
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 0 0 2px color-mix(in srgb, var(--drydock-icon) 70%, transparent),
+    0 0 14px var(--ct-rail-hover-glow-soft);
+}
+
+body.dd-shell .ct-layer-bg:hover .ct-layer-bg__fill,
+body.dd-shell .ct-layer-bg:focus-visible .ct-layer-bg__fill {
+  transform: scale(var(--ct-rail-hover-scale));
+  box-shadow: 0 0 12px var(--ct-rail-hover-glow-soft);
+}
+
+body.dd-shell .ct-layer-tile.ct-checker-2x2 i {
+  position: relative;
+  z-index: 1;
+  opacity: 0.42;
+  color: var(--drydock-icon);
+}
+
+body.dd-shell .dd-viewport:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) .dd-rail-actions {
+  gap: 0.35rem;
+}
+
+body.dd-shell .ct-pack-item--active i {
+  filter: drop-shadow(0 0 10px var(--ct-rail-hover-glow-soft));
+}
+
+/* Stable parent hit box — grow/glow on glyph only (avoids scale overlap in tight stacks) */
+body.dd-shell #q100 .dd-rail-btn i,
+body.dd-shell #q300 .dd-rail-btn i,
+body.dd-shell .ct-pack-item i,
+body.dd-shell .ct-layer-tile i,
+body.dd-shell .ct-pack-toggle i {
+  display: inline-block;
+  transform-origin: center center;
+  transition:
+    transform 0.16s cubic-bezier(0.22, 1, 0.32, 1),
+    filter 0.16s ease;
+}
+
+body.dd-shell #q100 .dd-rail-btn,
+body.dd-shell #q300 .dd-rail-btn,
+body.dd-shell .ct-pack-item,
+body.dd-shell .ct-layer-tile,
+body.dd-shell .ct-pack-toggle {
+  cursor: pointer;
+}
+
+body.dd-shell #q100 .dd-rail-btn:hover,
+body.dd-shell #q100 .dd-rail-btn:focus-visible,
+body.dd-shell #q100 .ct-pack-item:hover,
+body.dd-shell #q100 .ct-pack-item:focus-visible,
+body.dd-shell #q300 .dd-rail-btn:hover,
+body.dd-shell #q300 .dd-rail-btn:focus-visible,
+body.dd-shell .ct-layer-tile:hover,
+body.dd-shell .ct-layer-tile:focus-visible,
+body.dd-shell .ct-pack-toggle:hover,
+body.dd-shell .ct-pack-toggle:focus-visible {
+  z-index: 2;
+}
+
+body.dd-shell #q100 .dd-rail-btn:hover i,
+body.dd-shell #q100 .dd-rail-btn:focus-visible i,
+body.dd-shell #q300 .dd-rail-btn:hover i,
+body.dd-shell #q300 .dd-rail-btn:focus-visible i,
+body.dd-shell .ct-layer-tile:hover i,
+body.dd-shell .ct-layer-tile:focus-visible i,
+body.dd-shell .ct-pack-toggle:hover i,
+body.dd-shell .ct-pack-toggle:focus-visible i {
+  transform: scale(var(--ct-rail-hover-scale));
+  filter: drop-shadow(0 0 12px var(--ct-rail-hover-glow));
+}
+
+body.dd-shell #q100 .ct-pack-item:hover .ct-pack-item__thumb,
+body.dd-shell #q100 .ct-pack-item:focus-visible .ct-pack-item__thumb {
+  transform: scale(var(--ct-rail-hover-scale));
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 0 12px var(--ct-rail-hover-glow);
+}
+
+body.dd-shell .ct-pack-item--active:hover .ct-pack-item__thumb,
+body.dd-shell .ct-pack-item--active:focus-visible .ct-pack-item__thumb {
+  transform: scale(var(--ct-rail-hover-scale));
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 0 12px var(--ct-rail-hover-glow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.dd-shell #q100 .dd-rail-btn i,
+  body.dd-shell #q300 .dd-rail-btn i,
+  body.dd-shell .ct-pack-item i,
+  body.dd-shell .ct-layer-tile i,
+  body.dd-shell .ct-pack-toggle i {
+    transition: filter 0.16s ease;
+  }
+
+body.dd-shell #q100 .dd-rail-btn,
+  body.dd-shell #q300 .dd-rail-btn,
+  body.dd-shell .ct-pack-item,
+  body.dd-shell .ct-layer-tile,
+  body.dd-shell .ct-pack-toggle,
+  body.dd-shell .ct-layer-bg {
+    transition: box-shadow 0.16s ease, filter 0.16s ease;
+  }
+
+body.dd-shell #q100 .dd-rail-btn:hover i,
+  body.dd-shell #q100 .dd-rail-btn:focus-visible i,
+  body.dd-shell #q100 .ct-pack-item:hover i,
+  body.dd-shell #q100 .ct-pack-item:focus-visible i,
+  body.dd-shell #q300 .dd-rail-btn:hover i,
+  body.dd-shell #q300 .dd-rail-btn:focus-visible i,
+  body.dd-shell .ct-pack-item--active:hover i,
+  body.dd-shell .ct-pack-item--active:focus-visible i,
+  body.dd-shell .ct-layer-tile:hover i,
+  body.dd-shell .ct-layer-tile:focus-visible i,
+  body.dd-shell .ct-pack-toggle:hover i,
+  body.dd-shell .ct-pack-toggle:focus-visible i,
+  body.dd-shell .ct-layer-bg:hover,
+  body.dd-shell .ct-layer-bg:focus-visible {
+    transform: none;
+  }
+}
+
+/* Phone stack — pack thumbs scroll horizontally; toggle inline after scroll */
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-main--packs,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .dd-rail-main--packs {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--dd-phone-row-pad);
+}
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-main--packs .dd-rail-section,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .dd-rail-main--packs .dd-rail-section {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--dd-phone-row-pad);
+}
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-pack-well,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .ct-pack-well {
+  flex: 0 0 auto;
+  min-width: 0;
+  max-width: none;
+  margin-top: 0;
+  border-top: none;
+  border-left: 1px dashed var(--drydock-rail-edge);
+  padding-left: var(--dd-phone-row-pad);
+}
+
+html.dd-layout--phone-stack body.dd-shell .dd-viewport .ct-pack-well,
+body.dd-shell .dd-viewport.dd-layout--phone-stack .ct-pack-well {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+body.dd-shell .dd-viewport.dd-layout--phone-wide-stack .ct-pack-well {
+  overflow: visible;
+}
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-pack-well::after,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .ct-pack-well::after {
+  display: none;
+}
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-pack-scroll,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .ct-pack-scroll {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  max-height: none;
+  height: auto;
+  padding: 0;
+  padding-bottom: 0;
+  scroll-padding-bottom: 0;
+  gap: var(--dd-phone-row-pad);
+}
+
+html.dd-layout--phone-stack body.dd-shell .dd-viewport .ct-pack-scroll,
+body.dd-shell .dd-viewport.dd-layout--phone-stack .ct-pack-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+body.dd-shell .dd-viewport.dd-layout--phone-wide-stack .ct-pack-scroll {
+  overflow: visible;
+}
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-pack-toggle-dock,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .ct-pack-toggle-dock {
+  position: static;
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-pack-toggle,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .ct-pack-toggle {
+  width: var(--dd-phone-row-icon);
+  height: var(--dd-phone-row-icon);
+  min-width: var(--dd-phone-row-icon);
+  min-height: var(--dd-phone-row-icon);
+  padding: calc(var(--dd-phone-row-icon) * 0.08);
+}
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-pack-toggle i,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .ct-pack-toggle i {
+  font-size: calc(var(--dd-phone-row-icon) * 0.72);
+}
+
+/* Phone stack — layer well scrolls horizontally; bg thumb inline */
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-main--layers,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .dd-rail-main--layers {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--dd-phone-row-pad);
+}
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .dd-rail-main--layers .dd-rail-section,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .dd-rail-main--layers .dd-rail-section {
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--dd-phone-row-pad);
+}
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-layer-well,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .ct-layer-well {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--ct-layer-phone-thumb-gap);
+  flex: 0 0 auto;
+  min-width: 0;
+  max-width: none;
+  margin-top: 0;
+  border-top: none;
+  border-left: 1px dashed var(--drydock-rail-edge);
+  padding-left: var(--dd-phone-row-pad);
+  overflow: visible;
+}
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-layer-well::after,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .ct-layer-well::after {
+  display: none;
+}
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-layer-scroll,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .ct-layer-scroll {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  width: max-content;
+  min-width: min-content;
+  height: auto;
+  padding: 0;
+  gap: 0;
+  --ct-layer-scroll-gap: var(--ct-layer-phone-thumb-gap);
+  overflow: visible;
+}
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-layer-stack-track,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .ct-layer-stack-track {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--ct-layer-phone-thumb-gap);
+  width: auto;
+}
+
+html:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) body.dd-shell .dd-viewport .ct-layer-bg-dock,
+body.dd-shell .dd-viewport:is(.dd-layout--phone-stack, .dd-layout--phone-wide-stack) .ct-layer-bg-dock {
+  position: static;
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+

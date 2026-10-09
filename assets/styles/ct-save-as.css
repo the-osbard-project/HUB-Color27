@@ -1,0 +1,151 @@
+/* Color Time! — Save As (screen-space; outside scaled .dd-viewport) */
+
+.ct-save-as {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(8, 10, 14, 0.72);
+  font-family: var(--ct-font-ui);
+  font-size: 1rem;
+}
+
+.ct-save-as[hidden] {
+  display: none;
+}
+
+.ct-save-as__panel {
+  width: min(26rem, 90vw);
+  margin: 0;
+  padding: 1.35rem 1.5rem 1.25rem;
+  border-radius: 0.65rem;
+  border: 1px solid var(--drydock-hub-border);
+  background: var(--drydock-hub-bg);
+  color: var(--drydock-icon);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  box-sizing: border-box;
+}
+
+.ct-save-as__title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--drydock-hub-glow);
+}
+
+.ct-save-as__field {
+  display: block;
+  margin: 0;
+}
+
+.ct-save-as__input {
+  width: 100%;
+  padding: 0.55rem 0.65rem;
+  border-radius: 0.45rem;
+  border: 1px solid var(--drydock-hub-border);
+  background: var(--drydock-hull-dark);
+  color: var(--drydock-icon);
+  font: inherit;
+  font-size: 1.0625rem;
+  line-height: 1.3;
+  box-sizing: border-box;
+}
+
+.ct-save-as__input::placeholder {
+  color: color-mix(in srgb, var(--drydock-icon) 45%, transparent);
+}
+
+.ct-save-as__formats {
+  display: flex;
+  flex-direction: row;
+  gap: 0.55rem;
+}
+
+.ct-save-as__hint {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  text-align: center;
+  color: color-mix(in srgb, var(--drydock-icon) 72%, transparent);
+}
+
+.ct-save-as__hint strong {
+  font-weight: 600;
+  color: var(--drydock-icon);
+}
+
+.ct-save-as__btn--format {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.ct-save-as__actions {
+  display: flex;
+  flex-direction: row;
+  gap: 0.55rem;
+  margin-top: 0.15rem;
+}
+
+.ct-save-as__actions .ct-save-as__btn {
+  flex: 1 1 0;
+}
+
+.ct-save-as__btn {
+  flex: 1 1 0;
+  padding: 0.55rem 0.75rem;
+  border-radius: 0.45rem;
+  border: 1px solid var(--drydock-hub-border);
+  background: var(--drydock-hull-dark);
+  color: var(--drydock-icon);
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.25;
+  cursor: pointer;
+}
+
+.ct-save-as__btn--primary {
+  background: var(--drydock-hull-light);
+  border-color: var(--drydock-hub-glow);
+}
+
+.ct-save-as__btn--ghost {
+  background: transparent;
+  opacity: 0.9;
+}
+
+.ct-save-as__btn:hover,
+.ct-save-as__btn:focus-visible {
+  filter: brightness(1.08);
+}
+
+/* Phone — match scaled hull width, still a normal dialog */
+body[data-dd-hub-layout='full-viewport'] .ct-save-as__panel,
+body[data-dd-hub-layout='phone-wide-stack'] .ct-save-as__panel {
+  width: min(calc(var(--dd-w) * var(--dd-scale, 1) * 0.9), 92vw);
+  padding: 1.25rem 1.2rem 1.1rem;
+}
+
+body[data-dd-hub-layout='full-viewport'] .ct-save-as__title,
+body[data-dd-hub-layout='phone-wide-stack'] .ct-save-as__title {
+  font-size: 1.2rem;
+}
+
+body[data-dd-hub-layout='full-viewport'] .ct-save-as__input,
+body[data-dd-hub-layout='phone-wide-stack'] .ct-save-as__input {
+  font-size: 1.0625rem;
+  padding: 0.6rem 0.7rem;
+}
+
+/* Monitor / laptop / tablet */
+body[data-dd-hub-layout='fit-stage'] .ct-save-as__panel,
+body[data-dd-hub-layout='hull-width'] .ct-save-as__panel {
+  width: min(28rem, 85vw);
+}

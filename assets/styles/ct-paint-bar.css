@@ -1,0 +1,374 @@
+/* Color Time! — CT HUB paint bar (Line · Swap · Fill + 12-well tray)
+   Phone: Line/Swap/Fill row + compact 6×2 tray (q400 oval proportions).
+   Desktop 4:3+: one row, fixed wells, +0.15rem toe pad. */
+
+.dd-ct-paint-bar--hub {
+  --ct-paint-label-size: 0.62rem;
+  --ct-paint-tt: 2.55rem;
+  --ct-paint-glyph: calc(var(--ct-paint-tt) * 0.78);
+  --ct-paint-col-gap: 0.08rem;
+  --ct-paint-divider-fg: color-mix(in srgb, var(--drydock-hub-glow, #a898ff) 55%, transparent);
+  --ct-hub-well-pad-x: 0;
+  /* q400 @ 96px row: toe 41 · well 29×38.4 */
+  --ct-hub-well-w: calc(var(--ct-paint-tt) * 29 / 41);
+  --ct-hub-well-h: calc(var(--ct-paint-tt) * 38.4 / 41);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 0.2rem;
+  width: 100%;
+  max-width: 100%;
+  padding: 0.4rem 0.15rem 0.15rem;
+  margin-top: 0.1rem;
+  border-top: 1px solid color-mix(in srgb, var(--drydock-hub-glow, #a898ff) 28%, transparent);
+  box-sizing: border-box;
+  flex-shrink: 0;
+  align-self: stretch;
+}
+
+.dd-ct-paint-bar__line-fill {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  flex-wrap: nowrap;
+  flex: 0 0 auto;
+  gap: 0.35rem;
+}
+
+.dd-ct-paint-bar__wells {
+  display: flex;
+  flex: 0 0 auto;
+  min-width: 0;
+  justify-content: flex-start;
+  overflow: visible;
+}
+
+.dd-ct-paint-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  gap: var(--ct-paint-col-gap);
+}
+
+.dd-ct-paint-label {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0.1rem 0;
+  font: 500 var(--ct-paint-label-size) / 1 var(--ct-font-ui, system-ui, sans-serif);
+  text-align: center;
+  color: var(--ct-text-secondary, color-mix(in srgb, var(--drydock-icon, #f5f5f5) 94%, var(--drydock-hull-dark)));
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+}
+
+.dd-ct-paint-label--icon {
+  font-size: calc(var(--ct-paint-label-size) + 0.15rem);
+  line-height: 1;
+}
+
+.dd-ct-paint-label--icon i {
+  display: block;
+  transform: translateY(0.05rem);
+}
+
+.dd-ct-outline-fill-btn {
+  width: var(--ct-paint-tt);
+  height: var(--ct-paint-tt);
+  min-width: var(--ct-paint-tt);
+  min-height: var(--ct-paint-tt);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.dd-ct-outline-fill-swatch {
+  width: var(--ct-paint-glyph);
+  height: var(--ct-paint-glyph);
+  border-radius: 50%;
+  border: 3px solid var(--drydock-icon, #f5f5f5);
+  box-sizing: border-box;
+  background: transparent;
+  display: block;
+}
+
+.dd-ct-outline-fill-swatch--transparent {
+  background-color: #ececec;
+  background-image:
+    linear-gradient(45deg, #bdbdbd 25%, transparent 25%),
+    linear-gradient(-45deg, #bdbdbd 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #bdbdbd 75%),
+    linear-gradient(-45deg, transparent 75%, #bdbdbd 75%);
+  background-size: 6px 6px;
+  background-position: 0 0, 0 3px, 3px -3px, -3px 0;
+}
+
+.dd-ct-stroke-fill-swap-swatch.dd-ct-outline-fill-swatch--transparent {
+  background-color: #ececec;
+  background-image:
+    linear-gradient(45deg, #bdbdbd 25%, transparent 25%),
+    linear-gradient(-45deg, #bdbdbd 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #bdbdbd 75%),
+    linear-gradient(-45deg, transparent 75%, #bdbdbd 75%);
+  background-size: 6px 6px;
+  background-position: 0 0, 0 3px, 3px -3px, -3px 0;
+}
+
+.dd-ct-outline-fill-btn.is-active .dd-ct-outline-fill-swatch {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--drydock-hub-glow, #cab3ff) 75%, white);
+}
+
+.dd-ct-stroke-fill-swap-swatch {
+  position: relative;
+  width: var(--ct-paint-glyph);
+  height: var(--ct-paint-glyph);
+  border-radius: 50%;
+  border: 3px solid var(--drydock-icon, #f5f5f5);
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.dd-ct-stroke-fill-swap-core {
+  width: calc(var(--ct-paint-glyph) * 0.45);
+  height: calc(var(--ct-paint-glyph) * 0.45);
+  border-radius: 50%;
+  border: 2px solid var(--drydock-icon, #f5f5f5);
+  box-sizing: border-box;
+}
+
+.dd-ct-stroke-fill-swap-core--transparent {
+  background-color: #ececec;
+  background-image:
+    linear-gradient(45deg, #bdbdbd 25%, transparent 25%),
+    linear-gradient(-45deg, #bdbdbd 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #bdbdbd 75%),
+    linear-gradient(-45deg, transparent 75%, #bdbdbd 75%);
+  background-size: 4px 4px;
+  background-position: 0 0, 0 2px, 2px -2px, -2px 0;
+}
+
+.dd-ct-stroke-fill-swap-hover-icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(var(--ct-paint-glyph) * 0.42);
+  color: rgba(255, 255, 255, 0.96);
+  opacity: 0;
+  transition: opacity 120ms ease-in-out;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45));
+}
+
+.dd-ct-outline-fill-btn--swap:hover .dd-ct-stroke-fill-swap-hover-icon,
+.dd-ct-outline-fill-btn--swap:focus-visible .dd-ct-stroke-fill-swap-hover-icon {
+  opacity: 1;
+}
+
+.dd-ct-paint-divider {
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: calc(var(--ct-paint-glyph) + 0.25rem);
+  margin: 0 0.05rem;
+  flex-shrink: 0;
+  color: var(--ct-paint-divider-fg);
+  font-size: 1rem;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.dd-ct-paint-divider--inline {
+  display: flex;
+}
+
+/* ── Phone: Line/Swap/Fill row + compact 6×2 tray (q400 oval proportions) ── */
+body[data-dd-hub-layout='full-viewport'] .dd-ct-paint-bar--hub,
+body[data-dd-hub-layout='phone-wide-stack'] .dd-ct-paint-bar--hub {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.55rem;
+  --ct-paint-col-gap: 0.12rem;
+  --ct-paint-label-size: clamp(0.58rem, calc(var(--dd-h, 864) * 0.012), 0.7rem);
+  --ct-paint-tt: clamp(2.35rem, calc(var(--dd-w, 390) * 0.145), 2.85rem);
+  --ct-paint-glyph: calc(var(--ct-paint-tt) * 0.78);
+  --ct-hub-well-w: calc(var(--ct-paint-tt) * 29 / 41);
+  --ct-hub-well-h: calc(var(--ct-paint-tt) * 38.4 / 41);
+  padding: 0.35rem 0 0.1rem;
+}
+
+body[data-dd-hub-layout='full-viewport'] .dd-ct-paint-bar__line-fill,
+body[data-dd-hub-layout='phone-wide-stack'] .dd-ct-paint-bar__line-fill {
+  width: 100%;
+  gap: 0.65rem;
+}
+
+body[data-dd-hub-layout='full-viewport'] .dd-ct-paint-divider--inline,
+body[data-dd-hub-layout='phone-wide-stack'] .dd-ct-paint-divider--inline {
+  display: none;
+}
+
+body[data-dd-hub-layout='full-viewport'] .dd-ct-paint-bar__wells,
+body[data-dd-hub-layout='phone-wide-stack'] .dd-ct-paint-bar__wells {
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+body[data-dd-hub-layout='full-viewport'] .dd-ct-paint-bar--hub .dd-ct-color-tray,
+body[data-dd-hub-layout='phone-wide-stack'] .dd-ct-paint-bar--hub .dd-ct-color-tray,
+body[data-dd-hub-layout='full-viewport'] #ct-hub-color-tray,
+body[data-dd-hub-layout='phone-wide-stack'] #ct-hub-color-tray {
+  --ct-hub-well-gap: 0.15rem;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0; /* drop q400 12×toe min-width so 6×2 can wrap */
+  margin-inline: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  gap: var(--ct-hub-well-gap);
+  height: auto;
+  flex-shrink: 1;
+}
+
+body[data-dd-hub-layout='full-viewport'] .dd-ct-paint-bar--hub .dd-ct-toe,
+body[data-dd-hub-layout='phone-wide-stack'] .dd-ct-paint-bar--hub .dd-ct-toe,
+body[data-dd-hub-layout='full-viewport'] #ct-hub-color-tray .dd-ct-toe,
+body[data-dd-hub-layout='phone-wide-stack'] #ct-hub-color-tray .dd-ct-toe {
+  /* 6 columns × 2 rows — independent of q400 --ct-toe-tt */
+  flex: 0 0 calc((100% - 5 * var(--ct-hub-well-gap, 0.15rem)) / 6);
+  width: calc((100% - 5 * var(--ct-hub-well-gap, 0.15rem)) / 6);
+  max-width: calc((100% - 5 * var(--ct-hub-well-gap, 0.15rem)) / 6);
+  min-width: 0;
+  min-height: 0;
+  height: auto;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body[data-dd-hub-layout='full-viewport'] .dd-ct-paint-bar--hub .dd-ct-well,
+body[data-dd-hub-layout='phone-wide-stack'] .dd-ct-paint-bar--hub .dd-ct-well {
+  width: var(--ct-hub-well-w);
+  height: var(--ct-hub-well-h);
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+/* ── Desktop 4:3+ — q400 oval grammar (41 toe · 29×2.4rem well @ 96px row) ── */
+body[data-dd-hub-layout='fit-stage'] .dd-ct-paint-bar--hub,
+body[data-dd-hub-layout='hull-width'] .dd-ct-paint-bar--hub {
+  --ct-hub-well-pad-x: 0.15rem;
+  --ct-hub-toe-tt: calc(var(--dd-q400-h) * 41 / 96);
+  --ct-hub-well-w: calc(var(--dd-q400-h) * 29 / 96);
+  --ct-hub-well-h: calc(var(--dd-q400-h) * 2.4 / 6);
+  --ct-paint-tt: var(--ct-hub-well-h);
+  --ct-paint-glyph: calc(var(--ct-hub-well-h) - 6px);
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.12rem;
+  padding-inline: 0.35rem;
+}
+
+body[data-dd-hub-layout='fit-stage'] .dd-ct-paint-bar__line-fill,
+body[data-dd-hub-layout='hull-width'] .dd-ct-paint-bar__line-fill {
+  flex: 0 0 auto;
+  align-items: flex-end;
+  gap: 0.35rem;
+}
+
+body[data-dd-hub-layout='fit-stage'] .dd-ct-paint-bar__wells,
+body[data-dd-hub-layout='hull-width'] .dd-ct-paint-bar__wells {
+  flex: 0 0 auto;
+  width: auto;
+}
+
+body[data-dd-hub-layout='fit-stage'] .dd-ct-paint-bar--hub .dd-ct-color-tray,
+body[data-dd-hub-layout='hull-width'] .dd-ct-paint-bar--hub .dd-ct-color-tray {
+  margin-inline: 0;
+  align-items: flex-end;
+}
+
+body[data-dd-hub-layout='fit-stage'] .dd-ct-paint-divider--inline,
+body[data-dd-hub-layout='hull-width'] .dd-ct-paint-divider--inline {
+  margin-inline: 0;
+  width: 0.65rem;
+  height: var(--ct-hub-well-h);
+}
+
+body[data-dd-hub-layout='fit-stage'] .dd-ct-paint-bar--hub .dd-ct-toe,
+body[data-dd-hub-layout='hull-width'] .dd-ct-paint-bar--hub .dd-ct-toe {
+  flex: 0 0 calc(var(--ct-hub-toe-tt) + 2 * var(--ct-hub-well-pad-x));
+  width: calc(var(--ct-hub-toe-tt) + 2 * var(--ct-hub-well-pad-x));
+  align-items: flex-end;
+}
+
+.dd-ct-paint-bar--hub .dd-ct-color-tray {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  flex: 0 0 auto;
+  width: max-content;
+  max-width: 100%;
+  gap: 0;
+  height: auto;
+}
+
+.dd-ct-paint-bar--hub .dd-ct-toe {
+  flex: 0 0 calc(var(--ct-hub-well-w) + 2 * var(--ct-hub-well-pad-x));
+  width: calc(var(--ct-hub-well-w) + 2 * var(--ct-hub-well-pad-x));
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--ct-hub-well-pad-x);
+  box-sizing: border-box;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.dd-ct-paint-bar--hub .dd-ct-well {
+  width: var(--ct-hub-well-w);
+  height: var(--ct-hub-well-h);
+  border: 3px solid var(--drydock-icon, #f5f5f5);
+  box-sizing: border-box;
+  border-radius: 50%;
+}
+
+.dd-ct-paint-bar--hub .dd-ct-toe:hover .dd-ct-well:not(.is-active),
+.dd-ct-paint-bar--hub .dd-ct-toe:focus-visible .dd-ct-well:not(.is-active) {
+  transform: scale(1.12);
+}
+
+.ct-hub-machine .ct-hub-machine__paw-hint {
+  margin-bottom: 0;
+}
+
+#ct-hub-color-tray .dd-ct-well.dd-ct-well--ct-flash {
+  background-color: var(--ct-well-flash, #888888) !important;
+  transition: background-color 0.14s ease;
+}
+
+#ct-hub-color-tray.ct-color-tray--mixing .dd-ct-toe {
+  pointer-events: none;
+}

@@ -1,0 +1,418 @@
+/* Drydock shell — 192 | 768 | 192 @ 1152×864 (4:3 base) */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+:root {
+  /* Hull fallbacks (4:3) — overridden by dd-profile-boot.js + profile-engine.mjs on <html> */
+  --dd-w: 1152px;
+  --dd-h: 864px;
+  --dd-rail-w: 144px;
+  --dd-stage-w: 864px;
+  --dd-row-h: 768px;
+  --dd-q400-h: 96px;
+  --dd-q400-icon: 75px;
+  --dd-paw: 96px;
+  --dd-wing: 528px;
+  --dd-scale: 1;
+  --dd-rail-glyph: 4.5rem;
+  --dd-rail-xl: 5rem;
+  --dd-edge-gap: 18px;
+  --dd-paw-gap: 18px;
+}
+
+body.dd-shell {
+  display: block;
+  background: var(--dd-letterbox);
+  color: var(--drydock-icon);
+}
+
+.dd-viewport {
+  position: relative;
+  width: var(--dd-w);
+  height: var(--dd-h);
+  flex: none;
+  display: grid;
+  grid-template-columns: var(--dd-rail-w) var(--dd-stage-w) var(--dd-rail-w);
+  grid-template-rows: var(--dd-row-h) var(--dd-q400-h);
+  background: var(--drydock-hull-dark);
+  overflow: hidden;
+}
+
+/* Side-rail desktop — stack row wrapper is transparent to grid */
+.dd-stack-row--rails {
+  display: contents;
+}
+
+/* ── q100 / q300 ── */
+#q100,
+#q300 {
+  grid-row: 1;
+  width: var(--dd-rail-w);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  z-index: 10;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
+}
+
+#q100 {
+  grid-column: 1;
+  border-right: 1px solid var(--drydock-rail-edge);
+  background: linear-gradient(180deg, var(--drydock-hull-light) 0%, var(--drydock-hull) 100%);
+}
+
+#q300 {
+  grid-column: 3;
+  border-left: 1px solid var(--drydock-rail-edge);
+  background: linear-gradient(180deg, var(--drydock-hull) 0%, var(--drydock-hull-light) 100%);
+}
+
+.dd-rail-main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding-top: 0.4rem;
+}
+
+.dd-rail-section {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.dd-rail-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  flex-shrink: 0;
+  padding: 0 0.35rem;
+}
+
+.dd-rail-scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  margin-top: 0.4rem;
+  padding: 0.45rem 0.35rem 0.5rem;
+  border-top: 1px dashed var(--drydock-rail-edge);
+  overflow-y: auto;
+}
+
+.dd-rail-dock {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  padding: 0.35rem 0 0.5rem;
+}
+
+.dd-rail-btn,
+.dd-rail-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.3rem 0.2rem;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--drydock-icon);
+  cursor: default;
+}
+
+.dd-rail-btn i,
+.dd-rail-slot i {
+  font-size: var(--dd-rail-glyph);
+  line-height: 1;
+}
+
+.dd-rail-slot--xl {
+  width: var(--dd-rail-xl);
+  height: var(--dd-rail-xl);
+  padding: 0;
+  border: 2px solid var(--drydock-primer);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.dd-rail-slot--xl i {
+  font-size: 2.75rem;
+}
+
+/* ── q200 stage ── */
+#q200.dd-stage {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  min-width: 0;
+  min-height: 0;
+  background: var(--drydock-stage-mat);
+}
+
+.dd-stage-scroll {
+  flex: 1 1 auto;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: auto;
+  background: var(--drydock-stage-bg);
+}
+
+/* ── q400 — core DD grammar (all tokens: 4:3 · 3:4 · 16:9 · phone stack …)
+   Paw bottom-center · opaque mask · wings scroll horizontally · icons fill row height.
+   Overflow hides under paw (inward) or clips at hull edge (outward). ── */
+#q400 {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  position: relative;
+  height: var(--dd-q400-h);
+  overflow: hidden;
+  background: var(--drydock-hull);
+  border-top: 1px solid var(--drydock-rail-edge);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.25);
+  z-index: 20;
+}
+
+.dd-q400-inner {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  height: var(--dd-q400-h);
+  overflow: hidden;
+  box-sizing: border-box;
+  --dd-q400-paw-inset: calc(var(--dd-paw) * 0.5 + var(--dd-paw-gap));
+}
+
+.dd-q400-wing {
+  flex: 1 1 50%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  box-sizing: border-box;
+  gap: var(--dd-paw-gap);
+  scrollbar-width: none;
+}
+
+.dd-q400-wing::-webkit-scrollbar {
+  display: none;
+}
+
+.dd-q400-wing--left {
+  padding-left: var(--dd-edge-gap);
+  padding-right: var(--dd-q400-paw-inset);
+}
+
+.dd-q400-wing--right {
+  padding-right: var(--dd-edge-gap);
+  padding-left: var(--dd-q400-paw-inset);
+}
+
+.dd-q400-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--dd-q400-icon);
+  height: var(--dd-q400-icon);
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--drydock-icon-dim);
+  cursor: default;
+}
+
+.dd-q400-icon i {
+  font-size: calc(var(--dd-q400-icon) * 0.72);
+  line-height: 1;
+}
+
+.dd-paw-wrap {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 4;
+  width: var(--dd-paw);
+  height: var(--dd-paw);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-50%);
+  background: var(--drydock-hull);
+  box-sizing: border-box;
+  pointer-events: auto;
+}
+
+/* Boo! — q100 / q300 slide away; q200 fills the hull; q400 stays */
+body.oss-chrome-collapsed .dd-viewport:not(.dd-layout--phone-stack),
+body.oss-desk-hidden .dd-viewport:not(.dd-layout--phone-stack) {
+  grid-template-columns: 0px minmax(0, 1fr) 0px;
+}
+
+body.oss-chrome-collapsed .dd-viewport:not(.dd-layout--phone-stack) #q200,
+body.oss-desk-hidden .dd-viewport:not(.dd-layout--phone-stack) #q200 {
+  grid-column: 2;
+}
+
+body.oss-chrome-collapsed #q100,
+body.oss-desk-hidden #q100,
+body.oss-chrome-collapsed #q300,
+body.oss-desk-hidden #q300 {
+  width: 0;
+  min-width: 0;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-width: 0;
+  box-shadow: none;
+}
+
+body.oss-chrome-collapsed.oss-chrome-peek-left .dd-viewport:not(.dd-layout--phone-stack),
+body.oss-desk-hidden.oss-chrome-peek-left .dd-viewport:not(.dd-layout--phone-stack) {
+  grid-template-columns: var(--dd-rail-w) minmax(0, 1fr) 0px;
+}
+
+body.oss-chrome-collapsed.oss-chrome-peek-right .dd-viewport:not(.dd-layout--phone-stack),
+body.oss-desk-hidden.oss-chrome-peek-right .dd-viewport:not(.dd-layout--phone-stack) {
+  grid-template-columns: 0px minmax(0, 1fr) var(--dd-rail-w);
+}
+
+body.oss-chrome-collapsed.oss-chrome-peek-left #q100,
+body.oss-desk-hidden.oss-chrome-peek-left #q100,
+body.oss-chrome-collapsed.oss-chrome-peek-right #q300,
+body.oss-desk-hidden.oss-chrome-peek-right #q300 {
+  width: var(--dd-rail-w);
+  min-width: var(--dd-rail-w);
+  opacity: 0.9;
+  pointer-events: auto;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
+}
+
+body.oss-chrome-collapsed.oss-chrome-peek-left #q100,
+body.oss-desk-hidden.oss-chrome-peek-left #q100 {
+  border-right-width: 1px;
+}
+
+body.oss-chrome-collapsed.oss-chrome-peek-right #q300,
+body.oss-desk-hidden.oss-chrome-peek-right #q300 {
+  border-left-width: 1px;
+}
+
+body.oss-chrome-collapsed.dd-layout--phone-stack .dd-stack-row--rails,
+body.oss-desk-hidden.dd-layout--phone-stack .dd-stack-row--rails,
+html.dd-layout--phone-stack body.oss-chrome-collapsed .dd-stack-row--rails,
+html.dd-layout--phone-stack body.oss-desk-hidden .dd-stack-row--rails {
+  display: none;
+}
+
+html.dd-layout--phone-stack body.oss-chrome-collapsed .dd-viewport,
+html.dd-layout--phone-stack body.oss-desk-hidden .dd-viewport,
+body.oss-chrome-collapsed .dd-viewport.dd-layout--phone-stack,
+body.oss-desk-hidden .dd-viewport.dd-layout--phone-stack {
+  grid-template-rows:
+    minmax(0, 1fr)
+    0
+    var(--dd-q400-h, 15fr)
+    var(--dd-phone-paw-row-h, 10fr);
+}
+
+/* Peeka-Boo glass — Standard 90% · Glass 30% rest / 90% hover */
+body.oss-chrome-opaque:not(.oss-chrome-collapsed) #q100,
+body.oss-chrome-opaque:not(.oss-chrome-collapsed) #q300,
+body.oss-chrome-opaque #q400 {
+  opacity: 0.9;
+}
+
+body.oss-chrome-glass:not(.oss-chrome-collapsed) #q100,
+body.oss-chrome-glass:not(.oss-chrome-collapsed) #q300,
+body.oss-chrome-glass #q400,
+body:not(.oss-chrome-opaque):not(.oss-chrome-collapsed) #q100,
+body:not(.oss-chrome-opaque):not(.oss-chrome-collapsed) #q300,
+body:not(.oss-chrome-opaque) #q400 {
+  opacity: 0.3;
+  transition: opacity 0.22s ease;
+}
+
+body.oss-chrome-glass:not(.oss-chrome-collapsed) #q100:hover,
+body.oss-chrome-glass:not(.oss-chrome-collapsed) #q100:focus-within,
+body.oss-chrome-glass:not(.oss-chrome-collapsed) #q300:hover,
+body.oss-chrome-glass:not(.oss-chrome-collapsed) #q300:focus-within,
+body.oss-chrome-glass #q400:hover,
+body.oss-chrome-glass #q400:focus-within,
+body:not(.oss-chrome-opaque):not(.oss-chrome-collapsed) #q100:hover,
+body:not(.oss-chrome-opaque):not(.oss-chrome-collapsed) #q100:focus-within,
+body:not(.oss-chrome-opaque):not(.oss-chrome-collapsed) #q300:hover,
+body:not(.oss-chrome-opaque):not(.oss-chrome-collapsed) #q300:focus-within,
+body:not(.oss-chrome-opaque) #q400:hover,
+body:not(.oss-chrome-opaque) #q400:focus-within {
+  opacity: 0.9;
+}
+
+.dd-paw-btn {
+  display: grid;
+  place-items: center;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--drydock-primer);
+  cursor: pointer;
+  line-height: 0;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--drydock-hub-rim, #f5f5f5) 40%, transparent);
+  transition: transform 0.14s ease, filter 0.14s ease, box-shadow 0.28s ease;
+}
+
+.dd-paw-btn:hover,
+.dd-paw-btn:focus-visible {
+  transform: scale(1.06);
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--drydock-hub-glow, var(--drydock-primer)) 55%, transparent));
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--drydock-hub-rim, #f5f5f5) 75%, transparent),
+    0 0 18px color-mix(in srgb, var(--drydock-hub-glow, var(--drydock-primer)) 85%, transparent),
+    0 0 36px color-mix(in srgb, var(--drydock-primer) 65%, transparent);
+}
+
+.dd-paw-btn img {
+  width: 92%;
+  height: 92%;
+  display: block;
+  object-fit: contain;
+  filter: invert(1);
+}
+
+.dd-paw-btn img.dd-paw-logo {
+  filter: none;
+}

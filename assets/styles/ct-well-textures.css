@@ -1,0 +1,42 @@
+/* Color Time! — textured color wells (Studio well-surface overlays) */
+
+.dd-ct-well.color-well--textured {
+  background-origin: border-box;
+  background-clip: padding-box;
+}
+
+.dd-ct-well.color-well--textured::after {
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.3),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+.dd-ct-well.color-well--glittery::after {
+  box-shadow:
+    inset 0 1px 5px rgba(255, 255, 255, 0.38),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.28);
+}
+
+.dd-ct-well.color-well--surface-pencil::after,
+.dd-ct-well.color-well--surface-crayon::after {
+  opacity: 0.94;
+}
+
+.dd-ct-well.color-well--surface-watery::after,
+.dd-ct-well.color-well--surface-washy::after {
+  box-shadow:
+    inset 0 3px 8px rgba(255, 255, 255, 0.22),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.26);
+}
+
+.dd-ct-well.color-well--surface-bucket::after {
+  box-shadow:
+    inset 0 2px 6px rgba(255, 255, 255, 0.28),
+    inset 0 -3px 7px rgba(0, 0, 0, 0.32);
+}
+
+.dd-ct-well.color-well--surface-glowy.is-active {
+  filter:
+    drop-shadow(0 0 6px color-mix(in srgb, var(--ct-well-glow, var(--drydock-hub-glow)) 65%, transparent))
+    drop-shadow(0 0 14px color-mix(in srgb, var(--ct-well-glow, var(--drydock-hub-glow)) 45%, transparent));
+}

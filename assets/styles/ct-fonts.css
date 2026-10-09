@@ -1,0 +1,49 @@
+/**
+ * Self-hosted fonts — no Google Fonts request.
+ * Fredoka is the Color Time! house face: Regular 400 · Medium 500 · SemiBold 600 · Bold 700.
+ */
+@font-face {
+  font-family: 'Fredoka';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/fredoka-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Fredoka';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../fonts/fredoka-latin-500-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Fredoka';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../fonts/fredoka-latin-600-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Fredoka';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/fredoka-latin-700-normal.woff2') format('woff2');
+}
+
+/**
+ * Color Time! — Fredoka for UI and the “Color Time” brand lockup (Bold).
+ */
+
+body.dd-shell {
+  --ct-font-ui: 'Fredoka', system-ui, sans-serif;
+  --ct-font-display: 'Fredoka', system-ui, sans-serif;
+  font-family: var(--ct-font-ui);
+  font-weight: 400;
+}
+
+/** Brand lockup — “Color Time” + “Machine!” (not the rotating tagline). */
+.ct-font-color-time {
+  font-family: var(--ct-font-display);
+  font-weight: 700;
+}

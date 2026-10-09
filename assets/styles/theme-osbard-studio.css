@@ -1,0 +1,31 @@
+/* Red Night house tray — wine rails #7a2e62 · ice-rose disc primer */
+
+body.dd-shell.theme-osbard-studio {
+  --drydock-hull-light: #7a2e62;
+  --drydock-hull: #5c2448;
+  --drydock-hull-dark: #2a121f;
+  --drydock-primer: #f1d1e5;
+  --drydock-rail-edge: rgba(241, 209, 229, 0.45);
+  --drydock-stage-bg: #ffffff;
+  --drydock-stage-mat: #9e5f89;
+  --drydock-icon: #f5f5f5;
+  --drydock-icon-dim: #f1d1e5;
+  --drydock-hub-bg: #5c2448;
+  --drydock-hub-border: rgba(241, 209, 229, 0.45);
+  --drydock-hub-glow: #f1d1e5;
+  --drydock-hub-rim: #f5f5f5;
+  --dd-letterbox: #2a121f;
+  --ct-gutter-bg: #9e5f89;
+  --ct-slider-bg: rgba(253, 245, 250, 0.96);
+  --ct-q400-ring-outer: rgba(241, 209, 229, 0.55);
+  --ct-q400-glyph-stroke: rgba(245, 245, 245, 0.42);
+  --ct-q400-glyph-stroke-dark: rgba(42, 18, 31, 0.72);
+}
+
+body.dd-shell.theme-osbard-studio #q400 {
+  --ct-q400-ring-outer: rgba(241, 209, 229, 0.55);
+}
+
+body.dd-shell.theme-osbard-studio .dd-hub-panel {
+  border-color: rgba(245, 245, 245, 0.92);
+}

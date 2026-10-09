@@ -1,0 +1,31 @@
+/* Blue Marker house tray — fat-marker blue #1756e6 · ice disc primer */
+
+body.dd-shell.theme-royal-purple {
+  --drydock-hull-light: #1756e6;
+  --drydock-hull: #1244c2;
+  --drydock-hull-dark: #0c2d7a;
+  --drydock-primer: #a8c8f8;
+  --drydock-rail-edge: rgba(220, 234, 251, 0.45);
+  --drydock-stage-bg: #ffffff;
+  --drydock-stage-mat: #6b8fd4;
+  --drydock-icon: #f5f5f5;
+  --drydock-icon-dim: #dceafb;
+  --drydock-hub-bg: #1244c2;
+  --drydock-hub-border: rgba(220, 234, 251, 0.45);
+  --drydock-hub-glow: #dceafb;
+  --drydock-hub-rim: #f5f5f5;
+  --dd-letterbox: #0c2d7a;
+  --ct-gutter-bg: #6b8fd4;
+  --ct-slider-bg: rgba(238, 244, 252, 0.96);
+  --ct-q400-ring-outer: rgba(220, 234, 251, 0.55);
+  --ct-q400-glyph-stroke: rgba(245, 245, 245, 0.42);
+  --ct-q400-glyph-stroke-dark: rgba(12, 45, 122, 0.72);
+}
+
+body.dd-shell.theme-royal-purple #q400 {
+  --ct-q400-ring-outer: rgba(220, 234, 251, 0.55);
+}
+
+body.dd-shell.theme-royal-purple .dd-hub-panel {
+  border-color: rgba(245, 245, 245, 0.92);
+}

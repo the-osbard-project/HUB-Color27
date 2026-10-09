@@ -1,0 +1,473 @@
+/* Drydock — Hub slide-up (4:3 · CT grammar · grayscale hull) */
+
+body.dd-shell {
+  --dd-hub-top: 1rem;
+  --dd-hub-max-h: calc(var(--dd-h) - var(--dd-q400-h) - var(--dd-hub-top));
+  --dd-hub-w: calc(var(--dd-hub-max-h) * 4 / 3 - 6rem);
+  --dd-hub-h: calc(var(--dd-hub-w) * 3 / 4);
+  --dd-hub-radius: 1.35rem;
+  /* Hub footer utilities — tablet/desktop default; phone portrait overrides below */
+  --dd-hub-foot-util: calc(2.75rem * 0.75);
+  --dd-hub-foot-compliance: 0.85rem;
+  /* 32px TT box; 26px Phosphor glyph. Social SVGs now share Phosphor 256 viewBox. */
+  --dd-hub-foot-glyph: calc(var(--dd-hub-foot-util) * 26 / 32);
+  --dd-hub-foot-social-glyph: var(--dd-hub-foot-glyph);
+  --dd-hub-foot-util-gap: 0;
+  --dd-hub-foot-social-gap: 0;
+}
+
+/* 4:3 · 16:9 · 16:10 — larger Contrast · Globe · Gear in Hub footer */
+body[data-dd-hub-layout="fit-stage"] {
+  --dd-hub-foot-util: calc(3.75rem * 0.88);
+}
+
+.dd-hub-shell {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+}
+
+.dd-hub-shell[hidden] {
+  display: none;
+}
+
+.dd-hub-shell.is-open {
+  pointer-events: auto;
+}
+
+.dd-hub-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.52);
+  opacity: 0;
+  transition: opacity 0.32s ease;
+}
+
+.dd-hub-shell.is-open .dd-hub-backdrop {
+  opacity: 1;
+}
+
+.dd-hub-panel {
+  position: absolute;
+  bottom: var(--dd-q400-h);
+  left: 50%;
+  width: var(--dd-hub-w);
+  height: var(--dd-hub-h);
+  max-width: calc(100% - var(--dd-rail-w) * 2 - 1rem);
+  border-radius: var(--dd-hub-radius);
+  background: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--drydock-hub-bg) 88%, var(--drydock-hull-light)) 0%,
+    var(--drydock-hub-bg) 42%,
+    color-mix(in srgb, var(--drydock-hub-bg) 92%, #000) 100%
+  );
+  border: 3px solid rgba(245, 245, 245, 0.92);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--drydock-hub-glow) 65%, transparent),
+    0 0 22px color-mix(in srgb, var(--drydock-hub-glow) 55%, transparent),
+    0 0 44px color-mix(in srgb, var(--drydock-hub-glow) 28%, transparent),
+    0 12px 40px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.22);
+  transform: translateX(-50%) translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.28, 1);
+  overflow: hidden;
+}
+
+.dd-hub-shell.is-open .dd-hub-panel {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Phone portrait stack (9:16, 10:16, 9:19.5, 9:20) — Hub footer utilities */
+body[data-dd-hub-layout="full-viewport"] {
+  --dd-hub-foot-util: min(calc(var(--dd-h) * 0.048), calc(var(--dd-w) * 0.11));
+}
+
+body[data-dd-hub-layout="full-viewport"] .dd-hub-panel {
+  left: 0;
+  top: 0;
+  width: var(--dd-w);
+  max-width: var(--dd-w);
+  bottom: 0;
+  height: auto;
+  max-height: none;
+  aspect-ratio: auto;
+  border-radius: 0;
+  transform: translateY(100%);
+}
+
+body[data-dd-hub-layout="full-viewport"] .dd-hub-shell.is-open .dd-hub-panel {
+  transform: translateY(0);
+}
+
+/* 3:4 — Hub spans hull with 2rem side inset, 4:3 panel (width-led) */
+body[data-dd-hub-layout="hull-width"] .dd-hub-panel {
+  left: 50%;
+  width: calc(var(--dd-w) - 4rem);
+  max-width: calc(var(--dd-w) - 4rem);
+  height: min(
+    calc((var(--dd-w) - 4rem) * 3 / 4),
+    calc(var(--dd-h) - var(--dd-q400-h) - var(--dd-hub-top))
+  );
+  max-height: calc(var(--dd-h) - var(--dd-q400-h) - var(--dd-hub-top));
+  aspect-ratio: auto;
+  transform: translateX(-50%) translateY(100%);
+}
+
+body[data-dd-hub-layout="hull-width"] .dd-hub-shell.is-open .dd-hub-panel {
+  transform: translateX(-50%) translateY(0);
+}
+
+body[data-dd-hub-layout="phone-wide-stack"] {
+  --dd-hub-foot-util: min(calc(var(--dd-h) * 0.062), calc(var(--dd-w) * 0.14));
+}
+
+body[data-dd-hub-layout="phone-wide-stack"] .dd-hub-panel {
+  left: 0;
+  top: 0;
+  width: var(--dd-w);
+  max-width: var(--dd-w);
+  bottom: 0;
+  height: auto;
+  max-height: none;
+  aspect-ratio: auto;
+  border-radius: 0;
+  transform: translateY(100%);
+}
+
+body[data-dd-hub-layout="phone-wide-stack"] .dd-hub-shell.is-open .dd-hub-panel {
+  transform: translateY(0);
+}
+
+body[data-dd-hub-layout="phone-wide-stack"] .dd-hub-panel__inner {
+  min-height: 0;
+}
+
+body[data-dd-hub-layout="full-viewport"] .dd-hub-panel__inner,
+body[data-dd-hub-layout="hull-width"] .dd-hub-panel__inner {
+  min-height: 0;
+}
+
+.dd-hub-panel__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  height: 100%;
+  padding: 0.85rem 1rem 0;
+  box-sizing: border-box;
+  gap: 0.35rem;
+}
+
+.dd-hub-head {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  flex-shrink: 0;
+  min-height: 6rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--drydock-hub-glow) 22%, transparent);
+}
+
+.dd-hub-head__logo-wrap {
+  grid-column: 1;
+  justify-self: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  max-width: 6.75rem;
+}
+
+.dd-hub-head__logo-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  border-radius: 8px;
+}
+
+.dd-hub-head__logo-link:focus-visible {
+  outline: 2px solid var(--drydock-hub-rim);
+  outline-offset: 2px;
+}
+
+.dd-hub-head__home-logo {
+  display: block;
+  width: auto;
+  height: 4.1rem;
+  max-width: min(11rem, 46vw);
+  object-fit: contain;
+  user-select: none;
+}
+
+.dd-hub-head__close {
+  grid-column: 3;
+  justify-self: end;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--drydock-icon-dim);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.14s ease, background 0.14s ease;
+}
+
+.dd-hub-head__close:hover,
+.dd-hub-head__close:focus-visible {
+  color: var(--drydock-hub-rim);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.dd-hub-panel__body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 0.35rem;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.dd-hub-deck {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.45rem;
+  width: 100%;
+  max-width: 18rem;
+  padding: 0.15rem;
+}
+
+.dd-hub-deck__card {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.65rem;
+  height: 2.65rem;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--drydock-hub-glow) 38%, transparent);
+  border-radius: 0.55rem;
+  background: rgba(0, 0, 0, 0.22);
+  color: var(--drydock-icon-dim);
+  cursor: default;
+}
+
+.dd-hub-deck__card i {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.dd-hub-deck__card--lg {
+  width: 3.35rem;
+  height: 3.35rem;
+  border-width: 2px;
+  border-color: color-mix(in srgb, var(--drydock-hub-rim) 55%, transparent);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.dd-hub-deck__card--lg i {
+  font-size: 1.75rem;
+}
+
+.dd-hub-panel__dock {
+  flex-shrink: 0;
+  width: 100%;
+  margin-top: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.dd-hub-foot {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+  width: 100%;
+  padding: 0.35rem 0.5rem 0.4rem;
+  border-top: 1px solid color-mix(in srgb, var(--drydock-hub-glow) 22%, transparent);
+  color: var(--drydock-icon);
+  font-size: var(--dd-hub-foot-compliance, 0.85rem);
+  font-family: var(--ct-font-ui, system-ui, sans-serif);
+}
+
+.dd-hub-foot__zone--legal,
+.dd-hub-foot__zone--social {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+
+.dd-hub-foot__zone--legal {
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  gap: 0.45rem;
+}
+
+.dd-hub-foot__utils {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--dd-hub-foot-util-gap);
+}
+
+.dd-hub-foot__zone--social {
+  justify-content: flex-end;
+}
+
+.dd-hub-foot__sep {
+  flex: 0 0 auto;
+  color: color-mix(in srgb, var(--drydock-icon-dim) 85%, transparent);
+  font-size: inherit;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+}
+
+.dd-hub-foot__legal {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--drydock-icon);
+  font: inherit;
+  font-size: inherit;
+  line-height: 1.2;
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.dd-hub-foot__legal:hover,
+.dd-hub-foot__legal:focus-visible {
+  color: var(--drydock-hub-rim);
+  text-decoration: underline;
+  outline: none;
+}
+
+.dd-hub-foot__copyright {
+  margin: 0;
+  flex: 0 0 auto;
+  color: var(--drydock-icon-dim);
+  font-size: inherit;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+}
+
+.dd-hub-foot__social {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--dd-hub-foot-social-gap);
+  margin: 0;
+  padding: 0;
+}
+
+.dd-hub-foot__social-link,
+.dd-hub-foot__util {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--dd-hub-foot-util);
+  height: var(--dd-hub-foot-util);
+  padding: 0;
+  line-height: 0;
+}
+
+.dd-hub-foot__social-link {
+  text-decoration: none;
+  opacity: 0.92;
+  transition: opacity 0.14s ease, transform 0.14s ease;
+}
+
+.dd-hub-foot__util i {
+  display: block;
+  width: var(--dd-hub-foot-glyph);
+  height: var(--dd-hub-foot-glyph);
+  font-size: var(--dd-hub-foot-glyph);
+  line-height: 1;
+}
+
+.dd-hub-foot__social-icon {
+  display: block;
+  width: var(--dd-hub-foot-social-glyph);
+  height: var(--dd-hub-foot-social-glyph);
+  max-width: var(--dd-hub-foot-social-glyph);
+  max-height: var(--dd-hub-foot-social-glyph);
+  object-fit: contain;
+}
+
+.dd-hub-foot__social-icon--local {
+  filter: brightness(0) invert(96%);
+}
+
+.dd-hub-foot__social-link:hover,
+.dd-hub-foot__social-link:focus-visible {
+  opacity: 1;
+  transform: scale(1.08);
+  outline: none;
+}
+
+.dd-hub-foot__social-link:hover .dd-hub-foot__social-icon,
+.dd-hub-foot__social-link:focus-visible .dd-hub-foot__social-icon {
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--drydock-hub-glow) 55%, transparent));
+}
+
+.dd-hub-foot__social-link:hover .dd-hub-foot__social-icon--local,
+.dd-hub-foot__social-link:focus-visible .dd-hub-foot__social-icon--local {
+  filter: brightness(0) invert(96%) drop-shadow(0 0 6px color-mix(in srgb, var(--drydock-hub-glow) 55%, transparent));
+}
+
+.dd-hub-foot__util {
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  transition: color 0.14s ease, transform 0.14s ease, filter 0.14s ease;
+}
+
+.dd-hub-foot__util:hover,
+.dd-hub-foot__util:focus-visible {
+  color: #fff;
+  transform: scale(1.12);
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--drydock-hub-glow) 45%, transparent));
+}
+
+.dd-paw-btn.dd-paw-btn--open {
+  transform: scale(1.02);
+  filter: drop-shadow(0 0 16px rgba(245, 245, 245, 0.95));
+}
+
+.dd-paw-btn.dd-paw-btn--open img {
+  filter: invert(1) drop-shadow(0 0 14px #f5f5f5);
+}
+
+/* Colored app lockups — true colors, no rest glow; glow on Hub open (see ct-brand.css) */
+.dd-paw-btn img.dd-paw-logo {
+  filter: none;
+}
+
+.dd-paw-btn.dd-paw-btn--open img.dd-paw-logo {
+  filter:
+    drop-shadow(0 0 8px rgba(169, 140, 255, 0.8))
+    drop-shadow(0 0 18px rgba(122, 82, 240, 0.6));
+}

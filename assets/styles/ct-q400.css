@@ -1,0 +1,517 @@
+/* Color Time! — q400 tools + 12-toe tray (CT-LAB sizes @ 96px q400 · scroll when needed) */
+
+#q400 {
+  --ct-q400-hover-scale: 1.315; /* color-tray ovals */
+  --ct-q400-tool-hover-scale: 1.236; /* tools: less grow than wells */
+  --ct-q400-ring-inner: rgba(245, 245, 245, 0.95);
+  --ct-q400-ring-outer: rgba(184, 232, 176, 0.55);
+  --ct-std-red: #ef233c;
+  --ct-std-teal: #00c2a8;
+  --ct-std-green: #38b000;
+  --ct-std-yellow: #ffc107;
+  --ct-std-blue: #0087f9;
+  --ct-icon-star: #cab33f;
+  --ct-icon-osbard: #9eb1bc;
+  --ct-icon-osbard-glow: #c8d4de;
+  --ct-icon-osbard-ring: #a8b8c4;
+  --ct-icon-eraser: #f07a9a;
+  --ct-icon-peeka: #c4b5fd;
+  --ct-icon-fullscreen: #94a3b8;
+  /* CT-LAB locked @ 96px q400 — scale with row height on other tokens */
+  --ct-q400-tool: calc(var(--dd-q400-h) * 60 / 96);
+  --ct-q400-glyph: calc(var(--dd-q400-h) * 48 / 96);
+  --ct-toe-tt: calc(var(--dd-q400-h) * 41 / 96);
+  --ct-well-w: calc(var(--dd-q400-h) * 29 / 96);
+  --ct-well-h: calc(var(--dd-q400-h) * 2.4 / 6);
+  /* Rest halo — separates chromatic tool glyphs from tray (per-theme tokens) */
+  --ct-q400-glyph-stroke: rgba(245, 245, 245, 0.38);
+  --ct-q400-glyph-stroke-dark: rgba(0, 0, 0, 0.5);
+}
+
+/* Side-rail tokens — 3-column grid like CT-LAB (528 | paw | 528 @ 4:3) */
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) .dd-viewport #q400 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--dd-paw) minmax(0, 1fr);
+  align-items: center;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) .dd-viewport #q400 .dd-q400-inner {
+  display: contents;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) .dd-viewport #q400 .dd-q400-wing--left {
+  grid-column: 1;
+  overflow-x: auto;
+  justify-content: space-between;
+  gap: 0;
+  padding: 0 var(--dd-paw-gap) 0 var(--dd-edge-gap);
+  scrollbar-width: none;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) .dd-viewport #q400 .dd-q400-wing--right {
+  grid-column: 3;
+  overflow-x: auto;
+  justify-content: flex-start;
+  padding: 0 var(--dd-edge-gap) 0 var(--dd-paw-gap);
+  scrollbar-width: none;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) .dd-viewport #q400 .dd-q400-wing--left::-webkit-scrollbar,
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) .dd-viewport #q400 .dd-q400-wing--right::-webkit-scrollbar {
+  display: none;
+}
+
+/* Wide landscape — tight popcorn · 8px well gaps · hug paw */
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body[data-dd-token="16:9"] .dd-viewport #q400,
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body[data-dd-token="16:10"] .dd-viewport #q400 {
+  --ct-q400-tool-gap: 0;
+  --ct-q400-well-gap: 0.5rem; /* 8px */
+  --ct-q400-wing-band: max(
+    calc(9 * var(--ct-q400-tool)),
+    calc(var(--ct-q400-tool) + 12 * var(--ct-toe-tt) + 11 * var(--ct-q400-well-gap))
+  );
+  column-gap: 1rem;
+}
+
+body[data-dd-token="16:9"] .dd-viewport:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) #q400 .dd-q400-wing--left,
+body[data-dd-token="16:10"] .dd-viewport:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) #q400 .dd-q400-wing--left,
+body[data-dd-token="16:9"] .dd-viewport:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) #q400 .dd-q400-wing--right,
+body[data-dd-token="16:10"] .dd-viewport:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) #q400 .dd-q400-wing--right {
+  /* Scroll inside the column. Paw-side overlap lets tools/wells grow over the paw. */
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
+  max-width: 100%;
+  justify-self: stretch;
+  padding: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+body[data-dd-token="16:9"] .dd-viewport:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) #q400 .dd-q400-wing--left::-webkit-scrollbar,
+body[data-dd-token="16:10"] .dd-viewport:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) #q400 .dd-q400-wing--left::-webkit-scrollbar,
+body[data-dd-token="16:9"] .dd-viewport:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) #q400 .dd-q400-wing--right::-webkit-scrollbar,
+body[data-dd-token="16:10"] .dd-viewport:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) #q400 .dd-q400-wing--right::-webkit-scrollbar {
+  display: none;
+}
+
+body[data-dd-token="16:9"] .dd-viewport:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) #q400 .dd-q400-wing--left,
+body[data-dd-token="16:10"] .dd-viewport:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) #q400 .dd-q400-wing--left {
+  justify-self: stretch;
+  justify-content: flex-start;
+  gap: var(--ct-q400-tool-gap);
+  padding-left: 1.5rem;
+}
+
+body[data-dd-token="16:9"] .dd-viewport:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) #q400 .dd-q400-wing--left > :first-child,
+body[data-dd-token="16:10"] .dd-viewport:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) #q400 .dd-q400-wing--left > :first-child {
+  margin-left: auto;
+}
+
+body[data-dd-token="16:9"] .dd-viewport:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) #q400 .dd-q400-wing--right,
+body[data-dd-token="16:10"] .dd-viewport:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) #q400 .dd-q400-wing--right {
+  justify-self: stretch;
+  justify-content: flex-start;
+  gap: var(--ct-q400-tool-gap);
+  padding-right: 1.5rem;
+}
+
+/* Paw-side clip extends over the paw so tools and Color Trays grow on top of it. */
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) .dd-viewport #q400 {
+  --ct-q400-paw-overlap: 3rem;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) .dd-viewport #q400 .dd-q400-wing--left,
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) .dd-viewport #q400 .dd-q400-wing--right {
+  position: relative;
+  z-index: 7;
+  pointer-events: none;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) .dd-viewport #q400 .dd-q400-wing--left > *,
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) .dd-viewport #q400 .dd-q400-wing--right > * {
+  pointer-events: auto;
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) .dd-viewport #q400 .dd-q400-wing--left {
+  justify-self: start;
+  width: calc(100% + var(--ct-q400-paw-overlap));
+  max-width: none;
+  padding-right: calc(var(--dd-paw-gap) + var(--ct-q400-paw-overlap));
+}
+
+html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) .dd-viewport #q400 .dd-q400-wing--right {
+  justify-self: end;
+  width: calc(100% + var(--ct-q400-paw-overlap));
+  max-width: none;
+  padding-left: calc(var(--dd-paw-gap) + var(--ct-q400-paw-overlap));
+}
+
+body[data-dd-token="16:9"] .dd-viewport:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) #q400 .dd-q400-wing--left,
+body[data-dd-token="16:10"] .dd-viewport:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) #q400 .dd-q400-wing--left {
+  justify-self: start;
+  width: calc(100% + var(--ct-q400-paw-overlap));
+  max-width: none;
+  padding-right: var(--ct-q400-paw-overlap);
+}
+
+body[data-dd-token="16:9"] .dd-viewport:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) #q400 .dd-q400-wing--right,
+body[data-dd-token="16:10"] .dd-viewport:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) #q400 .dd-q400-wing--right {
+  justify-self: end;
+  width: calc(100% + var(--ct-q400-paw-overlap));
+  max-width: none;
+  padding-left: var(--ct-q400-paw-overlap);
+}
+
+body[data-dd-token="16:9"] .dd-viewport:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) #q400 .dd-ct-color-tray,
+body[data-dd-token="16:10"] .dd-viewport:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) #q400 .dd-ct-color-tray {
+  width: auto;
+  gap: var(--ct-q400-well-gap);
+}
+
+.dd-viewport:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) #q400 .dd-paw-wrap {
+  grid-column: 2;
+  grid-row: 1;
+  position: relative;
+  left: auto;
+  bottom: auto;
+  transform: none;
+  justify-self: center;
+  align-self: center;
+  width: var(--dd-paw);
+  height: var(--dd-paw);
+  background: transparent;
+  z-index: auto;
+}
+
+/* Tool hit targets — CT-LAB 60px TT (scales with q400 row) */
+#q400 .dd-q400-tool.dd-q400-icon {
+  flex: 0 0 var(--ct-q400-tool);
+  width: var(--ct-q400-tool);
+  height: var(--ct-q400-tool);
+  min-width: var(--ct-q400-tool);
+  max-width: var(--ct-q400-tool);
+}
+
+#q400 .dd-q400-tool i {
+  font-size: var(--ct-q400-glyph);
+  filter:
+    drop-shadow(0 0 0.5px var(--ct-q400-glyph-stroke-dark))
+    drop-shadow(0 0 1px var(--ct-q400-glyph-stroke));
+}
+
+.dd-q400-tool {
+  position: relative;
+  cursor: pointer;
+  transition:
+    transform 0.16s cubic-bezier(0.22, 1, 0.32, 1),
+    filter 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.dd-q400-tool i {
+  transition: filter 0.16s ease;
+}
+
+.dd-q400-tool:hover,
+.dd-q400-tool:focus-visible {
+  transform: scale(var(--ct-q400-tool-hover-scale));
+  z-index: 8;
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--ct-tool-glow, var(--drydock-hub-glow)) 70%, white),
+    0 0 0 4px color-mix(in srgb, var(--ct-tool-glow, var(--drydock-hub-glow)) 35%, transparent),
+    0 0 16px color-mix(in srgb, var(--ct-tool-glow, var(--drydock-hub-glow)) 65%, transparent);
+  filter: drop-shadow(0 0 8px var(--ct-tool-glow, var(--drydock-hub-glow)));
+}
+
+.dd-q400-tool:hover i,
+.dd-q400-tool:focus-visible i {
+  filter: drop-shadow(0 0 6px var(--ct-tool-glow, var(--drydock-hub-glow)));
+}
+
+.dd-q400-tool--has-popup {
+  position: relative;
+}
+
+.dd-q400-tool--has-popup::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(184, 232, 176, 0.65);
+  box-shadow: 0 0 0 1px rgba(20, 40, 18, 0.65);
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+#ct-btn-star.dd-q400-tool--has-popup::after {
+  background: rgba(202, 179, 63, 0.75);
+}
+
+#ct-btn-osbard.dd-q400-tool--has-popup::after {
+  background: rgba(200, 212, 222, 0.8);
+}
+
+.dd-q400-tool--flyout-open {
+  transform: scale(var(--ct-q400-tool-hover-scale));
+  z-index: 8;
+}
+
+.dd-q400-tool--active,
+.dd-q400-tool[aria-pressed='true'] {
+  transform: scale(1.18);
+  z-index: 8;
+  box-shadow:
+    0 0 0 2px rgba(245, 245, 245, 0.92),
+    0 0 0 4px color-mix(in srgb, var(--ct-tool-glow, var(--drydock-hub-glow)) 55%, transparent),
+    0 0 16px color-mix(in srgb, var(--ct-tool-glow, var(--drydock-hub-glow)) 50%, transparent);
+}
+
+.dd-q400-tool--active::before,
+.dd-q400-tool[aria-pressed='true']::before {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0.44em;
+  height: 0.15em;
+  border-radius: 2px;
+  background: rgba(245, 245, 245, 0.96);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.52);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.dd-q400-tool--active.dd-q400-tool--flyout-open,
+.dd-q400-tool[aria-pressed='true'].dd-q400-tool--flyout-open {
+  transform: scale(var(--ct-q400-tool-hover-scale));
+}
+
+#ct-btn-peeka {
+  --ct-tool-glow: var(--ct-icon-peeka);
+}
+
+#ct-btn-peeka i {
+  color: var(--ct-icon-peeka);
+}
+
+#ct-btn-fullscreen {
+  --ct-tool-glow: var(--ct-icon-fullscreen);
+}
+
+#ct-btn-fullscreen i {
+  color: var(--ct-icon-fullscreen);
+}
+
+#ct-btn-osbard {
+  --ct-tool-glow: var(--ct-icon-osbard-glow);
+}
+
+#ct-btn-osbard i {
+  color: var(--ct-icon-osbard);
+}
+
+#ct-btn-osbard:hover,
+#ct-btn-osbard:focus-visible,
+#ct-btn-osbard.dd-q400-tool--flyout-open {
+  box-shadow:
+    0 0 0 2px rgba(245, 245, 245, 0.95),
+    0 0 0 5px color-mix(in srgb, var(--ct-icon-osbard-ring) 65%, transparent),
+    0 0 22px rgba(168, 184, 196, 0.5);
+  filter: drop-shadow(0 0 10px rgba(184, 200, 212, 0.75));
+}
+
+#ct-btn-eraser {
+  --ct-tool-glow: color-mix(in srgb, var(--ct-icon-eraser) 85%, white);
+}
+
+#ct-btn-eraser i {
+  color: var(--ct-icon-eraser);
+}
+
+#ct-btn-bucket {
+  --ct-tool-glow: var(--ct-std-teal);
+}
+
+#ct-btn-bucket i {
+  color: var(--ct-std-teal);
+}
+
+#ct-btn-pencil {
+  --ct-tool-glow: var(--ct-std-red);
+}
+
+#ct-btn-pencil i {
+  color: var(--ct-std-red);
+}
+
+#ct-btn-crayon {
+  --ct-tool-glow: #58b42d;
+}
+
+#ct-btn-crayon i {
+  color: #58b42d;
+}
+
+#ct-btn-pastel {
+  --ct-tool-glow: var(--ct-std-yellow);
+}
+
+#ct-btn-pastel i {
+  color: var(--ct-std-yellow);
+}
+
+#ct-btn-marker {
+  --ct-tool-glow: var(--ct-std-blue);
+}
+
+#ct-btn-marker i {
+  color: var(--ct-std-blue);
+}
+
+#ct-btn-star {
+  --ct-tool-glow: var(--ct-icon-star);
+}
+
+#ct-btn-star i {
+  color: var(--ct-icon-star);
+}
+
+#ct-btn-star i.ct-q400-icon--glittery {
+  position: relative;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-image: var(--ct-star-glitter-url);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+#ct-btn-star.dd-q400-tool--flyout-open {
+  filter: drop-shadow(0 0 12px rgba(202, 179, 63, 0.55));
+}
+
+/* 12-toe q400 tray — CT-LAB: calc(12 × toe-tt) · fixed well 29×2.4rem class
+   Scoped to #q400 so Hub `#ct-hub-color-tray` can wrap 6×2. */
+#q400 .dd-ct-color-tray,
+#ct-color-tray.dd-ct-color-tray {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  width: calc(12 * var(--ct-toe-tt));
+  min-width: calc(12 * (var(--dd-q400-h, 96px) * 41 / 96));
+  max-width: none;
+  height: 100%;
+  flex-shrink: 0;
+  gap: 0;
+}
+
+#q400 .dd-ct-toe,
+#ct-color-tray .dd-ct-toe {
+  flex: 0 0 var(--ct-toe-tt);
+  width: var(--ct-toe-tt);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.dd-ct-well {
+  position: relative;
+  display: block;
+  width: var(--ct-well-w);
+  height: var(--ct-well-h);
+  border-radius: 50%;
+  border: 4px solid var(--drydock-icon);
+  box-sizing: border-box;
+  transition:
+    transform 0.16s cubic-bezier(0.22, 1, 0.32, 1),
+    box-shadow 0.16s ease,
+    filter 0.16s ease;
+}
+
+.dd-ct-well::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.32),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.18);
+}
+
+.dd-ct-well--light-edge::after {
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.22),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.26);
+}
+
+.dd-ct-toe:hover .dd-ct-well:not(.is-active),
+.dd-ct-toe:focus-visible .dd-ct-well:not(.is-active) {
+  transform: scale(var(--ct-q400-hover-scale));
+  z-index: 8;
+  border-width: 2px;
+  box-shadow:
+    0 0 0 2px rgba(245, 245, 245, 0.85),
+    0 0 14px rgba(255, 255, 255, 0.35),
+    0 0 24px color-mix(in srgb, var(--ct-well-glow, var(--drydock-hub-glow)) 55%, transparent);
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--ct-well-glow, var(--drydock-hub-glow)) 50%, transparent));
+}
+
+.dd-ct-well.is-active {
+  transform: scale(1.08);
+  z-index: 8;
+  border-width: 3px;
+  box-shadow:
+    0 0 0 2px rgba(245, 245, 245, 0.95),
+    0 0 12px color-mix(in srgb, var(--ct-well-glow, var(--drydock-hub-glow)) 59%, transparent),
+    0 0 24px color-mix(in srgb, var(--ct-well-glow, var(--drydock-hub-glow)) 44%, transparent),
+    0 0 36px color-mix(in srgb, var(--ct-well-glow, var(--drydock-hub-glow)) 29%, transparent);
+  filter:
+    drop-shadow(0 0 8px color-mix(in srgb, var(--ct-well-glow, var(--drydock-hub-glow)) 54%, transparent))
+    drop-shadow(0 0 18px color-mix(in srgb, var(--ct-well-glow, var(--drydock-hub-glow)) 39%, transparent));
+}
+
+.dd-ct-toe:hover .dd-ct-well.is-active,
+.dd-ct-toe:focus-visible .dd-ct-well.is-active {
+  transform: scale(1.1);
+  box-shadow:
+    0 0 0 2px rgba(245, 245, 245, 1),
+    0 0 15px color-mix(in srgb, var(--ct-well-glow, var(--drydock-hub-glow)) 64%, transparent),
+    0 0 30px color-mix(in srgb, var(--ct-well-glow, var(--drydock-hub-glow)) 49%, transparent),
+    0 0 45px color-mix(in srgb, var(--ct-well-glow, var(--drydock-hub-glow)) 32%, transparent);
+  filter:
+    drop-shadow(0 0 9px color-mix(in srgb, var(--ct-well-glow, var(--drydock-hub-glow)) 60%, transparent))
+    drop-shadow(0 0 23px color-mix(in srgb, var(--ct-well-glow, var(--drydock-hub-glow)) 44%, transparent));
+}
+
+.dd-ct-color-tray .dd-ct-toe:nth-child(1) .dd-ct-well { --ct-well-glow: #888; }
+.dd-ct-color-tray .dd-ct-toe:nth-child(2) .dd-ct-well { --ct-well-glow: #fff; }
+.dd-ct-color-tray .dd-ct-toe:nth-child(3) .dd-ct-well { --ct-well-glow: #ef233c; }
+.dd-ct-color-tray .dd-ct-toe:nth-child(4) .dd-ct-well { --ct-well-glow: #ff70ff; }
+.dd-ct-color-tray .dd-ct-toe:nth-child(5) .dd-ct-well { --ct-well-glow: #ff8c00; }
+.dd-ct-color-tray .dd-ct-toe:nth-child(6) .dd-ct-well { --ct-well-glow: #ffc107; }
+.dd-ct-color-tray .dd-ct-toe:nth-child(7) .dd-ct-well { --ct-well-glow: #38b000; }
+.dd-ct-color-tray .dd-ct-toe:nth-child(8) .dd-ct-well { --ct-well-glow: #00c2a8; }
+.dd-ct-color-tray .dd-ct-toe:nth-child(9) .dd-ct-well { --ct-well-glow: #0087f9; }
+.dd-ct-color-tray .dd-ct-toe:nth-child(10) .dd-ct-well { --ct-well-glow: #5836b5; }
+.dd-ct-color-tray .dd-ct-toe:nth-child(11) .dd-ct-well { --ct-well-glow: #a13d2d; }
+.dd-ct-color-tray .dd-ct-toe:nth-child(12) .dd-ct-well { --ct-well-glow: #888; }

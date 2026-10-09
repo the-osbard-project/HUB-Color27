@@ -1,0 +1,5 @@
+# https://color.osbard.com — Osbard's Color Time!
+User-agent: *
+Allow: /
+
+Sitemap: https://color.osbard.com/sitemap.xml

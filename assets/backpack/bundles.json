@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "conventionBundles": 0,
+  "_comment": "Bundle folders auto-scan as bundle-01…. Page meta cbn/trayId lives in each pages.json.",
+  "bundles": []
+}

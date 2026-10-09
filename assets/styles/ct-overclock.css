@@ -1,0 +1,257 @@
+/* Color Time! — Overclock Tools popup (q300 dock · matches ct-tool-popup family) */
+
+.q300-shapes-popup--overclock {
+  padding: 0.65rem 0.7rem 0.7rem;
+  font-family: var(--ct-font-ui);
+  font-size: 1rem;
+  border: 1px solid var(--drydock-hub-border);
+  background: color-mix(in srgb, var(--drydock-hub-bg) 97%, black);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  color: var(--drydock-icon);
+}
+
+.q300-shapes-popup--overclock .q300-shapes-popup__head {
+  position: static;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.35rem;
+  margin-bottom: 0.45rem;
+  min-height: unset;
+}
+
+.q300-shapes-popup--overclock .q300-shapes-popup__title {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-align: left;
+  color: #f5c542;
+}
+
+.q300-shapes-popup--overclock .q300-shapes-popup__close {
+  position: static;
+  transform: none;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--drydock-icon-dim);
+}
+
+.q300-shapes-popup--overclock .q300-shapes-popup__close i {
+  font-size: 1.1rem;
+}
+
+.q300-shapes-popup--overclock .q300-shapes-popup__close:hover,
+.q300-shapes-popup--overclock .q300-shapes-popup__close:focus-visible {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--drydock-icon);
+}
+
+.ct-overclock-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.4rem;
+}
+
+.ct-overclock-tools {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  justify-content: stretch;
+  gap: 0.4rem;
+  width: 100%;
+}
+
+.ct-overclock-btn {
+  flex: 1 1 0;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  min-height: 3.4rem;
+  min-width: 0;
+  padding: 0.35rem 0.15rem;
+  border: 1px solid var(--drydock-rail-edge);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.22);
+  color: var(--drydock-icon);
+  cursor: pointer;
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.1;
+  transition: border-color 0.16s ease, background 0.16s ease, box-shadow 0.16s ease;
+}
+
+.ct-overclock-btn i {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.ct-overclock-btn span {
+  font-size: 0.78rem;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.15;
+}
+
+.ct-overclock-btn--flatten-layer i {
+  color: #f0a060;
+}
+
+.ct-overclock-btn--flatten-canvas i {
+  color: #e07840;
+}
+
+.ct-overclock-btn--copy i {
+  color: #7ec8ff;
+}
+
+.ct-overclock-btn--paste i {
+  color: #9ad06a;
+}
+
+.ct-overclock-btn--grid i {
+  color: #f5c542;
+}
+
+.ct-overclock-btn--snap i {
+  color: var(--ct-brand-green, #58b42d);
+}
+
+.ct-overclock-btn--wand i {
+  color: #ff70ff;
+}
+
+.ct-overclock-btn--select i {
+  color: #48dcff;
+}
+
+.ct-overclock-btn:hover,
+.ct-overclock-btn:focus-visible {
+  border-color: var(--drydock-hub-glow);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.ct-overclock-btn[aria-pressed='true'],
+.ct-overclock-btn.is-active {
+  border-color: var(--drydock-hub-rim);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--drydock-hub-glow) 90%, transparent);
+  background: color-mix(in srgb, var(--drydock-hull-light) 55%, transparent);
+}
+
+/* Shared with KDP margin guides */
+.ct-grid-overlay,
+.ct-kdp-guides {
+  --ct-kdp-guide-red: rgba(255, 0, 0, 0.42);
+}
+
+/* Stage grid overlay — 20×20 fine + 4×4 major (5×5 cells · 42 px @ 840), KDP red */
+.ct-grid-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 7;
+  pointer-events: none;
+  --ct-grid-divisions: 20;
+  --ct-grid-major: 4;
+  --ct-grid-line: rgba(255, 0, 0, 0.15);
+  --ct-grid-major-line: rgba(255, 0, 0, 0.15);
+  background-image:
+    linear-gradient(to right, var(--ct-grid-major-line) 2px, transparent 2px),
+    linear-gradient(to bottom, var(--ct-grid-major-line) 2px, transparent 2px),
+    linear-gradient(to right, var(--ct-grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--ct-grid-line) 1px, transparent 1px);
+  background-size:
+    calc(100% / var(--ct-grid-major)) calc(100% / var(--ct-grid-major)),
+    calc(100% / var(--ct-grid-major)) calc(100% / var(--ct-grid-major)),
+    calc(100% / var(--ct-grid-divisions)) calc(100% / var(--ct-grid-divisions)),
+    calc(100% / var(--ct-grid-divisions)) calc(100% / var(--ct-grid-divisions));
+}
+
+.ct-grid-overlay[hidden] {
+  display: none;
+}
+
+body.ct-overclock-wand-active .ct-draw-canvas {
+  cursor: crosshair !important;
+}
+
+.ct-overclock-print-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  margin-top: 0.55rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--drydock-rail-edge);
+  font-size: 0.92rem;
+  line-height: 1.35;
+  color: var(--drydock-icon);
+  cursor: pointer;
+  user-select: none;
+}
+
+.ct-overclock-print-row input {
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.ct-overclock-print-row sup {
+  font-size: 0.68em;
+  line-height: 0;
+  vertical-align: super;
+}
+
+.ct-overclock-print-row.is-locked {
+  opacity: 0.72;
+  cursor: default;
+}
+
+.ct-overclock-print-row.is-locked input {
+  cursor: not-allowed;
+}
+
+/* KDP margin guides — 0.0625″ per edge @ 300 DPI (overlay only) */
+.ct-kdp-guides {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.ct-kdp-guide {
+  position: absolute;
+  background: var(--ct-kdp-guide-red, rgba(255, 0, 0, 0.42));
+}
+
+.ct-kdp-guide--top {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--ct-kdp-margin-px, 18.75px);
+}
+
+.ct-kdp-guide--bottom {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--ct-kdp-margin-px, 18.75px);
+}
+
+.ct-kdp-guide--left {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: var(--ct-kdp-margin-px, 18.75px);
+}
+
+.ct-kdp-guide--right {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: var(--ct-kdp-margin-px, 18.75px);
+}

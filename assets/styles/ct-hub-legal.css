@@ -1,0 +1,223 @@
+/** Color Time! CT HUB — Privacy & Web Safety overlay (Studio hpp-legal pattern). */
+
+.ct-hub-legal {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  background: color-mix(in srgb, var(--drydock-hub-bg) 88%, #000);
+}
+
+.ct-hub-legal[hidden] {
+  display: none !important;
+}
+
+.ct-hub-legal__panel {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: #f5f5f5;
+  color: #1a1a1a;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+}
+
+.ct-hub-legal__head {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 0.55rem 2.25rem 0.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.ct-hub-legal__title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #0c2d7a;
+  text-align: center;
+}
+
+.ct-hub-legal__close {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.45rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 1px solid rgba(22, 12, 43, 0.25);
+  border-radius: 4px;
+  background: transparent;
+  color: #0c2d7a;
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.ct-hub-legal__close:hover {
+  border-color: rgba(22, 12, 43, 0.55);
+  background: rgba(22, 12, 43, 0.06);
+}
+
+.ct-hub-legal__body {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.ct-hub-legal .hpp-legal-two-col {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+.ct-hub-legal .hpp-legal-nav {
+  flex: 0 0 33%;
+  width: 33%;
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem;
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(0, 0, 0, 0.04);
+  overflow-y: auto;
+  min-width: 0;
+}
+
+.ct-hub-legal .hpp-legal-nav-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  color: #0a0a0a;
+}
+
+.ct-hub-legal .hpp-legal-toc ul {
+  margin: 0;
+  padding-left: 1rem;
+  list-style: disc;
+  line-height: 1.5;
+}
+
+.ct-hub-legal .hpp-legal-toc ul li {
+  margin: 0.15em 0;
+}
+
+.ct-hub-legal .hpp-legal-toc a {
+  color: #2d2d2d;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.ct-hub-legal .hpp-legal-toc a:hover {
+  color: #1a1a1a;
+  text-decoration: underline;
+}
+
+.ct-hub-legal .hpp-legal-doc {
+  flex: 1 1 67%;
+  width: 67%;
+  min-width: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1rem 1.25rem;
+}
+
+.ct-hub-legal .hpp-legal-body section {
+  margin-bottom: 1.25rem;
+}
+
+.ct-hub-legal .hpp-legal-body h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.35rem;
+  color: #0a0a0a;
+}
+
+.ct-hub-legal .hpp-legal-body h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0.75rem 0 0.35rem;
+  color: #0a0a0a;
+}
+
+.ct-hub-legal .hpp-legal-body p,
+.ct-hub-legal .hpp-legal-body li {
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: #1a1a1a;
+}
+
+.ct-hub-legal .hpp-legal-body a {
+  color: #1f1f1f;
+  text-decoration: underline;
+}
+
+.ct-hub-legal .hpp-legal-body ul,
+.ct-hub-legal .hpp-legal-body ol {
+  margin: 0.5rem 0 0.75rem 1.25rem;
+  padding-left: 1rem;
+}
+
+.ct-hub-legal .hpp-legal-section-divider {
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1.25rem 0;
+}
+
+.ct-hub-legal .hpp-legal-download-row {
+  margin-top: 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.ct-hub-legal .hpp-legal-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: #1756e6;
+  text-decoration: none;
+}
+
+.ct-hub-legal .hpp-legal-sidebar-external {
+  margin: 0.55rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: #2d2d2d;
+}
+
+.ct-hub-legal .hpp-legal-sidebar-external-link {
+  color: #1756e6;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+@media (max-width: 720px) {
+  .ct-hub-legal .hpp-legal-two-col {
+    flex-direction: column;
+  }
+
+  .ct-hub-legal .hpp-legal-nav,
+  .ct-hub-legal .hpp-legal-doc {
+    width: 100%;
+    flex: 1 1 auto;
+    max-height: 42%;
+  }
+
+  .ct-hub-legal .hpp-legal-doc {
+    max-height: none;
+  }
+}

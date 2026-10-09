@@ -1,0 +1,46 @@
+/* Bones — warm black · cream primer (YA lane) */
+
+body.dd-shell.theme-bones {
+  --drydock-hull: #1c1917;
+  --drydock-hull-light: #38322e;
+  --drydock-hull-dark: #1c1917;
+  --drydock-primer: #ede1c9;
+  --drydock-rail-edge: rgba(237, 225, 201, 0.35);
+  --drydock-stage-bg: #f5f2eb;
+  --drydock-stage-mat: #b3a79f;
+  --drydock-icon: #f5f2eb;
+  --drydock-icon-dim: #ede1c9;
+  --drydock-hub-bg: #1c1917;
+  --drydock-hub-border: rgba(237, 225, 201, 0.45);
+  --drydock-hub-glow: #ede1c9;
+  --drydock-hub-rim: #f5f2eb;
+  --dd-letterbox: #1c1917;
+  --drydock-q400-bg: #1c1917;
+  --ct-gutter-bg: #6b8fd4;
+  --ct-slider-bg: rgba(245, 242, 235, 0.96);
+  --ct-q400-ring-outer: rgba(237, 225, 201, 0.45);
+  --ct-q400-glyph-stroke: rgba(245, 242, 235, 0.42);
+  --ct-q400-glyph-stroke-dark: rgba(28, 25, 23, 0.82);
+}
+
+body.dd-shell.theme-bones .dd-hub-panel {
+  border-color: rgba(245, 242, 235, 0.92);
+}
+
+body.dd-shell.theme-bones #q100,
+body.dd-shell.theme-bones #q300,
+body.dd-shell.theme-bones .dd-layout--phone-stack #q100,
+body.dd-shell.theme-bones .dd-layout--phone-stack #q300,
+body.dd-shell.theme-bones .dd-layout--phone-wide-stack #q100,
+body.dd-shell.theme-bones .dd-layout--phone-wide-stack #q300 {
+  background: var(--drydock-hull);
+}
+
+body.dd-shell.theme-bones #q400,
+body.dd-shell.theme-bones .dd-q400-inner,
+body.dd-shell.theme-bones .dd-paw-wrap,
+body.dd-shell.theme-bones .dd-layout--phone-stack .dd-q400-inner,
+body.dd-shell.theme-bones .dd-layout--phone-wide-stack .dd-q400-wing--left,
+body.dd-shell.theme-bones .dd-layout--phone-wide-stack .dd-q400-wing--right {
+  background: var(--drydock-q400-bg);
+}

@@ -1,0 +1,31 @@
+{
+  "name": "Color",
+  "short_name": "Color",
+  "description": "Osbard's Storybook Studio Color Time Machine! — a coloring and drawing app. Create your own pages or color Osbard's art for Made of Arrt!! masterpieces.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0c2d7a",
+  "theme_color": "#1756e6",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "assets/img-ct/favicon-192-ct.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/img-ct/favicon-512-ct.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/img-ct/favicon-512-ct.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

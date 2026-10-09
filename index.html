@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://color.osbard.com/">
+  <meta name="theme-color" content="#1756e6">
+  <meta name="application-name" content="Color">
+  <meta name="apple-mobile-web-app-title" content="Color">
+  <meta name="description" content="Osbard's Storybook Studio Color Time Machine! — a coloring and drawing app. Create your own pages or color Osbard's art for Made of Arrt!! masterpieces.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Osbard's Color Time!">
+  <meta property="og:description" content="Osbard's Storybook Studio Color Time Machine! — a coloring and drawing app. Create your own pages or color Osbard's art for Made of Arrt!! masterpieces.">
+  <meta property="og:url" content="https://color.osbard.com/">
+  <meta property="og:image" content="https://color.osbard.com/assets/img-ct/open-graph.webp">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Osbard's Color Time! - Work In Progress">
+  <meta property="og:site_name" content="Osbard's Storybook Studio">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Osbard's Color Time!">
+  <meta name="twitter:description" content="Osbard's Storybook Studio Color Time Machine! — a coloring and drawing app. Create your own pages or color Osbard's art for Made of Arrt!! masterpieces.">
+  <meta name="twitter:image" content="https://color.osbard.com/assets/img-ct/open-graph.webp">
+  <meta name="twitter:image:alt" content="Osbard's Color Time! - Work In Progress">
+  <title>Osbard's Color Time! - Untitled</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="assets/img-ct/favicon-512-ct.png?v=paw11" type="image/png" sizes="512x512">
+  <link rel="icon" href="assets/img-ct/favicon-192-ct.png?v=paw11" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="assets/img-ct/apple-touch-icon-ct.png?v=paw11" sizes="180x180">
+  <link rel="preload" href="assets/img-ct/logo-512-ct.png" as="image" type="image/png" fetchpriority="high">
+  <link rel="preload" href="assets/fonts/fredoka-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/fredoka-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- Before CSS: hull vars + phone-stack on <html> so first paint matches final layout (CLS). -->
+  <script src="assets/dd-profile-boot.js"></script>
+  <link rel="stylesheet" href="assets/styles/ct-critical.css">
+  <link rel="stylesheet" href="assets/vendor/phosphor/fill/style.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="assets/styles/ct-deferred.css" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="assets/vendor/phosphor/fill/style.css">
+    <link rel="stylesheet" href="assets/styles/ct-deferred.css">
+  </noscript>
+</head>
+<body class="dd-shell theme-royal-purple">
+  <h1 class="ct-sr-only">Osbard's Color Time Machine!</h1>
+  <p class="dd-toast" id="dd-toast" role="status" hidden></p>
+  <input type="file" id="ct-open-file" accept=".oss,.png,.jpg,.jpeg,.webp,.svg,image/png,image/jpeg,image/webp,image/svg+xml,application/json" hidden aria-hidden="true">
+
+  <div id="dd-frame" class="dd-frame">
+    <div id="viewport-container" class="dd-viewport">
+      <main id="q200" class="dd-stage" aria-label="Stage">
+        <div class="ct-stage-mat">
+          <div class="ct-stage-gutter ct-stage-gutter--left">
+            <div class="ct-vslider-stack" role="group" aria-label="Blend/splatter, smudge, and zoom">
+              <div class="ct-vslider-stack__faders">
+              <div class="ct-vslider ct-vslider--nudgeable">
+                <span class="ct-vslider__icon" aria-hidden="true" title="Blend/Splatter"><i class="ph-fill ph-swatches" aria-hidden="true"></i></span>
+                <div class="ct-vslider__rail">
+                  <input type="range" class="ct-vslider__input" id="ct-overclock-mix" min="0" max="100" value="50" step="1" aria-label="Blend/Splatter">
+                </div>
+                <div class="ct-vslider__nudge">
+                  <button type="button" class="ct-vslider__nudge-btn" data-ct-nudge="1" aria-label="Increase Blend/Splatter"><i class="ph-fill ph-caret-up" aria-hidden="true"></i></button>
+                  <button type="button" class="ct-vslider__nudge-btn" data-ct-nudge="-1" aria-label="Decrease Blend/Splatter"><i class="ph-fill ph-caret-down" aria-hidden="true"></i></button>
+                </div>
+                <input type="number" class="ct-vslider__num" min="0" max="100" step="1" inputmode="numeric" aria-label="Blend/Splatter value">
+              </div>
+              <div class="ct-vslider ct-vslider--nudgeable">
+                <span class="ct-vslider__icon" aria-hidden="true" title="Smudge"><i class="ph-fill ph-hand" aria-hidden="true"></i></span>
+                <div class="ct-vslider__rail">
+                  <input type="range" class="ct-vslider__input" id="ct-overclock-smudge" min="0" max="100" value="100" step="1" aria-label="Smudge">
+                </div>
+                <div class="ct-vslider__nudge">
+                  <button type="button" class="ct-vslider__nudge-btn" data-ct-nudge="1" aria-label="Increase Smudge"><i class="ph-fill ph-caret-up" aria-hidden="true"></i></button>
+                  <button type="button" class="ct-vslider__nudge-btn" data-ct-nudge="-1" aria-label="Decrease Smudge"><i class="ph-fill ph-caret-down" aria-hidden="true"></i></button>
+                </div>
+                <input type="number" class="ct-vslider__num" min="0" max="100" step="1" inputmode="numeric" aria-label="Smudge value">
+              </div>
+              </div>
+              <button type="button" class="ct-stage-dial" id="ct-stage-zoom" aria-label="Zoom" title="Zoom — view 50%–200%">
+                <i class="ph-fill ph-magnifying-glass ct-stage-dial__icon" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+          <p id="ct-canvas-hint" class="ct-sr-only">Drawing canvas. Tab here to reach the stage, then use the tool and color trays to choose what to draw with. Drawing itself uses pointer, mouse, or stylus—not the keyboard. Plus and minus zoom the view. Four and six rotate the view. Seven resets zoom and rotation and recenters. A is Peeka-Boo.</p>
+          <div class="dd-stage-scroll" id="dd-stage-scroll" aria-describedby="ct-canvas-hint">
+            <div class="ct-stage-zoom-wrap" id="ct-stage-zoom-wrap">
+              <div class="ct-stage-zoom-inner" id="ct-stage-zoom-inner">
+                <div class="ct-stage-canvas-wrap" id="ct-stage-canvas-wrap">
+                  <div class="ct-canvas-stack" id="ct-canvas-stack"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="ct-canvas-size" id="ct-canvas-size" aria-live="polite">640 × 720 · File: Untitled</p>
+          <div class="ct-osbard-dock" id="ct-osbard-dock" role="group" aria-label="Forgiveness">
+            <button type="button" class="ct-osbard-dock__btn ct-osbard-dock__btn--smudgies" data-osbard-action="smudgies" title="Smudgies! (Undo) — Ctrl+Z" aria-label="Smudgies! (Undo) — Ctrl+Z">
+              <i class="ph-fill ph-arrow-left" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="ct-osbard-dock__btn ct-osbard-dock__btn--sharkies" data-osbard-action="sharkies" title="Sharkies! (Redo) — Ctrl+Y" aria-label="Sharkies! (Redo) — Ctrl+Y">
+              <i class="ph-fill ph-arrow-right" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="ct-osbard-dock__btn ct-osbard-dock__btn--osbard" data-osbard-action="osbard" title="OSBARD!! (Do Over)" aria-label="OSBARD!! (Do Over)">
+              <i class="ph-fill ph-arrows-counter-clockwise" aria-hidden="true"></i>
+            </button>
+          </div>
+          <p class="ct-recenter-hint" id="ct-recenter-hint" hidden aria-live="polite">Press 7 to re-center canvas.</p>
+          <div class="ct-stage-gutter ct-stage-gutter--right">
+            <div class="ct-vslider-stack" role="group" aria-label="Opacity, line, and Ro' Tater">
+              <div class="ct-vslider-stack__faders">
+              <div class="ct-vslider ct-vslider--nudgeable">
+                <span class="ct-vslider__icon" aria-hidden="true" title="Opacity"><i class="ph-fill ph-drop-half-bottom" aria-hidden="true"></i></span>
+                <div class="ct-vslider__rail">
+                  <input type="range" class="ct-vslider__input" min="0" max="100" value="100" step="1" aria-label="Opacity per stroke">
+                </div>
+                <div class="ct-vslider__nudge">
+                  <button type="button" class="ct-vslider__nudge-btn" data-ct-nudge="1" aria-label="Increase Opacity"><i class="ph-fill ph-caret-up" aria-hidden="true"></i></button>
+                  <button type="button" class="ct-vslider__nudge-btn" data-ct-nudge="-1" aria-label="Decrease Opacity"><i class="ph-fill ph-caret-down" aria-hidden="true"></i></button>
+                </div>
+                <input type="number" class="ct-vslider__num" min="0" max="100" step="1" inputmode="numeric" aria-label="Opacity value">
+              </div>
+              <div class="ct-vslider ct-vslider--nudgeable">
+                <span class="ct-vslider__icon ct-vslider__icon--size" aria-hidden="true" title="Line">
+                  <span></span><span></span><span></span>
+                </span>
+                <div class="ct-vslider__rail">
+                  <input type="range" class="ct-vslider__input" min="0" max="100" value="12" step="1" aria-label="Brush size">
+                </div>
+                <div class="ct-vslider__nudge">
+                  <button type="button" class="ct-vslider__nudge-btn" data-ct-nudge="1" aria-label="Increase Line"><i class="ph-fill ph-caret-up" aria-hidden="true"></i></button>
+                  <button type="button" class="ct-vslider__nudge-btn" data-ct-nudge="-1" aria-label="Decrease Line"><i class="ph-fill ph-caret-down" aria-hidden="true"></i></button>
+                </div>
+                <input type="number" class="ct-vslider__num" min="0" max="100" step="1" inputmode="numeric" aria-label="Line value">
+              </div>
+              </div>
+              <button type="button" class="ct-stage-dial" id="ct-stage-rotater" aria-label="Ro' Tater" title="Ro' Tater — drag to rotate view (±45°). Keys 4 / 6. 7 resets.">
+                <i class="ph-fill ph-circle-notch ct-stage-dial__icon" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <div class="dd-stack-row dd-stack-row--rails">
+      <aside id="q100" aria-label="Stage left">
+          <div class="dd-rail-main dd-rail-main--packs">
+            <section class="dd-rail-section" aria-label="Start">
+              <div class="dd-rail-actions" role="toolbar" aria-label="Start">
+                <button type="button" class="dd-rail-btn" id="ct-btn-new" aria-label="New"><i class="ph-fill ph-file" aria-hidden="true"></i></button>
+                <button type="button" class="dd-rail-btn" id="ct-btn-open" aria-label="Open"><i class="ph-fill ph-folder-open" aria-hidden="true"></i></button>
+                <button type="button" class="dd-rail-btn" id="ct-btn-save" aria-label="Save As" title="Save As"><i class="ph-fill ph-floppy-disk" aria-hidden="true"></i></button>
+              </div>
+              <div class="ct-pack-well">
+                <p class="ct-pack-title" id="ct-pack-title">
+                  <span class="ct-pack-title__kicker">Backpack:</span>
+                  <span class="ct-pack-title__name" id="ct-pack-title-name"></span>
+                </p>
+                <div class="ct-pack-scroll" id="ct-pack-scroll" role="group" aria-label="Coloring pack"></div>
+              </div>
+            </section>
+            <div class="ct-pack-toggle-dock">
+              <button type="button" class="ct-pack-toggle ct-rail-tile-xl dd-rail-slot dd-rail-slot--xl" id="ct-pack-toggle" aria-label="Switch coloring pack">
+                <i class="ph-fill ph-backpack" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+      </aside>
+
+      <aside id="q300" aria-label="Stage right">
+          <div class="dd-rail-main dd-rail-main--layers">
+            <section class="dd-rail-section" aria-label="Arrt">
+              <div class="dd-rail-actions" role="toolbar" aria-label="Arrt">
+                <button type="button" class="dd-rail-btn" id="ct-btn-set" aria-label="Set" aria-expanded="false" aria-controls="ct-set-popup"><i class="ph-fill ph-shapes" aria-hidden="true"></i></button>
+                <button type="button" class="dd-rail-btn" id="ct-btn-overclock" aria-label="Overclock Tools" aria-expanded="false" aria-controls="ct-overclock-popup" title="Overclock Tools"><i class="ph-fill ph-gauge" aria-hidden="true"></i></button>
+              </div>
+              <div class="ct-layer-well">
+                <p class="ct-pack-title" id="ct-layer-title" aria-label="Canvas Layers">
+                  <span class="ct-pack-title__kicker">Canvas</span>
+                  <span class="ct-pack-title__name">Layers</span>
+                </p>
+                <div class="ct-layer-scroll" aria-label="Layers">
+                  <div class="ct-layer-stack-track" role="group" aria-label="Layer stack">
+                  <div class="ct-layer-slot ct-layer-slot--reorder" data-layer="1">
+                    <div class="ct-layer-slot__row">
+                      <div class="ct-layer-thumb-wrap">
+                        <button type="button" class="dd-rail-slot ct-layer-tile ct-rail-tile-xl ct-checker-2x2" data-layer="1" aria-label="Layer 1" aria-pressed="true">
+                          <canvas class="ct-layer-tile__thumb" width="72" height="72" aria-hidden="true"></canvas>
+                        </button>
+                        <button type="button" class="ct-layer-tile__clear" data-layer="1" aria-label="Clear Layer 1"><i class="ph-fill ph-eraser" aria-hidden="true"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ct-layer-slot ct-layer-slot--reorder" data-layer="2">
+                    <div class="ct-layer-slot__row">
+                      <div class="ct-layer-thumb-wrap">
+                        <button type="button" class="dd-rail-slot ct-layer-tile ct-rail-tile-xl ct-checker-2x2" data-layer="2" aria-label="Layer 2" aria-pressed="false">
+                          <canvas class="ct-layer-tile__thumb" width="72" height="72" aria-hidden="true"></canvas>
+                        </button>
+                        <button type="button" class="ct-layer-tile__clear" data-layer="2" aria-label="Clear Layer 2"><i class="ph-fill ph-eraser" aria-hidden="true"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ct-layer-slot ct-layer-slot--reorder" data-layer="3">
+                    <div class="ct-layer-slot__row">
+                      <div class="ct-layer-thumb-wrap">
+                        <button type="button" class="dd-rail-slot ct-layer-tile ct-rail-tile-xl ct-checker-2x2" data-layer="3" aria-label="Layer 3" aria-pressed="false">
+                          <canvas class="ct-layer-tile__thumb" width="72" height="72" aria-hidden="true"></canvas>
+                        </button>
+                        <button type="button" class="ct-layer-tile__clear" data-layer="3" aria-label="Clear Layer 3"><i class="ph-fill ph-eraser" aria-hidden="true"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ct-layer-slot ct-layer-slot--reorder" data-layer="4">
+                    <div class="ct-layer-slot__row">
+                      <div class="ct-layer-thumb-wrap">
+                        <button type="button" class="dd-rail-slot ct-layer-tile ct-rail-tile-xl ct-checker-2x2" data-layer="4" aria-label="Layer 4" aria-pressed="false">
+                          <canvas class="ct-layer-tile__thumb" width="72" height="72" aria-hidden="true"></canvas>
+                        </button>
+                        <button type="button" class="ct-layer-tile__clear" data-layer="4" aria-label="Clear Layer 4"><i class="ph-fill ph-eraser" aria-hidden="true"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ct-layer-slot ct-layer-slot--reorder" data-layer="5">
+                    <div class="ct-layer-slot__row">
+                      <div class="ct-layer-thumb-wrap">
+                        <button type="button" class="dd-rail-slot ct-layer-tile ct-rail-tile-xl ct-checker-2x2" data-layer="5" aria-label="Layer 5" aria-pressed="false">
+                          <canvas class="ct-layer-tile__thumb" width="72" height="72" aria-hidden="true"></canvas>
+                        </button>
+                        <button type="button" class="ct-layer-tile__clear" data-layer="5" aria-label="Clear Layer 5"><i class="ph-fill ph-eraser" aria-hidden="true"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+                <div class="ct-layer-bg-dock">
+                  <div class="ct-layer-slot ct-layer-slot--backdrop">
+                    <div class="ct-layer-slot__row">
+                      <div class="ct-layer-thumb-wrap ct-layer-thumb-wrap--bg">
+                        <label class="ct-page-hex" id="ct-page-hex" hidden>
+                          <input id="ct-page-hex-input" maxlength="7" spellcheck="false" placeholder="#hex" aria-label="Custom page color">
+                        </label>
+                        <button type="button" class="dd-rail-slot ct-layer-tile ct-rail-tile-xl ct-layer-bg" id="ct-layer-bg" aria-label="Canvas background" title="Canvas background — tap to edit opacity">
+                          <span class="ct-layer-bg__fill" id="ct-layer-bg-fill" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="ct-layer-bg__rainbow" id="ct-layer-bg-rainbow" aria-label="Custom color" title="Custom color" aria-expanded="false" aria-controls="ct-page-hex"></button>
+                        <div class="ct-pg-color-master" hidden>
+                          <div class="ct-vslider">
+                            <input type="range" class="ct-vslider__input" id="ct-canvas-color" min="0" max="100" value="100" step="1" aria-label="Canvas color" tabindex="-1">
+                          </div>
+                        </div>
+                        <button type="button" class="ct-layer-tile__clear" id="ct-layer-bg-clear" aria-label="Reset page color to transparent" title="Transparent page"><i class="ph-fill ph-eraser" aria-hidden="true"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+      </aside>
+      </div>
+
+      <footer id="q400" aria-label="Tools">
+        <div class="dd-q400-inner">
+          <div class="dd-q400-wing dd-q400-wing--left dd-q400-wing--ct27" role="toolbar" aria-label="Drawing tools">
+            <button type="button" class="dd-q400-icon dd-q400-tool" id="ct-btn-pencil" aria-label="Pencil"><i class="ph-fill ph-pencil" aria-hidden="true"></i></button>
+            <button type="button" class="dd-q400-icon dd-q400-tool" id="ct-btn-crayon" aria-label="Crayon"><i class="ph-fill ph-pencil-simple" aria-hidden="true"></i></button>
+            <button type="button" class="dd-q400-icon dd-q400-tool" id="ct-btn-pastel" aria-label="Pastel"><i class="ph-fill ph-chalkboard-simple" aria-hidden="true"></i></button>
+            <button type="button" class="dd-q400-icon dd-q400-tool" id="ct-btn-marker" aria-label="Marker"><i class="ph-fill ph-marker-circle" aria-hidden="true"></i></button>
+            <button type="button" class="dd-q400-icon dd-q400-tool" id="ct-btn-star" aria-label="Star"><i class="ph-fill ph-star" aria-hidden="true"></i></button>
+            <button type="button" class="dd-q400-icon dd-q400-tool" id="ct-btn-bucket" aria-label="Bucket"><i class="ph-fill ph-paint-bucket" aria-hidden="true"></i></button>
+            <button type="button" class="dd-q400-icon dd-q400-tool" id="ct-btn-eraser" aria-label="Eraser"><i class="ph-fill ph-eraser" aria-hidden="true"></i></button>
+            <button type="button" class="dd-q400-icon dd-q400-tool" id="ct-btn-peeka" aria-label="Peeka-Boo (A)" title="Peeka-Boo (A)" aria-pressed="false"><i class="ph-fill ph-ghost" aria-hidden="true"></i></button>
+            <button type="button" class="dd-q400-icon dd-q400-tool" id="ct-btn-fullscreen" aria-label="Fullscreen (Ctrl+Shift+F)" title="Fullscreen (Ctrl+Shift+F)" aria-pressed="false"><i class="ph-fill ph-corners-out" aria-hidden="true"></i></button>
+          </div>
+          <div class="dd-q400-wing dd-q400-wing--right">
+            <div class="dd-ct-color-tray" id="ct-color-tray" role="group" aria-label="Color tray"></div>
+          </div>
+        </div>
+        <div class="dd-paw-wrap">
+          <div class="ct-phone-faders ct-phone-faders--left" aria-label="Blend/splatter and smudge">
+            <div class="ct-phone-faders__row">
+              <div class="ct-phone-fader">
+                <button type="button" class="ct-phone-fader__icon-btn" data-ct-fader-sheet="Blend/Splatter" aria-label="Blend/Splatter slider" aria-expanded="false" aria-controls="ct-phone-fader-sheet" title="Blend/Splatter">
+                  <span class="ct-phone-fader__icon" aria-hidden="true"><i class="ph-fill ph-swatches" aria-hidden="true"></i></span>
+                </button>
+                <input type="number" class="ct-phone-fader__num" data-ct-fader="Blend/Splatter" min="0" max="100" step="1" inputmode="numeric" aria-label="Blend/Splatter">
+              </div>
+              <div class="ct-phone-fader">
+                <button type="button" class="ct-phone-fader__icon-btn" data-ct-fader-sheet="Smudge" aria-label="Smudge slider" aria-expanded="false" aria-controls="ct-phone-fader-sheet" title="Smudge">
+                  <span class="ct-phone-fader__icon" aria-hidden="true"><i class="ph-fill ph-hand" aria-hidden="true"></i></span>
+                </button>
+                <input type="number" class="ct-phone-fader__num" data-ct-fader="Smudge" min="0" max="100" step="1" inputmode="numeric" aria-label="Smudge">
+              </div>
+            </div>
+          </div>
+          <button type="button" class="dd-paw-btn" id="dd-paw" aria-label="Open menu" aria-expanded="false" aria-controls="oss-hpp">
+            <img class="dd-paw-logo" id="dd-paw-logo" src="assets/img-ct/logo-512-ct.png" width="96" height="96" alt="" decoding="sync" fetchpriority="high">
+          </button>
+          <div class="ct-phone-faders ct-phone-faders--right" aria-label="Opacity, line, and page color">
+            <div class="ct-phone-faders__row">
+              <div class="ct-phone-fader">
+                <button type="button" class="ct-phone-fader__icon-btn" data-ct-fader-sheet="Opacity per stroke" aria-label="Opacity slider" aria-expanded="false" aria-controls="ct-phone-fader-sheet" title="Opacity">
+                  <span class="ct-phone-fader__icon" aria-hidden="true"><i class="ph-fill ph-drop-half-bottom" aria-hidden="true"></i></span>
+                </button>
+                <input type="number" class="ct-phone-fader__num" data-ct-fader="Opacity per stroke" min="0" max="100" step="1" inputmode="numeric" aria-label="Opacity">
+              </div>
+              <div class="ct-phone-fader">
+                <button type="button" class="ct-phone-fader__icon-btn" data-ct-fader-sheet="Brush size" aria-label="Line slider" aria-expanded="false" aria-controls="ct-phone-fader-sheet" title="Line">
+                  <span class="ct-phone-fader__icon ct-phone-fader__icon--size" aria-hidden="true"><span></span><span></span><span></span></span>
+                </button>
+                <input type="number" class="ct-phone-fader__num" data-ct-fader="Brush size" min="0" max="100" step="1" inputmode="numeric" aria-label="Line">
+              </div>
+              <div class="ct-phone-fader">
+                <button type="button" class="ct-phone-fader__icon-btn ct-phone-fader__icon-btn--rainbow" data-ct-fader-sheet="Canvas color" id="ct-phone-pg-color-btn" aria-label="Page color" aria-expanded="false" aria-controls="ct-phone-fader-sheet" title="Page color">
+                  <span class="ct-phone-fader__icon ct-phone-fader__icon--rainbow" aria-hidden="true"><i class="ph-fill ph-rainbow" aria-hidden="true"></i></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <div class="ct-phone-fader-sheet" id="ct-phone-fader-sheet" hidden role="dialog" aria-label="Slider">
+        <div class="ct-vslider ct-vslider--horizontal ct-phone-fader-sheet__slider">
+          <div class="ct-vslider__rail" id="ct-phone-fader-sheet-rail">
+            <input type="range" class="ct-vslider__input" id="ct-phone-fader-sheet-input" min="0" max="100" value="0" step="1" aria-label="Slider value">
+          </div>
+        </div>
+      </div>
+      </footer>
+
+      <div class="ct-tool-popup ct-tool-popup--osbard" id="ct-osbard-popup" hidden role="dialog" aria-label="OSBARD!! forgiveness">
+        <div class="ct-tool-popup__head">
+          <p class="ct-tool-popup__title">OSBARD!!</p>
+          <button type="button" class="ct-tool-popup__close" aria-label="Close"><i class="ph-fill ph-x" aria-hidden="true"></i></button>
+        </div>
+        <div class="ct-tool-popup__grid ct-tool-popup__grid--3" role="group" aria-label="Forgiveness desk">
+          <button type="button" class="ct-tool-popup__opt ct-tool-popup__opt--smudgies" data-osbard-action="smudgies">
+            <i class="ph-fill ph-arrow-left" aria-hidden="true"></i>
+            <span>Smudgies!</span>
+          </button>
+          <button type="button" class="ct-tool-popup__opt ct-tool-popup__opt--sharkies" data-osbard-action="sharkies">
+            <i class="ph-fill ph-arrow-right" aria-hidden="true"></i>
+            <span>Sharkies!</span>
+          </button>
+          <button type="button" class="ct-tool-popup__opt ct-tool-popup__opt--osbard" data-osbard-action="osbard">
+            <i class="ph-fill ph-arrows-counter-clockwise" aria-hidden="true"></i>
+            <span>OSBARD!!</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="ct-tool-popup ct-tool-popup--star" id="ct-star-popup" hidden role="dialog" aria-label="Star FX">
+        <div class="ct-tool-popup__head">
+          <button type="button" class="ct-tool-popup__rainbow" id="ct-star-rainbow" aria-pressed="false" title="Rainbow" aria-label="Rainbow — Starry, Glittery, Glowy, Sunny, Washy, Watery, and Inky use the color tray">
+            <i class="ph-fill ph-rainbow" aria-hidden="true"></i>
+          </button>
+          <p class="ct-tool-popup__title ct-tool-popup__title--star">Star FX</p>
+          <button type="button" class="ct-tool-popup__close" aria-label="Close"><i class="ph-fill ph-x" aria-hidden="true"></i></button>
+        </div>
+        <div class="ct-tool-popup__grid ct-tool-popup__grid--3" role="group" aria-label="Star FX modes">
+          <button type="button" class="ct-tool-popup__opt" data-brush-fx="brushy"><i class="ph-fill ph-paint-brush" aria-hidden="true"></i><span>Brushy</span></button>
+          <button type="button" class="ct-tool-popup__opt" data-brush-fx="furry"><i class="ph-fill ph-waves" aria-hidden="true"></i><span>Furry</span></button>
+          <button type="button" class="ct-tool-popup__opt" data-brush-fx="glittery"><i class="ph-fill ph-sparkle" aria-hidden="true"></i><span>Glittery</span></button>
+          <button type="button" class="ct-tool-popup__opt" data-brush-fx="glowy"><i class="ph-fill ph-highlighter-circle" aria-hidden="true"></i><span>Glowy</span></button>
+          <button type="button" class="ct-tool-popup__opt" data-brush-fx="inky"><i class="ph-fill ph-pen-nib" aria-hidden="true"></i><span>Inky</span></button>
+          <button type="button" class="ct-tool-popup__opt" data-brush-fx="starry"><i class="ph-fill ph-star" aria-hidden="true"></i><span>Starry</span></button>
+          <button type="button" class="ct-tool-popup__opt" data-brush-fx="sunny"><i class="ph-fill ph-sun" aria-hidden="true"></i><span>Sunny</span></button>
+          <button type="button" class="ct-tool-popup__opt" data-brush-fx="washy"><i class="ph-fill ph-drop-half-bottom" aria-hidden="true"></i><span>Washy</span></button>
+          <button type="button" class="ct-tool-popup__opt" data-brush-fx="watery"><i class="ph-fill ph-drop" aria-hidden="true"></i><span>Watery</span></button>
+        </div>
+      </div>
+
+      <div class="q300-shapes-popup" id="ct-set-popup" hidden role="dialog" aria-label="Set">
+        <div class="q300-shapes-popup__head">
+          <p class="q300-shapes-popup__title">Set</p>
+          <button type="button" class="q300-shapes-popup__close" aria-label="Close"><i class="ph-fill ph-x" aria-hidden="true"></i></button>
+        </div>
+        <div class="q300-shapes-popup__grid" role="group" aria-label="Shape tools">
+          <button type="button" class="q300-shapes-opt" data-shape="circle" title="Circle"><i class="ph-fill ph-circle" aria-hidden="true"></i><span>Circle</span></button>
+          <button type="button" class="q300-shapes-opt" data-shape="square" title="Square"><i class="ph-fill ph-square" aria-hidden="true"></i><span>Square</span></button>
+          <button type="button" class="q300-shapes-opt" data-shape="triangle" title="Triangle"><i class="ph-fill ph-triangle" aria-hidden="true"></i><span>Triangle</span></button>
+          <button type="button" class="q300-shapes-opt" data-shape="polygon" title="Polygon"><i class="ph-fill ph-polygon" aria-hidden="true"></i><span>Polygon</span></button>
+          <button type="button" class="q300-shapes-opt" data-shape="line" aria-label="Line — drag to draw. Hold Shift for angle snap." title="Line — drag to draw. Hold Shift for angle snap."><i class="ph-fill ph-line-segment" aria-hidden="true"></i><span>Line</span></button>
+          <button type="button" class="q300-shapes-opt" data-shape="curve" aria-label="Curve — drag for line, then drag again to bend." title="Curve — drag for line, then drag again to bend."><i class="ph-fill ph-bezier-curve" aria-hidden="true"></i><span>Curve</span></button>
+        </div>
+      </div>
+
+      <div class="q300-shapes-popup" id="ct-cast-popup" hidden role="dialog" aria-label="Cast">
+        <div class="q300-shapes-popup__head">
+          <p class="q300-shapes-popup__title">Cast</p>
+          <button type="button" class="q300-shapes-popup__close" aria-label="Close"><i class="ph-fill ph-x" aria-hidden="true"></i></button>
+        </div>
+        <p class="q300-arrt-popup__wip">Work in progress. Art arriving soon!</p>
+      </div>
+
+      <div class="q300-shapes-popup" id="ct-props-popup" hidden role="dialog" aria-label="Props">
+        <div class="q300-shapes-popup__head">
+          <p class="q300-shapes-popup__title">Props</p>
+          <button type="button" class="q300-shapes-popup__close" aria-label="Close"><i class="ph-fill ph-x" aria-hidden="true"></i></button>
+        </div>
+        <p class="q300-arrt-popup__wip">Work in progress. Art arriving soon!</p>
+      </div>
+
+      <div class="q300-shapes-popup q300-shapes-popup--overclock" id="ct-overclock-popup" hidden role="dialog" aria-label="Overclock Tools">
+        <div class="q300-shapes-popup__head">
+          <p class="q300-shapes-popup__title">Overclock Tools</p>
+          <button type="button" class="q300-shapes-popup__close" aria-label="Close"><i class="ph-fill ph-x" aria-hidden="true"></i></button>
+        </div>
+        <div class="ct-overclock-panel" role="group" aria-label="Overclock tools">
+          <div class="ct-overclock-tools" aria-label="Flatten and clipboard">
+            <button type="button" class="ct-overclock-btn ct-overclock-btn--flatten-layer" id="ct-overclock-flatten-layer" aria-label="Flatten Layer" title="Flatten Layer — bake objects on the active layer"><i class="ph-fill ph-stack-simple" aria-hidden="true"></i><span>Flat Layer</span></button>
+            <button type="button" class="ct-overclock-btn ct-overclock-btn--flatten-canvas" id="ct-overclock-flatten-canvas" aria-label="Flatten Canvas" title="Flatten Canvas — bake objects on every layer"><i class="ph-fill ph-stack" aria-hidden="true"></i><span>Flat Canvas</span></button>
+            <button type="button" class="ct-overclock-btn ct-overclock-btn--copy" id="ct-overclock-copy" aria-label="Copy" title="Copy selection (Ctrl+C)"><i class="ph-fill ph-copy" aria-hidden="true"></i><span>Copy</span></button>
+            <button type="button" class="ct-overclock-btn ct-overclock-btn--paste" id="ct-overclock-paste" aria-label="Paste" title="Paste selection (Ctrl+V)"><i class="ph-fill ph-clipboard" aria-hidden="true"></i><span>Paste</span></button>
+          </div>
+          <div class="ct-overclock-tools" aria-label="Overclock toggles">
+            <button type="button" class="ct-overclock-btn ct-overclock-btn--grid" id="ct-overclock-grid" aria-label="Grid" aria-pressed="false" title="20×20 canvas grid"><i class="ph-fill ph-grid-four" aria-hidden="true"></i><span>Grid</span></button>
+            <button type="button" class="ct-overclock-btn ct-overclock-btn--snap" id="ct-overclock-snap" aria-label="Snap to" aria-pressed="false" title="Snap to canvas edge, grid, and center"><i class="ph-fill ph-crosshair" aria-hidden="true"></i><span>Snap</span></button>
+            <button type="button" class="ct-overclock-btn ct-overclock-btn--wand" id="ct-overclock-wand" aria-label="Wand" aria-pressed="false" title="Delete connected pixels (tolerance 32)"><i class="ph-fill ph-magic-wand" aria-hidden="true"></i><span>Wand</span></button>
+            <button type="button" class="ct-overclock-btn ct-overclock-btn--select" id="ct-overclock-select-box" aria-label="Select" aria-pressed="false" title="Select — show bounding boxes; arrange only (no drawing)"><i class="ph-fill ph-bounding-box" aria-hidden="true"></i><span>Select</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dd-hub-shell" id="oss-hpp" hidden>
+        <div class="dd-hub-backdrop" aria-hidden="true"></div>
+        <div class="dd-hub-panel" role="dialog" aria-modal="true" aria-label="Color Time menu">
+          <div class="dd-hub-panel__inner">
+            <header class="dd-hub-head">
+              <div class="dd-hub-head__logo-wrap">
+                <a id="dd-hub-home" class="dd-hub-head__logo-link" href="https://osbard.com/" title="osbard.com Lobby" aria-label="osbard.com home">
+                  <img class="dd-hub-head__home-logo" src="assets/img-ct/HUB-osbard-home.png" width="713" height="554" alt="osbard.com home">
+                </a>
+              </div>
+              <div class="dd-hub-head__title-block">
+                <div class="dd-hub-head__ct-lockup" id="ct-hub-tagline-lockup">
+                  <p class="dd-hub-head__ct-title-row">
+                    <span class="dd-hub-head__ct-name ct-font-color-time" id="ct-hub-title-replay" role="button" tabindex="0" title="Replay tagline" aria-label="Color Time Machine! — replay tagline animation">Color Time</span>
+                    <span class="dd-hub-head__ct-machine" id="ct-hub-machine-word" hidden aria-hidden="true"></span>
+                  </p>
+                  <span class="dd-hub-head__ct-morph" id="ct-hub-tagline-morph" aria-live="polite"></span>
+                </div>
+              </div>
+              <button type="button" class="dd-hub-head__close" id="dd-hub-close" aria-label="Close menu">&times;</button>
+            </header>
+            <div class="dd-hub-panel__body" aria-label="Menu body">
+              <div class="ct-hub-machine">
+                <div class="ct-popup__clock">
+                  <div class="ct-popup__hours" id="ct-hub-hours" role="group" aria-label="Color Time clock hours 1 to 12"></div>
+                  <p class="ct-clock-paw-hint" id="ct-clock-paw-hint" hidden aria-live="polite">Tap paw!</p>
+                  <button type="button" class="ct-clock-paw" id="ct-hub-tray-push" title="Tap PJ's paw to mix up trays" aria-label="Tap PJ's paw to mix up trays">
+                    <img class="ct-clock-paw__img" id="ct-clock-paw-logo" src="assets/img-ct/logo-512-ct.png" width="32" height="32" alt="" decoding="async" aria-hidden="true">
+                  </button>
+                  <p class="ct-popup__tray-name" id="ct-hub-tray-name" aria-live="polite" hidden></p>
+                </div>
+                <p class="ct-hub-machine__paw-hint" id="ct-hub-paw-hint" hidden>Tap PJ&rsquo;s paw to mix up trays.</p>
+                <div class="dd-ct-paint-bar dd-ct-paint-bar--hub" aria-label="Line, fill, and color tray">
+                  <div class="dd-ct-paint-bar__line-fill">
+                    <div class="dd-ct-paint-col">
+                      <span class="dd-ct-paint-label">Line</span>
+                      <button type="button" class="dd-ct-outline-fill-btn" data-ct-paint-target="line" aria-pressed="true" aria-label="Line color" title="Line color">
+                        <span class="dd-ct-outline-fill-swatch dd-ct-line-swatch"></span>
+                      </button>
+                    </div>
+                    <div class="dd-ct-paint-col dd-ct-paint-col--swap">
+                      <span class="dd-ct-paint-label dd-ct-paint-label--icon" aria-hidden="true"><i class="ph-fill ph-arrows-left-right"></i></span>
+                      <button type="button" class="dd-ct-outline-fill-btn dd-ct-outline-fill-btn--swap" data-ct-stroke-fill-swap aria-label="Swap Line and Fill colors" title="Swap Line and Fill">
+                        <span class="dd-ct-stroke-fill-swap-swatch">
+                          <span class="dd-ct-stroke-fill-swap-core dd-ct-stroke-fill-swap-core--transparent"></span>
+                          <i class="ph-fill ph-arrows-left-right dd-ct-stroke-fill-swap-hover-icon" aria-hidden="true"></i>
+                        </span>
+                      </button>
+                    </div>
+                    <div class="dd-ct-paint-col">
+                      <span class="dd-ct-paint-label">Fill</span>
+                      <button type="button" class="dd-ct-outline-fill-btn" data-ct-paint-target="fill" aria-pressed="false" aria-label="Fill color" title="Fill color">
+                        <span class="dd-ct-outline-fill-swatch dd-ct-fill-swatch dd-ct-outline-fill-swatch--transparent"></span>
+                      </button>
+                    </div>
+                    <span class="dd-ct-paint-divider dd-ct-paint-divider--inline" aria-hidden="true"><i class="ph-fill ph-dots-three-outline-vertical" aria-hidden="true"></i></span>
+                  </div>
+                  <div class="dd-ct-paint-bar__wells">
+                    <div class="dd-ct-color-tray" id="ct-hub-color-tray" role="group" aria-label="Color wells"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="ct-hub-info" id="ct-hub-info" hidden aria-hidden="true">
+              <div class="ct-hub-info__panel" role="dialog" aria-modal="true" aria-labelledby="ct-hub-info-title">
+                <header class="ct-hub-info__head">
+                  <h2 class="ct-hub-info__title" id="ct-hub-info-title">Color Time! Info</h2>
+                  <button type="button" class="ct-hub-info__close" id="ct-hub-info-close" aria-label="Close info panel">&times;</button>
+                </header>
+                <div class="ct-hub-info__body" id="ct-hub-info-body">
+                  <div class="ct-hub-info-two-col">
+                    <aside class="ct-hub-info-nav" aria-label="Info sections">
+                      <h2 class="ct-hub-info-nav-title">Info</h2>
+                      <nav class="ct-hub-info-toc" aria-label="Info table of contents">
+                        <ul>
+                          <li><a href="#ct-info-shortcuts" class="ct-hub-info-toc-link">Keyboard shortcuts</a></li>
+                          <li><a href="#ct-info-guide" class="ct-hub-info-toc-link">Tool Guide</a></li>
+                        </ul>
+                      </nav>
+                    </aside>
+                    <div class="ct-hub-info-doc">
+                      <div class="ct-hub-info-body">
+                        <section id="ct-info-shortcuts" class="ct-hub-info-section">
+                          <h2 class="ct-hub-info-section__title">Keyboard shortcuts</h2>
+                          <div class="dd-settings-shortcuts-wrap" id="dd-settings-shortcuts-wrap">
+                            <div class="dd-settings-shortcuts" id="dd-settings-shortcuts" aria-label="Keyboard shortcuts"></div>
+                          </div>
+                        </section>
+                        <hr class="ct-hub-info-section-divider" aria-hidden="true">
+                        <section id="ct-info-guide" class="ct-hub-info-section">
+                          <h2 class="ct-hub-info-section__title">Color Time! Tool Guide</h2>
+                          <div class="dd-settings-glossary-wrap">
+                            <table class="dd-settings-glossary" aria-label="Color Time Tool Guide">
+                              <tbody id="dd-settings-glossary"></tbody>
+                            </table>
+                          </div>
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="ct-hub-legal" id="ct-hub-legal" hidden aria-hidden="true">
+              <div class="ct-hub-legal__panel" role="dialog" aria-modal="true" aria-labelledby="ct-hub-legal-title">
+                <header class="ct-hub-legal__head">
+                  <h2 class="ct-hub-legal__title" id="ct-hub-legal-title">Privacy &amp; Web Safety</h2>
+                  <button type="button" class="ct-hub-legal__close" id="ct-hub-legal-close" aria-label="Close legal panel">&times;</button>
+                </header>
+                <div class="ct-hub-legal__body" id="ct-hub-legal-body"></div>
+              </div>
+            </div>
+            <div class="dd-hub-panel__dock">
+              <footer class="dd-hub-foot" aria-label="Menu footer">
+                <div class="dd-hub-foot__zone dd-hub-foot__zone--legal">
+                  <button type="button" class="dd-hub-foot__legal" id="dd-hub-privacy" aria-label="Privacy and Web Safety" aria-pressed="false">Privacy &amp; Web Safety</button>
+                  <span class="dd-hub-foot__sep" aria-hidden="true">|</span>
+                  <p class="dd-hub-foot__copyright" id="dd-hub-copyright"></p>
+                </div>
+                <nav class="dd-hub-foot__utils" aria-label="Footer utilities">
+                    <button type="button" class="dd-hub-foot__util" id="dd-hub-contrast" aria-label="Contrast" aria-pressed="false" title="Contrast">
+                      <i class="ph-fill ph-circle-half" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="dd-hub-foot__util notranslate" id="dd-hub-globe" translate="no" aria-label="Languages" title="Globe">
+                      <i class="ph-fill ph-globe" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="dd-hub-foot__util" id="dd-hub-info" aria-label="Info" aria-pressed="false" title="Info">
+                      <i class="ph-fill ph-info" aria-hidden="true"></i>
+                    </button>
+                </nav>
+                <div class="dd-hub-foot__zone dd-hub-foot__zone--social">
+                  <nav class="dd-hub-foot__social" id="dd-hub-social" aria-label="Social channels"></nav>
+                </div>
+              </footer>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ct-save-as" id="ct-save-as-popup" hidden role="dialog" aria-modal="true" aria-labelledby="ct-save-as-title">
+    <form class="ct-save-as__panel" id="ct-save-as-form">
+      <p class="ct-save-as__title" id="ct-save-as-title">Save As</p>
+      <label class="ct-save-as__field">
+        <input type="text" class="ct-save-as__input" id="ct-save-as-name" name="name" autocomplete="off" spellcheck="false" aria-label="File name" placeholder="File name" required>
+      </label>
+      <div class="ct-save-as__formats" role="group" aria-label="Export format">
+        <button type="button" class="ct-save-as__btn ct-save-as__btn--format" id="ct-save-as-png">PNG</button>
+        <button type="button" class="ct-save-as__btn ct-save-as__btn--format ct-save-as__btn--primary" id="ct-save-as-oss">OSS</button>
+      </div>
+      <p class="ct-save-as__hint">Ctrl+S quick-saves <strong>OSS</strong> when a project name is set.</p>
+      <div class="ct-save-as__actions">
+        <button type="button" class="ct-save-as__btn ct-save-as__btn--ghost" id="ct-save-as-cancel">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <script type="module" src="assets/dd.bundle.js"></script>
+  <script>
+    (function tallyPing(APP) {
+      function arrival() {
+        var raw = "";
+        try { raw = document.referrer || ""; } catch (e1) { return "direct"; }
+        if (!raw) return "direct";
+        var host = "";
+        try { host = new URL(raw).hostname.toLowerCase(); } catch (e2) { return "direct"; }
+        if (!host || host === "localhost" || host === "127.0.0.1") return "direct";
+        if (host === "osbard.com" || host.slice(-12) === ".osbard.com") return "internal";
+        if (host.slice(0, 4) === "www.") host = host.slice(4);
+        if (host.length > 64 || host.indexOf("..") !== -1) return "other";
+        if (!/^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$/.test(host)) {
+          return "other";
+        }
+        if (/^\d{1,3}(\.\d{1,3}){3}$/.test(host)) return "other";
+        return host;
+      }
+      function ping() {
+        window.setTimeout(function () {
+          fetch("https://tally.osbard.com/hit", {
+            method: "POST",
+            mode: "cors",
+            credentials: "omit",
+            keepalive: true,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ app: APP, via: arrival() }),
+          }).catch(function () {});
+        }, 7000);
+      }
+      if (document.readyState === "complete") ping();
+      else window.addEventListener("load", ping, { once: true });
+    })("color");
+  </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+/* Color Time! — brand accent (Crayon Creators well 4 · Lobby card · paw · Hub lockup) */
+
+body.dd-shell {
+  --ct-brand-green: #58b42d;
+  /* black SVG → --ct-brand-green */
+  --ct-paw-img-filter: brightness(0) saturate(100%) invert(59%) sepia(61%) saturate(557%) hue-rotate(63deg) brightness(92%) contrast(89%);
+}
+
+/* q400 paw — Lobby Color Time! orb lockup; no glow at rest */
+body.dd-shell .dd-paw-btn img.dd-paw-logo {
+  filter: none;
+  object-fit: contain;
+}
+
+body.dd-shell .dd-paw-btn:hover img.dd-paw-logo,
+body.dd-shell .dd-paw-btn:focus-visible img.dd-paw-logo {
+  filter:
+    drop-shadow(0 0 8px rgba(169, 140, 255, 0.75))
+    drop-shadow(0 0 18px rgba(122, 82, 240, 0.55));
+}
+
+/* q400 paw — brand green on Color Time! tray only (RP + Graphite use dd-layout white paw) */
+body.dd-shell.theme-color-time .dd-paw-btn img:not(.dd-paw-logo) {
+  filter: var(--ct-paw-img-filter);
+}
+
+body.dd-shell.theme-color-time .dd-paw-btn:hover,
+body.dd-shell.theme-color-time .dd-paw-btn:focus-visible {
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--ct-brand-green) 55%, transparent));
+}
+
+body.dd-shell.theme-color-time .dd-paw-btn.dd-paw-btn--open {
+  filter: drop-shadow(0 0 16px color-mix(in srgb, var(--ct-brand-green) 85%, transparent));
+}
+
+body.dd-shell.theme-color-time .dd-paw-btn.dd-paw-btn--open img:not(.dd-paw-logo) {
+  filter: var(--ct-paw-img-filter) drop-shadow(0 0 14px var(--ct-brand-green));
+}
+
+/* Slate tray — gold primer glow on hover / open (paw lockup: ct-logo-slate.png) */
+body.dd-shell.theme-slate .dd-paw-btn:hover,
+body.dd-shell.theme-slate .dd-paw-btn:focus-visible {
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--drydock-primer) 55%, transparent));
+}
+
+body.dd-shell.theme-slate .dd-paw-btn.dd-paw-btn--open {
+  filter: drop-shadow(0 0 16px color-mix(in srgb, var(--drydock-primer) 75%, transparent));
+}
+
+body.dd-shell.theme-slate .dd-paw-btn.dd-paw-btn--open img.dd-paw-logo {
+  filter:
+    drop-shadow(0 0 5px rgba(169, 140, 255, 0.55))
+    drop-shadow(0 0 12px rgba(122, 82, 240, 0.4));
+}
+
+/* HUGLO tray — white glow on paw lockup (ct-logo-glow.png) */
+body.dd-shell.theme-huglo .dd-paw-btn:hover,
+body.dd-shell.theme-huglo .dd-paw-btn:focus-visible {
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.45));
+}
+
+body.dd-shell.theme-huglo .dd-paw-btn.dd-paw-btn--open {
+  filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.65));
+}
+
+body.dd-shell.theme-huglo .dd-paw-btn.dd-paw-btn--open img.dd-paw-logo {
+  filter:
+    drop-shadow(0 0 5px rgba(169, 140, 255, 0.55))
+    drop-shadow(0 0 12px rgba(122, 82, 240, 0.4));
+}

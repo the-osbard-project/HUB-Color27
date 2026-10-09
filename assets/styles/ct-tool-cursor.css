@@ -1,0 +1,60 @@
+/* Color Time! — canvas tool cursors (desktop fine pointer) */
+
+@media (hover: hover) and (pointer: fine) {
+  /* Wand + shape mode beat tool cursors */
+  body.ct-overclock-wand-active #dd-stage-scroll,
+  body.ct-overclock-wand-active #dd-stage-scroll .ct-draw-canvas {
+    cursor: crosshair !important;
+  }
+
+  #dd-stage-scroll.ct-canvas-stack--shape .ct-layer-canvas.is-active {
+    cursor: crosshair;
+  }
+
+  #dd-stage-scroll[data-ct-tool='pencil'],
+  #dd-stage-scroll[data-ct-tool='pencil'] .ct-draw-canvas {
+    cursor: url('../img-ct/cursors/pencil.svg') 5 26, crosshair;
+  }
+
+  #dd-stage-scroll[data-ct-tool='bucket'],
+  #dd-stage-scroll[data-ct-tool='bucket'] .ct-draw-canvas {
+    cursor: url('../img-ct/cursors/bucket.svg') 16 26, cell;
+  }
+
+  #dd-stage-scroll[data-ct-tool='eraser'],
+  #dd-stage-scroll[data-ct-tool='eraser'] .ct-draw-canvas {
+    cursor: url('../img-ct/cursors/eraser.svg') 16 16, grab;
+  }
+
+  #dd-stage-scroll[data-ct-tool='crayon'],
+  #dd-stage-scroll[data-ct-tool='crayon'] .ct-draw-canvas {
+    cursor: url('../img-ct/cursors/crayon.svg') 6 26, crosshair;
+  }
+
+  #dd-stage-scroll[data-ct-tool='pastel'],
+  #dd-stage-scroll[data-ct-tool='pastel'] .ct-draw-canvas {
+    cursor: url('../img-ct/cursors/pastel.svg') 16 26, crosshair;
+  }
+
+  #dd-stage-scroll[data-ct-tool='marker'],
+  #dd-stage-scroll[data-ct-tool='marker'] .ct-draw-canvas {
+    cursor: url('../img-ct/cursors/marker.svg') 14 26, crosshair;
+  }
+
+  #dd-stage-scroll[data-ct-tool='star'],
+  #dd-stage-scroll[data-ct-tool='star'] .ct-draw-canvas {
+    cursor: url('../img-ct/cursors/star.svg') 16 16, copy;
+  }
+
+  #dd-stage-scroll[data-ct-tool='osbard'],
+  #dd-stage-scroll[data-ct-tool='osbard'] .ct-draw-canvas {
+    cursor: url('../img-ct/cursors/osbard.svg') 8 16, pointer;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  #dd-stage-scroll[data-ct-tool],
+  #dd-stage-scroll[data-ct-tool] .ct-draw-canvas {
+    cursor: auto;
+  }
+}

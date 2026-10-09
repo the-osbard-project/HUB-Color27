@@ -1,0 +1,18 @@
+/* Drydock hull — grayscale tokens (forks add theme-{app}) */
+
+body.dd-shell.theme-drydock {
+  --drydock-hull: #2a2f38;
+  --drydock-hull-light: #353b46;
+  --drydock-hull-dark: #1e2229;
+  --drydock-primer: #8a8f98;
+  --drydock-rail-edge: #3d4450;
+  --drydock-stage-bg: #f5f5f5;
+  --drydock-stage-mat: #4a5058;
+  --drydock-icon: #d8dce3;
+  --drydock-icon-dim: #9aa0a9;
+  --drydock-hub-bg: #242830;
+  --drydock-hub-border: #5a6270;
+  --drydock-hub-glow: #c8cdd6;
+  --drydock-hub-rim: #f5f5f5;
+  --dd-letterbox: #231245;
+}

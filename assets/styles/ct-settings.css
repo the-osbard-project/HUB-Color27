@@ -1,0 +1,156 @@
+/* Color Time! — Hub Gear settings + glossary */
+
+.dd-settings-shortcuts-wrap {
+  margin: 0 0 0.55rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--drydock-rail-edge) 65%, transparent);
+  max-height: min(38vh, 16rem);
+  overflow: auto;
+}
+
+.dd-settings-shortcuts__heading {
+  margin: 0.45rem 0 0.2rem;
+  font-size: 0.72em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--drydock-icon-dim);
+}
+
+.dd-settings-shortcuts__heading:first-child {
+  margin-top: 0.15rem;
+}
+
+.dd-settings-shortcuts__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.18rem 0.55rem;
+  margin-bottom: 0.15rem;
+}
+
+.dd-settings-shortcuts__item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.dd-settings-shortcuts__keys {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 0.12rem;
+}
+
+.dd-settings-shortcuts__key {
+  display: inline-block;
+  min-width: 1.15em;
+  padding: 0.06rem 0.28rem;
+  border-radius: 0.22rem;
+  border: 1px solid color-mix(in srgb, var(--drydock-rail-edge) 80%, transparent);
+  background: color-mix(in srgb, var(--drydock-rail) 55%, transparent);
+  font-family: inherit;
+  font-size: 0.82em;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
+  color: var(--drydock-icon);
+}
+
+.dd-settings-shortcuts__sep {
+  font-size: 0.75em;
+  color: var(--drydock-icon-dim);
+  opacity: 0.75;
+}
+
+.dd-settings-shortcuts__label {
+  font-size: 0.95em;
+  font-weight: 300;
+  line-height: 1.25;
+  color: var(--drydock-icon-dim);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .dd-settings-shortcuts__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.dd-settings-glossary-wrap {
+  margin-top: 0.45rem;
+  padding-top: 0.45rem;
+  border-top: 1px solid color-mix(in srgb, var(--drydock-rail-edge) 65%, transparent);
+  max-height: min(52vh, 22rem);
+  overflow: auto;
+}
+
+.dd-settings-tool-guide {
+  margin: 0 0 0.35rem;
+}
+
+.dd-settings-glossary {
+  width: 100%;
+  border-collapse: collapse;
+  line-height: 1.35;
+}
+
+.dd-settings-glossary__section-row .dd-settings-glossary__section {
+  padding: 0.55rem 0 0.2rem;
+  border: none;
+  font-size: 0.78em;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: left;
+  color: var(--drydock-icon-dim);
+  vertical-align: top;
+}
+
+.dd-settings-glossary__section-row:first-child .dd-settings-glossary__section {
+  padding-top: 0.15rem;
+}
+
+.dd-settings-glossary__intro {
+  margin: 0.28rem 0 0;
+  font-size: 1.05em;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+  line-height: 1.4;
+  color: var(--drydock-icon);
+}
+
+.dd-settings-glossary__term {
+  width: 34%;
+  padding: 0.22rem 0.45rem 0.22rem 0;
+  border: none;
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-align: left;
+  vertical-align: top;
+  color: var(--drydock-icon);
+  white-space: nowrap;
+}
+
+.dd-settings-glossary__def {
+  padding: 0.22rem 0;
+  border: none;
+  font-size: 1.15rem;
+  font-weight: 300;
+  color: var(--drydock-icon-dim);
+  vertical-align: top;
+}
+
+.dd-settings-popup__section {
+  margin: 0.15rem 0 0.35rem;
+  padding-top: 0;
+  border-top: none;
+  font-size: 0.78em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--drydock-icon-dim);
+}

@@ -1,0 +1,219 @@
+/* Color Time! — Popcorn & Candy celebration (ported from Studio theater-lights.css) */
+
+.ct-welcome-celebration {
+  position: fixed;
+  inset: 0;
+  z-index: 610;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 1;
+  transition: opacity 1.65s ease-out;
+}
+
+.ct-welcome-celebration--out {
+  opacity: 0;
+}
+
+.ct-theater-popcorn {
+  position: fixed;
+  inset: 0;
+  z-index: 600;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ct-theater-popcorn__piece {
+  position: absolute;
+  font-size: clamp(2.125rem, 5.5vw, 3.375rem);
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+.ct-theater-popcorn--opening .ct-theater-popcorn__piece {
+  font-size: 3.375rem;
+}
+
+.ct-theater-popcorn--save {
+  --ct-celebration-piece-size: 4.625rem;
+  --ct-celebration-bar-w: 1.35rem;
+  --ct-celebration-bar-h: 2.25rem;
+}
+
+.ct-theater-popcorn--save .ct-theater-popcorn__piece {
+  font-size: var(--ct-celebration-piece-size);
+}
+
+.ct-theater-popcorn__piece--toss {
+  bottom: var(--ct-pop-origin, 9%);
+  left: var(--ct-pop-left, 50%);
+  animation: ct-theater-popcorn-toss var(--ct-pop-dur, 1.8s) cubic-bezier(0.33, 0.12, 0.55, 1)
+    var(--ct-pop-delay, 0s) forwards;
+}
+
+.ct-theater-popcorn__piece--fall {
+  top: var(--ct-pop-top, -6%);
+  left: var(--ct-pop-left, 50%);
+  animation: ct-theater-popcorn-fall var(--ct-pop-dur, 1.5s) ease-in var(--ct-pop-delay, 0s) forwards;
+}
+
+.ct-theater-popcorn__piece--spill {
+  bottom: var(--ct-pop-origin, 7%);
+  left: var(--ct-pop-left, 50%);
+  animation: ct-theater-popcorn-spill var(--ct-pop-dur, 1.25s) ease-out var(--ct-pop-delay, 0s) forwards;
+}
+
+@keyframes ct-theater-popcorn-toss {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.55) rotate(0deg);
+  }
+  10% {
+    opacity: 1;
+  }
+  42% {
+    transform: translate3d(var(--ct-pop-drift-mid, 0px), calc(-1 * var(--ct-pop-rise, 32vh)), 0)
+      scale(1.05) rotate(var(--ct-pop-rot-mid, 95deg));
+  }
+  72% {
+    opacity: 0.95;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--ct-pop-drift, 0px), var(--ct-pop-drop, 14vh), 0) scale(0.8)
+      rotate(var(--ct-pop-rot-end, 240deg));
+  }
+}
+
+@keyframes ct-theater-popcorn-fall {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.65) rotate(0deg);
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--ct-pop-drift, 0px), 105vh, 0) scale(1) rotate(200deg);
+  }
+}
+
+@keyframes ct-theater-popcorn-spill {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.5) rotate(-20deg);
+  }
+  8% {
+    opacity: 1;
+  }
+  35% {
+    transform: translate3d(var(--ct-pop-drift-mid, 0px), calc(-1 * var(--ct-pop-rise, 12vh)), 0)
+      scale(0.95) rotate(40deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--ct-pop-drift, 0px), var(--ct-pop-drop, 8vh), 0) scale(0.75)
+      rotate(160deg);
+  }
+}
+
+.ct-theater-confetti {
+  position: fixed;
+  inset: 0;
+  z-index: 601;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ct-theater-confetti__piece {
+  position: absolute;
+  top: var(--ct-conf-top, -8%);
+  left: var(--ct-conf-left, 50%);
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+  animation: ct-theater-confetti-fall var(--ct-conf-dur, 2s) ease-in var(--ct-conf-delay, 0s) forwards;
+}
+
+.ct-theater-confetti__piece--spark {
+  font-size: clamp(1.875rem, 5vw, 3.125rem);
+  text-shadow: 0 0 6px rgba(255, 240, 180, 0.55);
+}
+
+.ct-theater-confetti--save {
+  --ct-celebration-piece-size: 4.625rem;
+  --ct-celebration-bar-w: 1.35rem;
+  --ct-celebration-bar-h: 2.25rem;
+}
+
+.ct-theater-confetti--save .ct-theater-confetti__piece--spark {
+  font-size: var(--ct-celebration-piece-size);
+}
+
+.ct-theater-confetti--save .ct-theater-confetti__piece--rect {
+  width: var(--ct-celebration-bar-w);
+  height: var(--ct-celebration-bar-h);
+  border-radius: 2px;
+}
+
+.ct-theater-confetti__piece--rect {
+  display: block;
+  width: 1.05rem;
+  height: 1.8rem;
+  border-radius: 1px;
+  background: hsl(var(--ct-conf-hue, 45) 90% 58%);
+  box-shadow: 0 0 4px hsl(var(--ct-conf-hue, 45) 95% 72% / 0.65);
+}
+
+@keyframes ct-theater-confetti-fall {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(0.6);
+  }
+  8% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--ct-conf-drift, 0px), 108vh, 0) rotate(var(--ct-conf-spin, 360deg))
+      scale(1);
+  }
+}
+
+/* Save — warm spotlight wash on the art (CSS radial; no mask asset). */
+.ct-stage-spotlight-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(
+      ellipse 88% 96% at 50% 36%,
+      rgba(255, 248, 228, 0.82) 0%,
+      rgba(255, 232, 188, 0.42) 38%,
+      transparent 72%
+    );
+  mix-blend-mode: screen;
+  transition: opacity 0.45s ease;
+}
+
+.ct-stage-spotlight-overlay--on {
+  opacity: 1;
+}
+
+.ct-stage-spotlight-overlay--off {
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ct-theater-popcorn,
+  .ct-theater-confetti,
+  .ct-welcome-celebration,
+  .ct-stage-spotlight-overlay {
+    display: none;
+  }
+}
