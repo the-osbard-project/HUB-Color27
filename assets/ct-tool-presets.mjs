@@ -58,10 +58,10 @@ export const CT_TOOL_PRESETS = Object.freeze({
 export const CT_STAR_FX_PRESETS = Object.freeze({
   brushy: { strokeWidth: 22, pressure: 75, strokeColor: '#6c4ac8' },
   dotty: { strokeWidth: 75, pressure: 0, strokeColor: '#baa846', amount: 40 },
-  starry: { strokeWidth: 50, pressure: 0, strokeColor: '#baa846' },
+  starry: { strokeWidth: 30, pressure: 0, strokeColor: '#baa846' },
   watery: { strokeWidth: 40, pressure: 28, strokeColor: '#0087f9', amount: 100 },
-  washy: { strokeWidth: 70, pressure: 28, strokeColor: '#1e88e5', amount: 100 },
-  sunny: { strokeWidth: 88, pressure: 28, strokeColor: '#FFAB40', amount: 100 },
+  washy: { strokeWidth: 100, pressure: 28, strokeColor: '#1e88e5', amount: 100 },
+  sunny: { strokeWidth: 100, pressure: 28, strokeColor: '#FFAB40', amount: 100 },
   foggy: { strokeWidth: 50, pressure: 0, strokeColor: '#baa846' },
   furry: { strokeWidth: 50, pressure: 0, strokeColor: '#C5703F' },
   glittery: { strokeWidth: 12, pressure: 3, smoothing: 7, strokeColor: '#7B2D8E', endcap: 'round', amount: 100 },

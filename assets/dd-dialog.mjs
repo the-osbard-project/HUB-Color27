@@ -64,13 +64,6 @@ function mountDdDialog(opts) {
       }
     }
 
-    const okBtn = document.createElement('button');
-    okBtn.type = 'button';
-    okBtn.className = 'dd-dialog__btn dd-dialog__btn--primary';
-    okBtn.textContent = opts.okLabel ?? 'OK';
-    okBtn.addEventListener('click', () => close(true));
-    actions.appendChild(okBtn);
-
     /** @type {HTMLButtonElement | null} */
     let cancelBtn = null;
     if (showCancel) {
@@ -81,6 +74,13 @@ function mountDdDialog(opts) {
       cancelBtn.addEventListener('click', () => close(false));
       actions.appendChild(cancelBtn);
     }
+
+    const okBtn = document.createElement('button');
+    okBtn.type = 'button';
+    okBtn.className = 'dd-dialog__btn dd-dialog__btn--primary';
+    okBtn.textContent = opts.okLabel ?? 'OK';
+    okBtn.addEventListener('click', () => close(true));
+    actions.appendChild(okBtn);
 
     parts.push(actions);
     panel.append(...parts);
