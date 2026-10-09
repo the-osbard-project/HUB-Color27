@@ -17,8 +17,9 @@
   --ct-icon-eraser: #f07a9a;
   --ct-icon-peeka: #c4b5fd;
   --ct-icon-fullscreen: #94a3b8;
-  /* CT-LAB locked @ 96px q400 — scale with row height on other tokens */
-  --ct-q400-tool: calc(var(--dd-q400-h) * 60 / 96);
+  /* CT-LAB locked @ 96px q400 — scale with row height on other tokens.
+     Popcorn tools: +0.08rem each side on tt (9 icons). */
+  --ct-q400-tool: calc(var(--dd-q400-h) * 60 / 96 + 0.16rem);
   --ct-q400-glyph: calc(var(--dd-q400-h) * 48 / 96);
   --ct-toe-tt: calc(var(--dd-q400-h) * 41 / 96);
   --ct-well-w: calc(var(--dd-q400-h) * 29 / 96);
@@ -62,14 +63,14 @@ html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) .dd-viewport
   display: none;
 }
 
-/* Wide landscape — tight popcorn · 8px well gaps · hug paw */
+/* Wide landscape — popcorn 0.08rem each side · 8px well gaps · hug paw */
 
 html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body[data-dd-token="16:9"] .dd-viewport #q400,
 html:not(.dd-layout--phone-stack):not(.dd-layout--phone-wide-stack) body[data-dd-token="16:10"] .dd-viewport #q400 {
-  --ct-q400-tool-gap: 0;
+  --ct-q400-tool-gap: 0.16rem; /* 0.08rem each side of the 9 popcorn icons */
   --ct-q400-well-gap: 0.5rem; /* 8px */
   --ct-q400-wing-band: max(
-    calc(9 * var(--ct-q400-tool)),
+    calc(9 * var(--ct-q400-tool) + 8 * var(--ct-q400-tool-gap)),
     calc(var(--ct-q400-tool) + 12 * var(--ct-toe-tt) + 11 * var(--ct-q400-well-gap))
   );
   column-gap: 1rem;

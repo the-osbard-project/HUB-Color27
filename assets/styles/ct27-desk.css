@@ -179,7 +179,8 @@ body:is([data-dd-token='4:3'], [data-dd-token='16:9']) .ct-stage-gutter .ct-stag
 
 .dd-q400-wing--ct27 {
   justify-content: flex-end;
-  gap: 0;
+  /* 0.08rem each side of the 9 popcorn icons (= 0.16rem between) */
+  gap: 0.16rem;
 }
 
 .dd-ct-well {
