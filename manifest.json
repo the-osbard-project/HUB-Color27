@@ -1,7 +1,7 @@
 {
   "name": "Color",
   "short_name": "Color",
-  "description": "Osbard's Storybook Studio Color Time Machine! — a coloring and drawing app. Create your own pages or color Osbard's art for Made of Arrt!! masterpieces.",
+  "description": "Osbard's Storybook Studio Color Time Machine! — a color-by-number and drawing app. Create your own pages or color Osbard's art for Made of Arrt!! masterpieces.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
