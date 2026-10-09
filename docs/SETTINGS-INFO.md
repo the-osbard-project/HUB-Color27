@@ -52,7 +52,7 @@ Coloring and drawing on the Drydock hull — 840×840 desk canvas by default (26
 
 | Term | Definition |
 |------|------------|
-| **Set** | Shape tools — circle, square, triangle, polygon, line, and curve. |
+| **Shapes** | Shape tools — circle, square, triangle, polygon, line, and curve. |
 | **Cast** | Stage characters (work in progress). |
 | **Props** | Stage props (work in progress). |
 | **Overclock Tools** | Pro toolbox — Flatten Layer · Flatten Canvas · Copy · Paste · Grid · Snap · Wand · Select · **300 PPI Print-ready** (bottom row; new project only). |

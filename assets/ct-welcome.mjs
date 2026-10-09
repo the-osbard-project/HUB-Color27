@@ -5,12 +5,13 @@ import {
   CT_HUB_TAGLINE_WORDS,
   CT_TAGLINE_BPM,
 } from './ct-hub-tagline.mjs';
-import { getCtHourPalette, getCtTrayByHour } from './ct-clock-trays.mjs';
+import { getCtTrayByHour } from './ct-clock-trays.mjs';
+import { getCtColorTray } from './ct-color-trays.mjs';
 import { renderCtClockFace } from './ct-popup-clock-shared.mjs';
 import { playOpeningCelebration } from './ct-theater.mjs';
 import { maybeShowPhoneDeskNotice } from './ct-phone-desk-notice.mjs';
 
-const WELCOME_SESSION_KEY = 'ct-welcome-shown-v6';
+const WELCOME_SESSION_KEY = 'ct-welcome-shown-v7';
 const START_DELAY_MS = 420;
 const BEAT_MS = Math.round(60000 / CT_TAGLINE_BPM);
 const SETTLE_MS = Math.round(BEAT_MS / 2);
@@ -30,12 +31,10 @@ function randomTrayColor() {
   return colors[Math.floor(Math.random() * colors.length)] || '#f5c842';
 }
 
-/** One well per hour — first color from that hour’s tray. */
+/** Default crayon tray — red → orange → … → brown → black on hours 1–12. */
 function welcomeClockMirror() {
-  return Array.from({ length: 12 }, (_, i) => {
-    const palette = getCtHourPalette(i + 1);
-    return palette[0] || '#888888';
-  });
+  const wells = getCtColorTray('crayon:default')?.wells ?? [];
+  return Array.from({ length: 12 }, (_, i) => wells[i]?.color || '#888888');
 }
 
 function buildWelcome() {

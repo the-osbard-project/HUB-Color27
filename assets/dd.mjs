@@ -10,6 +10,7 @@ import { initCtStageView, getCtStageView } from './ct-stage-view.mjs';
 import { initCtStageDials } from './ct-stage-dials.mjs';
 import { attachStageChrome, toggleCtStageFocus, syncCtRailsToggleUi } from './ct-stage-chrome.mjs';
 import { initCtRecenterHint } from './ct-recenter-hint.mjs';
+import { initCtCanvasTurn } from './ct-canvas-turn.mjs';
 import { initCanvasColor } from './ct-canvas-color.mjs';
 import { initCtLayerOpacity } from './ct-layer-opacity.mjs';
 import { initCtPaintBar } from './ct-paint-bar.mjs';
@@ -254,6 +255,7 @@ attachStageChrome({
   },
 });
 initCtRecenterHint();
+initCtCanvasTurn();
 initCtPaintBar();
 initCtToolSelect();
 initCanvasColor();

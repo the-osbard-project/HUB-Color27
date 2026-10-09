@@ -26,9 +26,9 @@
   <meta name="twitter:image:alt" content="Osbard's Color Time! - Work In Progress">
   <title>Osbard's Color Time! - Untitled</title>
   <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="assets/img-ct/favicon-512-ct.png?v=paw11" type="image/png" sizes="512x512">
-  <link rel="icon" href="assets/img-ct/favicon-192-ct.png?v=paw11" type="image/png" sizes="192x192">
-  <link rel="apple-touch-icon" href="assets/img-ct/apple-touch-icon-ct.png?v=paw11" sizes="180x180">
+  <link rel="icon" href="assets/img-ct/favicon-512-ct.png?v=paw607" type="image/png" sizes="512x512">
+  <link rel="icon" href="assets/img-ct/favicon-192-ct.png?v=paw607" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="assets/img-ct/apple-touch-icon-ct.png?v=paw607" sizes="180x180">
   <link rel="preload" href="assets/img-ct/logo-512-ct.png" as="image" type="image/png" fetchpriority="high">
   <link rel="preload" href="assets/fonts/fredoka-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/fredoka-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -105,6 +105,17 @@
             </button>
           </div>
           <p class="ct-recenter-hint" id="ct-recenter-hint" hidden aria-live="polite">Press 7 to re-center canvas.</p>
+          <div class="ct-canvas-turn" id="ct-canvas-turn" role="group" aria-label="Rotate canvas">
+            <button type="button" class="ct-canvas-turn__btn" data-ct-turn="left" title="Rotate canvas left — 4" aria-label="Rotate canvas left — 4">
+              <i class="ph-fill ph-arrow-bend-left-down" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="ct-canvas-turn__btn" data-ct-turn="center" title="Recenter canvas — 7" aria-label="Recenter canvas — 7">
+              <i class="ph-fill ph-arrow-line-up" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="ct-canvas-turn__btn" data-ct-turn="right" title="Rotate canvas right — 6" aria-label="Rotate canvas right — 6">
+              <i class="ph-fill ph-arrow-bend-right-down" aria-hidden="true"></i>
+            </button>
+          </div>
           <div class="ct-stage-gutter ct-stage-gutter--right">
             <div class="ct-vslider-stack" role="group" aria-label="Opacity, line, and Ro' Tater">
               <div class="ct-vslider-stack__faders">
@@ -170,7 +181,7 @@
           <div class="dd-rail-main dd-rail-main--layers">
             <section class="dd-rail-section" aria-label="Arrt">
               <div class="dd-rail-actions" role="toolbar" aria-label="Arrt">
-                <button type="button" class="dd-rail-btn" id="ct-btn-set" aria-label="Set" aria-expanded="false" aria-controls="ct-set-popup"><i class="ph-fill ph-shapes" aria-hidden="true"></i></button>
+                <button type="button" class="dd-rail-btn" id="ct-btn-set" aria-label="Shapes" aria-expanded="false" aria-controls="ct-set-popup" title="Shapes"><i class="ph-fill ph-shapes" aria-hidden="true"></i></button>
                 <button type="button" class="dd-rail-btn" id="ct-btn-overclock" aria-label="Overclock Tools" aria-expanded="false" aria-controls="ct-overclock-popup" title="Overclock Tools"><i class="ph-fill ph-gauge" aria-hidden="true"></i></button>
               </div>
               <div class="ct-layer-well">
@@ -394,9 +405,9 @@
         </div>
       </div>
 
-      <div class="q300-shapes-popup" id="ct-set-popup" hidden role="dialog" aria-label="Set">
+      <div class="q300-shapes-popup" id="ct-set-popup" hidden role="dialog" aria-label="Shapes">
         <div class="q300-shapes-popup__head">
-          <p class="q300-shapes-popup__title">Set</p>
+          <p class="q300-shapes-popup__title">Shapes</p>
           <button type="button" class="q300-shapes-popup__close" aria-label="Close"><i class="ph-fill ph-x" aria-hidden="true"></i></button>
         </div>
         <div class="q300-shapes-popup__grid" role="group" aria-label="Shape tools">

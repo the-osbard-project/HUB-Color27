@@ -24,7 +24,7 @@ export const CT_SETTINGS_GLOSSARY = [
   { type: 'term', term: 'Line', def: 'Right gutter slider — brush size for the active draw tool.' },
   { type: 'term', term: 'Rainbow', def: 'Page-color rainbow — icon on the backdrop thumb (desk) or paw row (phone); opens a slider (white → rainbow → black). On phone, shares the full-width horizontal sheet with the other paw-row faders.' },
   { type: 'section', label: 'Arrt' },
-  { type: 'term', term: 'Set', def: 'Shape tools — circle, square, triangle, polygon, line, and curve.' },
+  { type: 'term', term: 'Shapes', def: 'Shape tools — circle, square, triangle, polygon, line, and curve.' },
   { type: 'term', term: 'Cast', def: 'Stage characters (work in progress).' },
   { type: 'term', term: 'Props', def: 'Stage props (work in progress).' },
   {
