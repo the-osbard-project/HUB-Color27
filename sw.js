@@ -1,4 +1,4 @@
-const CACHE = 'color-time-v385';
+const CACHE = 'color-time-v386';
 const ASSETS = [
   './',
   './index.html',
