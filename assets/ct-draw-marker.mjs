@@ -24,8 +24,8 @@ import { bindCtPaintTarget } from './ct-draw-paint-target.mjs';
 import { isSubstantialStroke } from './draw/ct-stroke-commit.mjs';
 import { getCtOverclockMix, getCtOverclockSmudge } from './ct-overclock.mjs';
 
-/** Studio MARKER_TIP_PRESETS.brush */
-const MARKER_BRUSH_WIDTH = 12;
+/** Studio MARKER_TIP_PRESETS.brush — CT27 default Line 14 */
+const MARKER_BRUSH_WIDTH = 14;
 const MARKER_BRUSH_PRESSURE = 75;
 const MARKER_DEFAULT_INK = 'watery';
 const MARKER_DEFAULT_TIP = 'brush';

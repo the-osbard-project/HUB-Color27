@@ -20,19 +20,23 @@
 }
 
 .ct-tool-popup__head {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 0.35rem;
   margin-bottom: 0.45rem;
+  min-height: 1.75rem;
 }
 
 .ct-tool-popup__title {
   margin: 0;
+  padding: 0 1.85rem;
   font-size: 1rem;
   font-weight: 600;
   color: var(--drydock-hub-glow);
   letter-spacing: 0.02em;
+  text-align: center;
 }
 
 .ct-tool-popup__title--star {
@@ -40,6 +44,10 @@
 }
 
 .ct-tool-popup__close {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -216,6 +224,3 @@
   color: transparent;
 }
 
-.ct-tool-popup__head {
-  position: relative;
-}

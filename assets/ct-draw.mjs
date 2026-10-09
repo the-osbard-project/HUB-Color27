@@ -177,7 +177,10 @@ export function refreshBakedStrokesOnLayer(layerIndex) {
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   ctx.restore();
-  if (getStrokesForLayer(layerIndex).some((s) => s.tool === 'marker' || (s.tool === 'star' && s.fx === 'brushy' && s.markerCommitMs != null))) {
+  if (getStrokesForLayer(layerIndex).some((s) => (
+    s.tool === 'marker'
+    || (s.tool === 'star' && (s.fx === 'brushy' || (s.fx === 'watery' && Number(s.wateryV) === 1)) && s.markerCommitMs != null)
+  ))) {
     beginLayerReplay(layerIndex, CT_CANVAS_W, CT_CANVAS_H);
   }
   for (const stroke of getStrokesForLayer(layerIndex)) {
@@ -211,7 +214,12 @@ function refillBackground() {
 
 export function setCtStrokes(next, { background } = {}) {
 
-  strokes = [...next];
+  strokes = next.map((s) => {
+    if (s?.tool === 'star' && s.fx === 'watery' && Number(s.wateryV) !== 1) {
+      return { ...s, fx: 'washy' };
+    }
+    return s;
+  });
 
   if (!getDrawCanvas() || !getDrawContext()) return;
 
@@ -237,7 +245,7 @@ export function setCtStrokes(next, { background } = {}) {
       markerReplaySeq += 1;
     } else if (
       stroke.tool === 'star' &&
-      stroke.fx === 'brushy' &&
+      (stroke.fx === 'brushy' || (stroke.fx === 'watery' && Number(stroke.wateryV) === 1)) &&
       stroke.markerCommitMs == null
     ) {
       replayStroke({

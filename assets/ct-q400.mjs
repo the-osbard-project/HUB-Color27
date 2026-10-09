@@ -72,11 +72,11 @@ export function closeToolPopup() {
   restoreCtDialogFocus(trigger);
 }
 
-/** @returns {string} active Color Star! brush-fx id (default starry) */
+/** @returns {string} active Color Star! brush-fx id (default Brushy) */
 export function getActiveStarBrushFx() {
   const active = document.querySelector('#ct-star-popup .ct-tool-popup__opt--active');
   const fx = active instanceof HTMLElement ? active.dataset.brushFx : null;
-  return fx || 'starry';
+  return fx || 'brushy';
 }
 
 /** @param {string} brushFx */
@@ -184,10 +184,10 @@ function initStarRainbowButton() {
 export function initCtQ400() {
   initToolPopup({ triggerId: 'ct-btn-star', popupId: 'ct-star-popup' });
   initStarRainbowButton();
-  const starryOpt = document.querySelector('#ct-star-popup [data-brush-fx="starry"]');
-  if (starryOpt instanceof HTMLElement) {
-    starryOpt.classList.add('ct-tool-popup__opt--active');
-    starryOpt.setAttribute('aria-pressed', 'true');
+  const brushyOpt = document.querySelector('#ct-star-popup [data-brush-fx="brushy"]');
+  if (brushyOpt instanceof HTMLElement) {
+    brushyOpt.classList.add('ct-tool-popup__opt--active');
+    brushyOpt.setAttribute('aria-pressed', 'true');
   }
   initColorTray();
   initGlitterStarIcon();

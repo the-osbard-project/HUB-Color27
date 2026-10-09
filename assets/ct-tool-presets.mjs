@@ -20,48 +20,48 @@
 /** @type {Record<string, CtToolPreset>} */
 export const CT_TOOL_PRESETS = Object.freeze({
   pencil: {
-    strokeWidth: 12,
+    strokeWidth: 7,
     pressure: 3,
-    strokeColor: '#ef233c',
+    strokeColor: '#EE204D',
     wellTexture: 'pencil',
   },
   pastel: {
     strokeWidth: 22,
     pressure: 0,
-    strokeColor: '#FFD600',
+    strokeColor: '#F5C542',
     wellTexture: 'plain',
   },
   crayon: {
-    strokeWidth: 12,
+    strokeWidth: 16,
     pressure: 0,
-    strokeColor: '#58b42d',
+    strokeColor: '#EE204D',
     wellTexture: 'crayon',
   },
   marker: {
-    strokeWidth: 12,
+    strokeWidth: 14,
     pressure: 75,
-    strokeColor: '#0087f9',
+    strokeColor: '#1C99FF',
     markerInk: 'watery',
     markerTip: 'brush',
     wellTexture: 'watery',
   },
   star: {
-    strokeWidth: 50,
-    pressure: 0,
-    strokeColor: '#baa846',
-    wellTexture: 'starry',
-    brushFx: 'starry',
+    strokeWidth: 22,
+    pressure: 75,
+    strokeColor: '#6c4ac8',
+    wellTexture: 'plain',
+    brushFx: 'brushy',
   },
 });
 
 /** Studio `BRUSH_FX_HUD_PRESETS` — Color Star! per-mode HUD. */
 export const CT_STAR_FX_PRESETS = Object.freeze({
-  brushy: { strokeWidth: 18, pressure: 75, strokeColor: '#baa846' },
+  brushy: { strokeWidth: 22, pressure: 75, strokeColor: '#6c4ac8' },
   dotty: { strokeWidth: 75, pressure: 0, strokeColor: '#baa846', amount: 40 },
   starry: { strokeWidth: 50, pressure: 0, strokeColor: '#baa846' },
-  watery: { strokeWidth: 100, pressure: 28, strokeColor: '#0087f9', amount: 100 },
-  washy: { strokeWidth: 100, pressure: 28, strokeColor: '#1e88e5', amount: 100 },
-  sunny: { strokeWidth: 100, pressure: 28, strokeColor: '#FFAB40', amount: 100 },
+  watery: { strokeWidth: 40, pressure: 28, strokeColor: '#0087f9', amount: 100 },
+  washy: { strokeWidth: 70, pressure: 28, strokeColor: '#1e88e5', amount: 100 },
+  sunny: { strokeWidth: 88, pressure: 28, strokeColor: '#FFAB40', amount: 100 },
   foggy: { strokeWidth: 50, pressure: 0, strokeColor: '#baa846' },
   furry: { strokeWidth: 50, pressure: 0, strokeColor: '#C5703F' },
   glittery: { strokeWidth: 12, pressure: 3, smoothing: 7, strokeColor: '#7B2D8E', endcap: 'round', amount: 100 },
@@ -71,7 +71,7 @@ export const CT_STAR_FX_PRESETS = Object.freeze({
 
 /** @param {string} fx */
 export function getCtStarFxPreset(fx) {
-  return CT_STAR_FX_PRESETS[fx] ?? CT_STAR_FX_PRESETS.starry;
+  return CT_STAR_FX_PRESETS[fx] ?? CT_STAR_FX_PRESETS.brushy;
 }
 
 /** @param {string} toolKey */

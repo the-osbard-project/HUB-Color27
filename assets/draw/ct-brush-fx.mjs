@@ -1,12 +1,13 @@
 /** Color Time! — brush FX orchestrator (Studio brush-fx.mjs; Color Star! popup modes). */
 
-import { CT_CANVAS_SIZE } from '../ct-canvas.mjs';
+import { CT_CANVAS_W, CT_CANVAS_H } from '../ct-canvas.mjs';
 import { drawBrushy } from './ct-brushy.mjs';
 import { drawDotty } from './ct-brush-fx/dotty.mjs';
 import { drawFurry } from './ct-brush-fx/furry.mjs';
 import { drawStarry } from './ct-brush-fx/starry.mjs';
 import { drawSunny } from './ct-brush-fx/sunny.mjs';
 import { drawWashy } from './ct-brush-fx/washy.mjs';
+import { drawWatery, setWateryBarrierDrawer } from './ct-brush-fx/watery.mjs';
 import { drawGlowy } from './ct-brush-fx/glowy.mjs';
 import { drawGlittery } from './ct-brush-fx/glittery.mjs';
 import { drawInky } from './ct-brush-fx/inky.mjs';
@@ -31,15 +32,17 @@ export const BRUSH_FX_IDS = [
 
 const BRUSH_FX_SUPPORTED = new Set(BRUSH_FX_IDS);
 
-const BRUSH_FX_MIX_FX = new Set(['dotty', 'sunny', 'washy', 'watery']);
+const BRUSH_FX_MIX_FX = new Set(['dotty', 'sunny', 'washy']);
 
 /** Star FX modes driven by Blend/Splatter (amount); Starry/Glowy/Furry/Inky unchanged. */
-const STAR_FX_OVERCLOCK_MIX = new Set([...BRUSH_FX_MIX_FX, 'glittery']);
+const STAR_FX_OVERCLOCK_MIX = new Set([...BRUSH_FX_MIX_FX, 'glittery', 'watery']);
 
 /** @param {string | undefined} fx */
 export function starFxUsesOverclockMix(fx) {
   return STAR_FX_OVERCLOCK_MIX.has(normalizeBrushFx(fx));
 }
+
+export { setWateryBarrierDrawer };
 
 /**
  * @param {string | undefined} fx
@@ -77,8 +80,8 @@ function resolveBrushyMarkerWetOpts(stroke, livePreview = false) {
     layerIndex: Number.isFinite(Number(stroke._layerIndex ?? stroke.layerIndex))
       ? Number(stroke._layerIndex ?? stroke.layerIndex)
       : 0,
-    logicalW: CT_CANVAS_SIZE,
-    logicalH: CT_CANVAS_SIZE,
+    logicalW: CT_CANVAS_W,
+    logicalH: CT_CANVAS_H,
     commitMs: stroke.markerCommitMs,
     wetWindowSec: stroke.wetWindowSec ?? WET_WINDOW_SEC_DEFAULT,
     stamp: !livePreview,
@@ -109,15 +112,18 @@ function resolveBrushyMarkerWetOpts(stroke, livePreview = false) {
  *   wetWindowSec?: number,
  *   layerIndex?: number,
  *   markerWetOpts?: object | null,
+ *   wateryV?: number,
  * }} stroke
  */
 export function drawBrushFxStroke(ctx, stroke) {
   const points = stroke.points || [];
   if (points.length < 2) return;
-  const fx = normalizeBrushFx(stroke.fx);
+  let fx = normalizeBrushFx(stroke.fx);
+  /* Legacy watery strokes without wateryV used Washy; new blobs need wateryV: 1. */
+  if (fx === 'watery' && Number(stroke.wateryV) !== 1) fx = 'washy';
   const amountRaw = normalizeBrushAmount(stroke.amount);
   const amount =
-    BRUSH_FX_MIX_FX.has(fx) || fx === 'glittery' || fx === 'glowy' ? amountRaw : 50;
+    BRUSH_FX_MIX_FX.has(fx) || fx === 'glittery' || fx === 'glowy' || fx === 'watery' ? amountRaw : 50;
   const color = stroke.color || '#2b2b2b';
   const fillColor = stroke.fillColor ?? null;
   const fillOpacity = Number.isFinite(stroke.fillOpacity) ? stroke.fillOpacity : 1;
@@ -148,8 +154,14 @@ export function drawBrushFxStroke(ctx, stroke) {
       drawSunny(ctx, points, color, fillColor, width, opacity, amount, showSunCore);
       return;
     case 'washy':
-    case 'watery':
       drawWashy(ctx, points, color, fillColor, width, opacity, amount);
+      return;
+    case 'watery':
+      drawWatery(ctx, points, color, width, opacity, amount, {
+        pigmentMix: stroke.pigmentMix ?? amount,
+        markerWetOpts: resolveBrushyMarkerWetOpts(stroke, livePreview),
+        palette,
+      });
       return;
     case 'glowy':
       drawGlowy(ctx, points, color, width, opacity);

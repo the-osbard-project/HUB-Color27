@@ -1,9 +1,15 @@
 /** Color Time! — Color Star! tool (Studio attachBrush + brush-fx stack). */
 
-import { CT_CANVAS_SIZE, canvasStagePointXY } from './ct-canvas.mjs';
+import { CT_CANVAS_W, CT_CANVAS_H, canvasStagePointXY } from './ct-canvas.mjs';
 import { getActiveStarBrushFx } from './ct-q400.mjs';
 import { getCtRainbowPalette } from './ct-rainbow-fx.mjs';
-import { drawBrushFxStroke, normalizeBrushAmount, normalizeBrushFx, starFxUsesOverclockMix } from './draw/ct-brush-fx.mjs';
+import {
+  drawBrushFxStroke,
+  normalizeBrushAmount,
+  normalizeBrushFx,
+  setWateryBarrierDrawer,
+  starFxUsesOverclockMix,
+} from './draw/ct-brush-fx.mjs';
 import { brushSizeFromSlider, opacityFromSlider } from './ct-draw-pencil.mjs';
 import { getCtStarFxPreset } from './ct-tool-presets.mjs';
 import { cleanPenUpWormTail } from './draw/ct-stroke-pressure-path.mjs';
@@ -22,7 +28,17 @@ import {
 } from './draw/ct-inky-pen.mjs';
 import { bindCtPaintTarget } from './ct-draw-paint-target.mjs';
 import { isSubstantialStroke } from './draw/ct-stroke-commit.mjs';
-import { CT_LAYER_COUNT } from './ct-layers.mjs';
+import { CT_LAYER_COUNT, getLayerCanvases, getLayerStrokeCanvas } from './ct-layers.mjs';
+
+setWateryBarrierDrawer((octx, destCanvas) => {
+  const layers = getLayerCanvases();
+  for (let i = 0; i < CT_LAYER_COUNT; i++) {
+    const layer = layers[i];
+    if (layer && layer !== destCanvas) octx.drawImage(layer, 0, 0);
+    const strokes = getLayerStrokeCanvas(i);
+    if (strokes) octx.drawImage(strokes, 0, 0);
+  }
+});
 
 const STAR_RAW_LINE_FX = new Set(['inky']);
 const DEFAULT_STAR_FX_AMOUNT = 100;
@@ -141,8 +157,9 @@ export function attachCtStar(canvas, opts) {
     return normalizeBrushFx(getActiveStarBrushFx());
   }
 
-  function brushyUsesMarkerWet() {
-    return fxNorm() === 'brushy' && endcapSetting() === 'round';
+  function starUsesMarkerWet() {
+    const fx = fxNorm();
+    return fx === 'watery' || (fx === 'brushy' && endcapSetting() === 'round');
   }
 
   function wetLayerIndex() {
@@ -151,19 +168,19 @@ export function attachCtStar(canvas, opts) {
   }
 
   function markerWetOpts(stamp) {
-    if (!brushyUsesMarkerWet() || draftCommitMs == null) return null;
+    if (!starUsesMarkerWet() || draftCommitMs == null) return null;
     return {
       layerIndex: wetLayerIndex(),
-      logicalW: CT_CANVAS_SIZE,
-      logicalH: CT_CANVAS_SIZE,
+      logicalW: CT_CANVAS_W,
+      logicalH: CT_CANVAS_H,
       commitMs: draftCommitMs,
       wetWindowSec: WET_WINDOW_SEC_DEFAULT,
       stamp,
     };
   }
 
-  function brushyStrokeExtras(stamp) {
-    if (!brushyUsesMarkerWet()) return {};
+  function wetStrokeExtras(stamp) {
+    if (!starUsesMarkerWet()) return {};
     return {
       pigmentMix: pigmentMix(),
       smudge: smudgeAmt(),
@@ -217,7 +234,8 @@ export function attachCtStar(canvas, opts) {
       smoothing: smoothingSetting(),
       simplify: simplifySetting(),
       livePreview: fx === 'brushy' || STAR_RAW_LINE_FX.has(fx),
-      ...brushyStrokeExtras(false),
+      ...(fx === 'watery' ? { wateryV: 1 } : {}),
+      ...wetStrokeExtras(false),
     };
   }
 
@@ -234,7 +252,7 @@ export function attachCtStar(canvas, opts) {
     if (!ctx) return;
     drawing = true;
     points = [];
-    draftCommitMs = brushyUsesMarkerWet() ? allocateCommitMs() : null;
+    draftCommitMs = starUsesMarkerWet() ? allocateCommitMs() : null;
     baseImage = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
     eventCanvas.setPointerCapture(e.pointerId);
     if (fxNorm() === 'inky') {
@@ -291,7 +309,8 @@ export function attachCtStar(canvas, opts) {
         smoothing: smoothingSetting(),
         simplify: simplifySetting(),
         points: commitPoints(),
-        ...brushyStrokeExtras(true),
+        ...(fx === 'watery' ? { wateryV: 1 } : {}),
+        ...wetStrokeExtras(true),
       };
       const ctx = paintCtx();
       if (ctx && baseImage) ctx.putImageData(baseImage, 0, 0);
