@@ -170,3 +170,19 @@ export function applyCtStarBrushFx(brushFx) {
     applyCtTrayWellTextures(tray.dataset.ctWellTexture);
   }
 }
+
+/** File → Reset — faders back to factory defaults (does not wipe the page). */
+export function resetCtAppSettings() {
+  for (const k of Object.keys(lastToolSpecs)) delete lastToolSpecs[k];
+  setCtVSliderByLabel('Blend/Splatter', 50);
+  setCtVSliderByLabel('Smudge', 100);
+  setCtVSliderByLabel('Opacity per stroke', 100);
+  const toolKey = activeToolKey();
+  const hud = defaultSpecsForTool(toolKey);
+  if (hud) applyHudSpecs({ strokeWidth: hud.strokeWidth, pressure: hud.pressure, smoothing: hud.smoothing }, toolKey);
+  else {
+    setCtVSliderByLabel('Brush size', 12);
+    setCtVSliderByLabel('Pressure', 3);
+  }
+  window.dispatchEvent(new Event('ct-overclock-hud-changed'));
+}

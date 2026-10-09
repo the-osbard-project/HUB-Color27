@@ -1,19 +1,29 @@
-/** Color27 — draw surface (MOAS booth 640×720; no 300 PPI). */
+/** Color27 — draw surface. Presets: Square 800×800 (default), Wide 800×600, Tall 600×800. */
 
 import { mountCtLayers } from './ct-layers.mjs';
 import { clientToStagePixels, getCanvasPaintRect } from './viewport/stage-coords.mjs';
 import { getStageRotationDeg } from './viewport/stage-rotate.mjs';
 
-/** Short-side scale reference (legacy square callers). */
-export const CT_CANVAS_SIZE_STANDARD = 640;
+/** Short-side scale reference (brush scaling). Square short side. */
+export const CT_CANVAS_SIZE_STANDARD = 800;
+/** Legacy print constant — unused in CT27 UI (no 300 PPI). */
 export const CT_CANVAS_SIZE_PRINT = 2625;
 export const CT_PRINT_DPI = 300;
 export const KDP_MARGIN_IN = 0.0625;
 
-/** Factory default — same booth as MOAS. */
-export const CT_CANVAS_W_DEFAULT = 640;
-export const CT_CANVAS_H_DEFAULT = 720;
+/** @typedef {'square' | 'wide' | 'tall'} CtCanvasPreset */
 
+export const CT_CANVAS_PRESETS = /** @type {const} */ (['square', 'wide', 'tall']);
+export const CT_CANVAS_DEFAULT_PRESET = /** @type {CtCanvasPreset} */ ('square');
+
+/** @type {Record<CtCanvasPreset, { w: number, h: number, label: string }>} */
+export const CT_CANVAS_PRESET_DIMS = {
+  square: { w: 800, h: 800, label: 'Square' },
+  wide: { w: 800, h: 600, label: 'Wide' },
+  tall: { w: 600, h: 800, label: 'Tall' },
+};
+
+const PRESET_STORAGE_KEY = 'ct27-canvas-preset';
 const PRINT_CANVAS_STORAGE_KEY = 'ct-overclock-print-canvas';
 
 try {
@@ -22,10 +32,66 @@ try {
   /* ignore */
 }
 
-/** Live binding — short side. */
-export let CT_CANVAS_SIZE = CT_CANVAS_SIZE_STANDARD;
-export let CT_CANVAS_W = CT_CANVAS_W_DEFAULT;
-export let CT_CANVAS_H = CT_CANVAS_H_DEFAULT;
+/** @returns {CtCanvasPreset} */
+function readSavedPreset() {
+  try {
+    const v = localStorage.getItem(PRESET_STORAGE_KEY);
+    if (v && CT_CANVAS_PRESETS.includes(/** @type {CtCanvasPreset} */ (v))) {
+      return /** @type {CtCanvasPreset} */ (v);
+    }
+  } catch {
+    /* ignore */
+  }
+  return CT_CANVAS_DEFAULT_PRESET;
+}
+
+/** @param {CtCanvasPreset} token */
+function persistPreset(token) {
+  try {
+    localStorage.setItem(PRESET_STORAGE_KEY, token);
+  } catch {
+    /* ignore */
+  }
+}
+
+/**
+ * @param {string} token
+ * @returns {{ w: number, h: number, preset: CtCanvasPreset }}
+ */
+export function canvasDimsForPreset(token) {
+  const preset = CT_CANVAS_PRESETS.includes(/** @type {CtCanvasPreset} */ (token))
+    ? /** @type {CtCanvasPreset} */ (token)
+    : CT_CANVAS_DEFAULT_PRESET;
+  const dims = CT_CANVAS_PRESET_DIMS[preset];
+  return { w: dims.w, h: dims.h, preset };
+}
+
+/**
+ * @param {number} w
+ * @param {number} h
+ * @returns {CtCanvasPreset | null}
+ */
+export function matchCtCanvasPreset(w, h) {
+  const rw = Math.round(w);
+  const rh = Math.round(h);
+  for (const token of CT_CANVAS_PRESETS) {
+    const dims = CT_CANVAS_PRESET_DIMS[token];
+    if (dims.w === rw && dims.h === rh) return token;
+  }
+  return null;
+}
+
+const boot = canvasDimsForPreset(readSavedPreset());
+
+export let CT_CANVAS_SIZE = Math.min(boot.w, boot.h);
+export let CT_CANVAS_W = boot.w;
+export let CT_CANVAS_H = boot.h;
+/** @type {CtCanvasPreset} */
+export let CT_CANVAS_PRESET = boot.preset;
+
+/** Legacy aliases — factory defaults match Square. */
+export const CT_CANVAS_W_DEFAULT = CT_CANVAS_PRESET_DIMS.square.w;
+export const CT_CANVAS_H_DEFAULT = CT_CANVAS_PRESET_DIMS.square.h;
 
 /** @returns {number} */
 export function getCtCanvasSize() {
@@ -42,9 +108,14 @@ export function getCtCanvasHeight() {
   return CT_CANVAS_H;
 }
 
-/** @returns {{ w: number, h: number }} */
+/** @returns {{ w: number, h: number, preset: CtCanvasPreset }} */
 export function getCtCanvasDims() {
-  return { w: CT_CANVAS_W, h: CT_CANVAS_H };
+  return { w: CT_CANVAS_W, h: CT_CANVAS_H, preset: CT_CANVAS_PRESET };
+}
+
+/** @returns {CtCanvasPreset} */
+export function getCtCanvasPreset() {
+  return CT_CANVAS_PRESET;
 }
 
 /** @returns {number} */
@@ -67,6 +138,9 @@ let drawCanvas = null;
 
 /** @type {HTMLElement | null} */
 let kdpGuidesRoot = null;
+
+/** @type {string} */
+let canvasFileLabel = 'Untitled';
 
 export function getCtCanvasMount() {
   const stack = document.getElementById('ct-canvas-stack');
@@ -153,43 +227,132 @@ function ensureKdpGuides(mount) {
 export function syncCtKdpGuides() {
   const mount = getCtCanvasMount();
   if (!(mount instanceof HTMLElement)) return;
-  /* CT27 — print guides never on. */
   mount.classList.remove('ct-canvas-stack--print');
   kdpGuidesRoot?.remove();
   kdpGuidesRoot = null;
   void ensureKdpGuides;
 }
 
-function remountLayerStack(mount, w, h) {
-  mount.querySelectorAll('.ct-layer-canvas, .ct-layer-stroke-canvas, .ct-layer-float-canvas').forEach((node) => node.remove());
-  mountCtLayers(mount, { w, h });
+/**
+ * @param {HTMLCanvasElement} canvas
+ * @param {number} w
+ * @param {number} h
+ */
+export function resizeCanvasKeepPixels(canvas, w, h) {
+  if (canvas.width === w && canvas.height === h) return;
+  const prev = document.createElement('canvas');
+  prev.width = canvas.width;
+  prev.height = canvas.height;
+  prev.getContext('2d')?.drawImage(canvas, 0, 0);
+  canvas.width = w;
+  canvas.height = h;
+  canvas.getContext('2d')?.drawImage(prev, 0, 0);
 }
 
 /**
- * CT27 keeps a fixed booth. `size` is ignored except legacy callers.
- * @param {number} [_size]
+ * @param {number} w
+ * @param {number} h
+ * @param {{ keepPixels?: boolean }} [opts]
  */
-export function applyCtCanvasSize(_size) {
-  CT_CANVAS_W = CT_CANVAS_W_DEFAULT;
-  CT_CANVAS_H = CT_CANVAS_H_DEFAULT;
-  CT_CANVAS_SIZE = Math.min(CT_CANVAS_W, CT_CANVAS_H);
-
+function applyDimsToMountedCanvases(w, h, opts = {}) {
+  const keepPixels = opts.keepPixels !== false;
   const mount = getCtCanvasMount();
-  if (mount instanceof HTMLElement) {
-    remountLayerStack(mount, CT_CANVAS_W, CT_CANVAS_H);
-    if (drawCanvas) {
-      drawCanvas.width = CT_CANVAS_W;
-      drawCanvas.height = CT_CANVAS_H;
-      clearDrawSurface();
+  if (!mount) return;
+  mount.querySelectorAll('canvas').forEach((node) => {
+    if (!(node instanceof HTMLCanvasElement)) return;
+    if (keepPixels) resizeCanvasKeepPixels(node, w, h);
+    else {
+      node.width = w;
+      node.height = h;
+    }
+  });
+}
+
+/**
+ * @param {number} w
+ * @param {number} h
+ * @param {CtCanvasPreset} preset
+ * @param {{ keepPixels?: boolean }} [opts]
+ */
+function commitCanvasDims(w, h, preset, opts = {}) {
+  const keepPixels = opts.keepPixels !== false;
+  CT_CANVAS_W = w;
+  CT_CANVAS_H = h;
+  CT_CANVAS_SIZE = Math.min(w, h);
+  CT_CANVAS_PRESET = preset;
+  persistPreset(preset);
+  applyDimsToMountedCanvases(w, h, { keepPixels });
+  if (drawCanvas && (drawCanvas.width !== w || drawCanvas.height !== h)) {
+    if (keepPixels) resizeCanvasKeepPixels(drawCanvas, w, h);
+    else {
+      drawCanvas.width = w;
+      drawCanvas.height = h;
     }
   }
-
   syncCtKdpGuides();
+  syncCtCanvasSizeReadout();
   window.dispatchEvent(
     new CustomEvent('ct-canvas-size-changed', {
-      detail: { size: CT_CANVAS_SIZE, w: CT_CANVAS_W, h: CT_CANVAS_H },
+      detail: { size: CT_CANVAS_SIZE, w, h, width: w, height: h, preset },
     }),
   );
+}
+
+/**
+ * Apply a Canvas Settings preset.
+ * @param {string} token
+ * @param {{ keepPixels?: boolean }} [opts]
+ */
+export function applyCtCanvasPreset(token, opts = {}) {
+  const dims = canvasDimsForPreset(token);
+  commitCanvasDims(dims.w, dims.h, dims.preset, opts);
+}
+
+/**
+ * Legacy short-side API — keeps current preset shape (no print scale).
+ * @param {number} [_size]
+ * @param {{ keepPixels?: boolean }} [opts]
+ */
+export function applyCtCanvasSize(_size, opts = {}) {
+  applyCtCanvasPreset(CT_CANVAS_PRESET, opts);
+}
+
+/**
+ * Open / restore from `.oss` (w×h or legacy size).
+ * @param {{ w?: number, h?: number, size?: number, preset?: string }} spec
+ * @param {{ keepPixels?: boolean }} [opts]
+ */
+export function applyCtCanvasSpec(spec, opts = {}) {
+  if (spec?.preset && CT_CANVAS_PRESETS.includes(/** @type {CtCanvasPreset} */ (spec.preset))) {
+    applyCtCanvasPreset(spec.preset, opts);
+    return;
+  }
+  if (spec?.w != null && spec?.h != null && spec.w > 0 && spec.h > 0) {
+    const match = matchCtCanvasPreset(spec.w, spec.h);
+    if (match) {
+      applyCtCanvasPreset(match, opts);
+      return;
+    }
+    /* Unknown size — nearest preset by aspect, prefer square. */
+    const ratio = spec.w / spec.h;
+    if (ratio > 1.15) applyCtCanvasPreset('wide', opts);
+    else if (ratio < 0.87) applyCtCanvasPreset('tall', opts);
+    else applyCtCanvasPreset('square', opts);
+    return;
+  }
+  applyCtCanvasPreset(CT_CANVAS_DEFAULT_PRESET, opts);
+}
+
+/** @param {string | null | undefined} name */
+export function setCtCanvasFileLabel(name) {
+  canvasFileLabel = name?.trim() || 'Untitled';
+  syncCtCanvasSizeReadout();
+}
+
+function syncCtCanvasSizeReadout() {
+  const el = document.getElementById('ct-canvas-size');
+  if (!(el instanceof HTMLElement)) return;
+  el.textContent = `${CT_CANVAS_W} × ${CT_CANVAS_H} · File: ${canvasFileLabel}`;
 }
 
 export function initCtCanvas() {
@@ -197,15 +360,17 @@ export function initCtCanvas() {
   const mount = getCtCanvasMount();
   if (!scroll || !mount) return;
 
+  const dims = canvasDimsForPreset(readSavedPreset());
+  CT_CANVAS_W = dims.w;
+  CT_CANVAS_H = dims.h;
+  CT_CANVAS_SIZE = Math.min(dims.w, dims.h);
+  CT_CANVAS_PRESET = dims.preset;
+
   mount.replaceChildren();
   mount.classList.add('ct-canvas-stack');
   scroll.setAttribute('role', 'region');
   scroll.setAttribute('aria-label', 'Drawing canvas');
   scroll.tabIndex = 0;
-
-  CT_CANVAS_W = CT_CANVAS_W_DEFAULT;
-  CT_CANVAS_H = CT_CANVAS_H_DEFAULT;
-  CT_CANVAS_SIZE = Math.min(CT_CANVAS_W, CT_CANVAS_H);
 
   mountCtLayers(mount, { w: CT_CANVAS_W, h: CT_CANVAS_H });
 
@@ -219,6 +384,14 @@ export function initCtCanvas() {
   scroll.dataset.ctTool = scroll.dataset.ctTool ?? 'pencil';
 
   syncCtKdpGuides();
+  syncCtCanvasSizeReadout();
+  window.addEventListener('ct-canvas-size-changed', syncCtCanvasSizeReadout);
+  window.addEventListener('ct-open', (e) => {
+    setCtCanvasFileLabel(e.detail?.fileName ?? null);
+  });
+  window.addEventListener('ct-save', (e) => {
+    setCtCanvasFileLabel(e.detail?.fileName ?? null);
+  });
 }
 
 /** Re-export for draw tools. */

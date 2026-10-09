@@ -1,6 +1,12 @@
 /** Color Time! — stage flatten (PNG) + project document builder. */
 
-import { CT_CANVAS_SIZE, CT_CANVAS_SIZE_PRINT, CT_CANVAS_W, CT_CANVAS_H, getDrawCanvas } from './ct-canvas.mjs';
+import {
+  CT_CANVAS_SIZE,
+  CT_CANVAS_W,
+  CT_CANVAS_H,
+  getCtCanvasPreset,
+  getDrawCanvas,
+} from './ct-canvas.mjs';
 import { canvasColorAt, getBackdropOpacity, getCanvasColorSliderValue, isCanvasBackgroundTransparent } from './ct-canvas-color.mjs';
 import { getCtStrokes } from './ct-draw.mjs';
 import { getActiveBackpackPage } from './ct-backpack.mjs';
@@ -123,7 +129,10 @@ export function buildCtProjectDocument(title) {
     savedAt: new Date().toISOString(),
     canvas: {
       size: CT_CANVAS_SIZE,
-      printCanvas: CT_CANVAS_SIZE === CT_CANVAS_SIZE_PRINT,
+      w: CT_CANVAS_W,
+      h: CT_CANVAS_H,
+      preset: getCtCanvasPreset(),
+      printCanvas: false,
       /** Desk backdrop tint — preview + `.oss` only; not baked into flat PNG. */
       backdrop: canvasBackgroundHex(),
       colorValue: getCanvasColorSliderValue(),

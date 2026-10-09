@@ -1,6 +1,6 @@
 /** Color Time! — Color Star! tool (Studio attachBrush + brush-fx stack). */
 
-import { CT_CANVAS_SIZE } from './ct-canvas.mjs';
+import { CT_CANVAS_SIZE, canvasStagePointXY } from './ct-canvas.mjs';
 import { getActiveStarBrushFx } from './ct-q400.mjs';
 import { getCtRainbowPalette } from './ct-rainbow-fx.mjs';
 import { drawBrushFxStroke, normalizeBrushAmount, normalizeBrushFx, starFxUsesOverclockMix } from './draw/ct-brush-fx.mjs';
@@ -57,11 +57,7 @@ function pressureSetting() {
 
 /** @param {HTMLCanvasElement} canvas @param {number} clientX @param {number} clientY */
 function stagePoint(canvas, clientX, clientY) {
-  const r = canvas.getBoundingClientRect();
-  return {
-    x: ((clientX - r.left) / r.width) * CT_CANVAS_SIZE,
-    y: ((clientY - r.top) / r.height) * CT_CANVAS_SIZE,
-  };
+  return canvasStagePointXY(canvas, clientX, clientY);
 }
 
 /** @param {string} fx */

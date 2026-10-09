@@ -119,6 +119,8 @@ export function initCtHiddenPanels() {
   const ids = [
     'ct-osbard-popup',
     'ct-star-popup',
+    'ct-file-popup',
+    'ct-canvas-popup',
     'ct-set-popup',
     'ct-cast-popup',
     'ct-props-popup',

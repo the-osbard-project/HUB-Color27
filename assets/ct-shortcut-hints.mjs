@@ -25,8 +25,9 @@ function hintBySelector(selector, label, keys) {
 }
 
 export function initCtShortcutHints() {
-  hintById('ct-btn-new', 'New', 'Ctrl+N');
-  hintById('ct-btn-open', 'Open', 'Ctrl+O');
+  hintById('ct-btn-file', 'File', 'Ctrl+N · Ctrl+O');
+  hintById('ct-file-reset', 'Reset settings — faders back to defaults');
+  hintById('ct-btn-resize', 'Canvas Settings');
   hintById('ct-btn-save', 'Save As', 'Ctrl+S');
 
   hintById('ct-btn-overclock', 'Overclock Tools');

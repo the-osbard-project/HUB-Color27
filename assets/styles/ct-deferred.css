@@ -1403,6 +1403,34 @@ body.dd-shell .dd-rail-btn--flyout-open {
   box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--drydock-icon) 65%, transparent);
 }
 
+/* === ct-q100-popups.css === */
+/* Color27 — q100 File + Canvas Settings popups */
+
+.ct-q100-popup {
+  position: fixed;
+  z-index: 80;
+  min-width: 16.5rem;
+}
+
+.ct-file-popup__actions,
+.ct-canvas-popup__grid {
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+  gap: 0.35rem;
+  justify-content: center;
+}
+
+.ct-q100-popup__rule {
+  margin: 0.55rem 0 0.4rem;
+  border: 0;
+  border-top: 1px solid var(--drydock-hub-border);
+}
+
+.q300-shapes-opt.is-active {
+  background: color-mix(in srgb, var(--drydock-hull-light) 55%, transparent);
+  border-color: var(--drydock-hub-rim);
+}
+
 /* === ct-overclock.css === */
 /* Color Time! — Overclock Tools popup (q300 dock · matches ct-tool-popup family) */
 

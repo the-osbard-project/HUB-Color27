@@ -92,7 +92,7 @@
               </div>
             </div>
           </div>
-          <p class="ct-canvas-size" id="ct-canvas-size" aria-live="polite">640 × 720 · File: Untitled</p>
+          <p class="ct-canvas-size" id="ct-canvas-size" aria-live="polite">800 × 800 · File: Untitled</p>
           <div class="ct-osbard-dock" id="ct-osbard-dock" role="group" aria-label="Forgiveness">
             <button type="button" class="ct-osbard-dock__btn ct-osbard-dock__btn--smudgies" data-osbard-action="smudgies" title="Smudgies! (Undo) — Ctrl+Z" aria-label="Smudgies! (Undo) — Ctrl+Z">
               <i class="ph-fill ph-arrow-left" aria-hidden="true"></i>
@@ -146,8 +146,8 @@
           <div class="dd-rail-main dd-rail-main--packs">
             <section class="dd-rail-section" aria-label="Start">
               <div class="dd-rail-actions" role="toolbar" aria-label="Start">
-                <button type="button" class="dd-rail-btn" id="ct-btn-new" aria-label="New"><i class="ph-fill ph-file" aria-hidden="true"></i></button>
-                <button type="button" class="dd-rail-btn" id="ct-btn-open" aria-label="Open"><i class="ph-fill ph-folder-open" aria-hidden="true"></i></button>
+                <button type="button" class="dd-rail-btn" id="ct-btn-file" aria-label="File" aria-expanded="false" aria-controls="ct-file-popup" title="File"><i class="ph-fill ph-file-plus" aria-hidden="true"></i></button>
+                <button type="button" class="dd-rail-btn" id="ct-btn-resize" aria-label="Canvas Settings" aria-expanded="false" aria-controls="ct-canvas-popup" title="Canvas Settings"><i class="ph-fill ph-resize" aria-hidden="true"></i></button>
                 <button type="button" class="dd-rail-btn" id="ct-btn-save" aria-label="Save As" title="Save As"><i class="ph-fill ph-floppy-disk" aria-hidden="true"></i></button>
               </div>
               <div class="ct-pack-well">
@@ -367,6 +367,30 @@
           <button type="button" class="ct-tool-popup__opt" data-brush-fx="sunny"><i class="ph-fill ph-sun" aria-hidden="true"></i><span>Sunny</span></button>
           <button type="button" class="ct-tool-popup__opt" data-brush-fx="washy"><i class="ph-fill ph-drop-half-bottom" aria-hidden="true"></i><span>Washy</span></button>
           <button type="button" class="ct-tool-popup__opt" data-brush-fx="watery"><i class="ph-fill ph-drop" aria-hidden="true"></i><span>Watery</span></button>
+        </div>
+      </div>
+
+      <div class="q300-shapes-popup ct-q100-popup" id="ct-file-popup" hidden role="dialog" aria-label="File">
+        <div class="q300-shapes-popup__head">
+          <p class="q300-shapes-popup__title">File</p>
+          <button type="button" class="q300-shapes-popup__close" aria-label="Close"><i class="ph-fill ph-x" aria-hidden="true"></i></button>
+        </div>
+        <div class="ct-file-popup__actions" role="group" aria-label="New, Open, Reset">
+          <button type="button" class="q300-shapes-opt" id="ct-file-new" title="New"><i class="ph-fill ph-file" aria-hidden="true"></i><span>New</span></button>
+          <button type="button" class="q300-shapes-opt" id="ct-file-open" title="Open"><i class="ph-fill ph-folder-open" aria-hidden="true"></i><span>Open</span></button>
+          <button type="button" class="q300-shapes-opt" id="ct-file-reset" title="Reset settings — faders back to defaults"><i class="ph-fill ph-arrow-clockwise" aria-hidden="true"></i><span>Reset</span></button>
+        </div>
+      </div>
+
+      <div class="q300-shapes-popup ct-q100-popup" id="ct-canvas-popup" hidden role="dialog" aria-label="Canvas Settings">
+        <div class="q300-shapes-popup__head">
+          <p class="q300-shapes-popup__title">Canvas Settings</p>
+          <button type="button" class="q300-shapes-popup__close" aria-label="Close"><i class="ph-fill ph-x" aria-hidden="true"></i></button>
+        </div>
+        <div class="ct-canvas-popup__grid" role="group" aria-label="Canvas size">
+          <button type="button" class="q300-shapes-opt" data-canvas-preset="square" title="Square — 800×800"><i class="ph-fill ph-square" aria-hidden="true"></i><span>Square</span></button>
+          <button type="button" class="q300-shapes-opt" data-canvas-preset="wide" title="Wide — 800×600"><i class="ph-fill ph-rectangle" aria-hidden="true"></i><span>Wide</span></button>
+          <button type="button" class="q300-shapes-opt" data-canvas-preset="tall" title="Tall — 600×800"><i class="ph-fill ph-device-mobile" aria-hidden="true"></i><span>Tall</span></button>
         </div>
       </div>
 

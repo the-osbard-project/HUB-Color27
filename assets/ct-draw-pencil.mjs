@@ -2,7 +2,7 @@
  * Color Time! — Pencil (Studio graphite waxy port).
  */
 
-import { CT_CANVAS_SIZE, canvasStagePoint, ctCanvasScaleFactor } from './ct-canvas.mjs';
+import { canvasStagePoint, ctCanvasScaleFactor } from './ct-canvas.mjs';
 import { drawWaxyStroke, GRAPHITE_WAXY_SPACING, polylineLength } from './draw/ct-waxy-stroke.mjs';
 import { bindCtPaintTarget } from './ct-draw-paint-target.mjs';
 import { isSubstantialStroke } from './draw/ct-stroke-commit.mjs';
@@ -36,18 +36,6 @@ function effectiveWidth(points, fallback) {
   const widths = points.map((p) => p.w).filter((w) => Number.isFinite(w));
   if (!widths.length) return fallback;
   return widths.reduce((a, b) => a + b, 0) / widths.length;
-}
-
-/**
- * @param {HTMLCanvasElement} canvas
- * @param {PointerEvent} e
- */
-function stagePoint(canvas, e) {
-  const r = canvas.getBoundingClientRect();
-  return {
-    x: ((e.clientX - r.left) / r.width) * CT_CANVAS_SIZE,
-    y: ((e.clientY - r.top) / r.height) * CT_CANVAS_SIZE,
-  };
 }
 
 /**
@@ -143,7 +131,7 @@ export function attachCtPencil(canvas, opts) {
     livePreviewWidth = baseWidth();
     baseImage = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
     eventCanvas.setPointerCapture(e.pointerId);
-    const p = stagePoint(eventCanvas, e);
+    const p = canvasStagePoint(eventCanvas, e);
     points.push({ x: p.x, y: p.y, w: widthAt(e) });
     e.preventDefault();
   }
@@ -157,7 +145,7 @@ export function attachCtPencil(canvas, opts) {
       if (coalesced?.length) events = coalesced;
     }
     for (const ce of events) {
-      const p = stagePoint(eventCanvas, ce);
+      const p = canvasStagePoint(eventCanvas, ce);
       const last = points[points.length - 1];
       if (last && last.x === p.x && last.y === p.y) continue;
       points.push({ x: p.x, y: p.y, w: widthAt(ce) });

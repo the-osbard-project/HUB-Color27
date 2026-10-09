@@ -1,4 +1,4 @@
-/** Color Time! — q300 Arrt popup positioning + toggle (Set · Cast · Props). */
+/** Color Time! — q300 Arrt popup positioning + toggle (Set · Cast · Props · File · Canvas). */
 
 import {
   armCtDialogA11y,
@@ -43,21 +43,45 @@ function getHullLayout() {
 }
 
 /**
- * Place popup to the left of the trigger (q300 right rail → toward stage).
- * Uses hull px inside scaled .dd-viewport (same space as Color Star! popups).
+ * Place popup beside the trigger (q300 left of rail · q100 right of rail).
  * @param {HTMLElement} panel
  * @param {HTMLElement} trigger
+ * @param {{ side?: 'left' | 'right', fixed?: boolean }} [opts]
  */
-export function positionCtArrtPopup(panel, trigger) {
+export function positionCtArrtPopup(panel, trigger, opts = {}) {
   const gap = 8;
   const pad = 12;
+  const side = opts.side === 'right' ? 'right' : 'left';
+  const useFixed = opts.fixed === true;
+
+  panel.style.right = 'auto';
+  panel.style.bottom = 'auto';
+  panel.style.transform = 'none';
+
+  if (useFixed) {
+    if (panel.parentElement !== document.body) {
+      document.body.appendChild(panel);
+    }
+    panel.style.position = 'fixed';
+    panel.style.zIndex = '80';
+    requestAnimationFrame(() => {
+      const b = trigger.getBoundingClientRect();
+      const pw = panel.offsetWidth;
+      const ph = panel.offsetHeight;
+      let left = side === 'right' ? b.right + gap : b.left - gap - pw;
+      let top = b.top;
+      left = Math.max(pad, Math.min(left, window.innerWidth - pw - pad));
+      top = Math.max(pad, Math.min(top, window.innerHeight - ph - pad));
+      panel.style.left = `${left}px`;
+      panel.style.top = `${top}px`;
+    });
+    return;
+  }
+
   const { viewport, scale, hull } = getHullLayout();
   if (!viewport) return;
 
   panel.style.position = 'absolute';
-  panel.style.right = 'auto';
-  panel.style.bottom = 'auto';
-  panel.style.transform = 'none';
   panel.style.zIndex = '35';
 
   requestAnimationFrame(() => {
@@ -66,7 +90,9 @@ export function positionCtArrtPopup(panel, trigger) {
     const pw = panel.offsetWidth;
     const ph = panel.offsetHeight;
 
-    let left = (b.left - v.left) / scale - gap - pw;
+    let left = side === 'right'
+      ? (b.right - v.left) / scale + gap
+      : (b.left - v.left) / scale - gap - pw;
     let top = (b.top - v.top) / scale;
 
     left = Math.max(pad, Math.min(left, hull.w - pw - pad));
@@ -81,6 +107,8 @@ export function positionCtArrtPopup(panel, trigger) {
  * @param {{
  *   panel: HTMLElement | null,
  *   trigger: HTMLElement | null,
+ *   side?: 'left' | 'right',
+ *   fixed?: boolean,
  *   onOpen?: () => void,
  *   onClose?: () => void,
  * }} opts
@@ -93,6 +121,7 @@ export function attachCtArrtTogglePopup(opts) {
 
   const closeBtn = panel.querySelector('.q300-shapes-popup__close');
   registered.push({ panel, trigger });
+  const posOpts = { side: opts.side, fixed: opts.fixed };
 
   function close() {
     panel.hidden = true;
@@ -108,7 +137,7 @@ export function attachCtArrtTogglePopup(opts) {
     panel.hidden = false;
     trigger.classList.add('dd-rail-btn--flyout-open');
     trigger.setAttribute('aria-expanded', 'true');
-    positionCtArrtPopup(panel, trigger);
+    positionCtArrtPopup(panel, trigger, posOpts);
     armCtDialogA11y(panel, close);
     focusCtDialogPanel(panel);
     opts.onOpen?.();
@@ -119,6 +148,9 @@ export function attachCtArrtTogglePopup(opts) {
     else close();
   }
 
+  trigger.addEventListener('pointerdown', (e) => {
+    e.stopPropagation();
+  });
   trigger.addEventListener('click', (e) => {
     e.stopPropagation();
     toggle();
@@ -137,7 +169,7 @@ export function attachCtArrtTogglePopup(opts) {
   }
 
   function onResize() {
-    if (!panel.hidden) positionCtArrtPopup(panel, trigger);
+    if (!panel.hidden) positionCtArrtPopup(panel, trigger, posOpts);
   }
 
   document.addEventListener('pointerdown', onDocPointerDown);

@@ -43,6 +43,7 @@ const DEFERRED = [
   'ct-hub-legal.css',
   'ct-hub-info.css',
   'ct-q300-shapes.css',
+  'ct-q100-popups.css',
   'ct-overclock.css',
   'ct-save-as.css',
   'ct-tool-popups.css',

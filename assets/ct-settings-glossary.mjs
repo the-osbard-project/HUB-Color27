@@ -11,8 +11,8 @@ function contrastGlossaryDef() {
 
 /** @type {GlossaryEntry[]} */
 export const CT_SETTINGS_GLOSSARY = [
-  { type: 'term', term: 'New', def: 'Start fresh — clears the drawing and line art.' },
-  { type: 'term', term: 'Open', def: 'Load a saved .OSS project file.' },
+  { type: 'term', term: 'File', def: 'File icon — New (clear art), Open (.OSS / image), Reset (faders back to defaults; does not wipe the page).' },
+  { type: 'term', term: 'Canvas Settings', def: 'Resize icon — Square 800×800 (default), Wide 800×600, Tall 600×800. No custom size or 300 PPI.' },
   { type: 'term', term: 'Save', def: 'Floppy icon opens Save As every time; Ctrl+S quick-saves when a file name is already set. PNG keeps transparency (desk color is preview-only).' },
   { type: 'term', term: 'Backpack', def: 'Coloring pack pages — scroll thumbs in q100; opens into the active layer under any existing art (Undo to reverse); pack toggle switches bundles.' },
   { type: 'section', label: 'Sliders' },
@@ -30,7 +30,7 @@ export const CT_SETTINGS_GLOSSARY = [
   {
     type: 'term',
     term: 'Overclock Tools',
-    def: 'Pro toolbox — Flatten Layer · Flatten Canvas · Copy · Paste · Grid · Snap · Wand · Select · 300 PPI Print-ready (bottom row; set before New).',
+    def: 'Pro toolbox — Flatten Layer · Flatten Canvas · Copy · Paste · Grid · Snap · Wand · Select.',
   },
   { type: 'term', term: 'Layers 1–5', def: 'Five drawable layers; tap a tile to select; drag to reorder; Opacity fades the active layer; eraser on a tile clears that layer.' },
   { type: 'term', term: 'Backdrop', def: 'Canvas background thumb — tap for opacity; rainbow icon opens page color; eraser returns color to white.' },

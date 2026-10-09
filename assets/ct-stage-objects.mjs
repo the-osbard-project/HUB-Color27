@@ -1,6 +1,6 @@
 /** Color Time! — floating (unbaked) stage objects + selection overlay. */
 
-import { CT_CANVAS_SIZE, CT_CANVAS_W, CT_CANVAS_H, canvasStagePoint, getCtCanvasMount } from './ct-canvas.mjs';
+import { CT_CANVAS_W, CT_CANVAS_H, canvasStagePointXY, getCtCanvasMount } from './ct-canvas.mjs';
 import {
   commitShapeToLayer,
   getActiveLayerIndex,
@@ -354,11 +354,7 @@ export function restoreFloatingState(state) {
 
 function screenToStage(x, y) {
   if (!(overlayCanvas instanceof HTMLCanvasElement)) return { x: 0, y: 0 };
-  const r = overlayCanvas.getBoundingClientRect();
-  return {
-    x: ((x - r.left) / r.width) * CT_CANVAS_SIZE,
-    y: ((y - r.top) / r.height) * CT_CANVAS_SIZE,
-  };
+  return canvasStagePointXY(overlayCanvas, x, y);
 }
 
 export function redrawObjectOverlay() {

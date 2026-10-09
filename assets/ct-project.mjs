@@ -4,7 +4,13 @@
  */
 
 import { buildCtProjectBlob, exportStagePngBlob, parseCtProjectDocument } from './ct-export.mjs';
-import { canvasColorAt, getCanvasColorSliderValue, setBackdropOpacity, setCanvasColorSlider } from './ct-canvas-color.mjs';
+import {
+  canvasColorAt,
+  getCanvasColorSliderValue,
+  resetCanvasColorToTransparent,
+  setBackdropOpacity,
+  setCanvasColorSlider,
+} from './ct-canvas-color.mjs';
 import { clearCtDrawing, setCtStrokes } from './ct-draw.mjs';
 import { clearCtHistory } from './ct-history.mjs';
 import { restoreBackpackPage, clearBackpackPage, setBackpackPageRef, dismissBackpackPageSelection } from './ct-backpack.mjs';
@@ -27,8 +33,13 @@ import {
   hasFloatingOnLayer,
 } from './ct-stage-objects.mjs';
 import { syncOpacitySliderToTarget } from './ct-layer-opacity.mjs';
-import { applyCtCanvasSize, CT_CANVAS_SIZE, CT_CANVAS_SIZE_PRINT, CT_CANVAS_SIZE_STANDARD } from './ct-canvas.mjs';
-import { isCtPrintCanvasPref, setCtPrintCanvasLocked, setCtSelectBoundingBoxEnabled } from './ct-overclock.mjs';
+import {
+  applyCtCanvasPreset,
+  applyCtCanvasSpec,
+  getCtCanvasPreset,
+  setCtCanvasFileLabel,
+} from './ct-canvas.mjs';
+import { setCtPrintCanvasLocked, setCtSelectBoundingBoxEnabled } from './ct-overclock.mjs';
 import { syncCtDocumentTitle } from './ct-page-title.mjs';
 
 const OSS_OPEN_ACCEPT = {
@@ -275,7 +286,12 @@ export async function loadCtProject(doc, fileLabel, handle = null) {
     throw new Error('Not a Color Time! .oss file');
   }
 
-  applyCtCanvasSize(parsed.canvas?.size ?? (isCtPrintCanvasPref() ? CT_CANVAS_SIZE_PRINT : CT_CANVAS_SIZE_STANDARD));
+  applyCtCanvasSpec({
+    w: parsed.canvas?.w,
+    h: parsed.canvas?.h,
+    size: parsed.canvas?.size,
+    preset: parsed.canvas?.preset,
+  }, { keepPixels: false });
   setCtPrintCanvasLocked(true);
 
   revokeOpenImageObjectUrl();
@@ -539,7 +555,7 @@ function openErrorMessage(err) {
 }
 
 export function startNewCtProject() {
-  applyCtCanvasSize(isCtPrintCanvasPref() ? CT_CANVAS_SIZE_PRINT : CT_CANVAS_SIZE_STANDARD);
+  applyCtCanvasPreset(getCtCanvasPreset(), { keepPixels: false });
   setCtPrintCanvasLocked(true);
 
   revokeOpenImageObjectUrl();
@@ -548,9 +564,12 @@ export function startNewCtProject() {
   clearCtDrawing();
   clearAllLayers();
   clearBackpackPage();
+  /* Fresh desk: transparent export page, white paper preview on stage. */
+  resetCanvasColorToTransparent({ skipHistory: true });
   state.fileName = null;
   state.saveHandle = null;
   state.saveKind = null;
+  setCtCanvasFileLabel(null);
   markDirty();
   syncCtDocumentTitle(null);
 }
@@ -566,13 +585,7 @@ export function initCtProject() {
   const ossBtn = document.getElementById('ct-save-as-oss');
   const pngBtn = document.getElementById('ct-save-as-png');
   const saveBtn = document.getElementById('ct-btn-save');
-  const openBtn = document.getElementById('ct-btn-open');
-  const newBtn = document.getElementById('ct-btn-new');
   const openFile = document.getElementById('ct-open-file');
-
-  openBtn?.addEventListener('click', () => {
-    openProjectPicker();
-  });
 
   openFile?.addEventListener('change', async () => {
     const file = openFile.files?.[0];
@@ -617,10 +630,6 @@ export function initCtProject() {
 
   popup?.addEventListener('click', (e) => {
     if (e.target === popup) closeSaveAsPopup();
-  });
-
-  newBtn?.addEventListener('click', () => {
-    startNewCtProject();
   });
 
   window.addEventListener('ct-stroke-commit', () => markDirty());

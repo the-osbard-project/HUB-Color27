@@ -1,6 +1,6 @@
 /** Color Time! — Bucket fill tool (samples active layer only). */
 
-import { CT_CANVAS_SIZE } from './ct-canvas.mjs';
+import { canvasStagePoint } from './ct-canvas.mjs';
 import { floodFillAtComposite } from './draw/ct-flood.mjs';
 import { opacityFromSlider } from './ct-draw-pencil.mjs';
 import { CT_LAYER_COUNT, buildLayerBucketSampleCanvas } from './ct-layers.mjs';
@@ -44,19 +44,11 @@ export function attachCtBucket(canvas, opts) {
   }
   const { eventCanvas, paintCtx } = target;
 
-  function stagePoint(e) {
-    const r = eventCanvas.getBoundingClientRect();
-    return {
-      x: ((e.clientX - r.left) / r.width) * CT_CANVAS_SIZE,
-      y: ((e.clientY - r.top) / r.height) * CT_CANVAS_SIZE,
-    };
-  }
-
   function onDown(e) {
     if (!opts.isActive() || e.button !== 0) return;
     const ctx = paintCtx();
     if (!ctx) return;
-    const p = stagePoint(e);
+    const p = canvasStagePoint(eventCanvas, e);
     const color = opts.getColor();
     const opacity = opacityFromSlider(opts.getOpacity());
     const layerIndex = Number(opts.getLayerIndex?.());

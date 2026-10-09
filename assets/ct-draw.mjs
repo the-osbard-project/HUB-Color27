@@ -3,7 +3,7 @@
 import { getDrawCanvas, getDrawContext, fillCanvasBackground, clearDrawSurface, getLayerStrokeContext, CT_CANVAS_SIZE, CT_CANVAS_W, CT_CANVAS_H } from './ct-canvas.mjs';
 import { CT_LAYER_COUNT, clearAllLayerStrokeSurfaces, refreshLayerTilePreviews, getLayerFloatContext, getLayerContext } from './ct-layers.mjs';
 import { beginLayerReplay } from './draw/ct-marker-wet.mjs';
-import { canvasColorAt } from './ct-canvas-color.mjs';
+import { getCanvasBackgroundCss } from './ct-canvas-color.mjs';
 import { attachCtPencil, renderPencilStroke } from './ct-draw-pencil.mjs';
 import { attachCtEraser } from './ct-draw-eraser.mjs';
 import { attachCtBucket, renderBucketFillOnLayer } from './ct-draw-bucket.mjs';
@@ -203,13 +203,8 @@ export function getCtStrokes() {
 
 
 function refillBackground() {
-
-  const input = document.getElementById('ct-canvas-color');
-
-  const v = input instanceof HTMLInputElement ? input.value : '100';
-
-  fillCanvasBackground(canvasColorAt(v));
-
+  /* Desk preview CSS — transparent page still paints white paper on stage. */
+  fillCanvasBackground(getCanvasBackgroundCss());
 }
 
 
@@ -294,13 +289,7 @@ export function cancelCtLiveStroke() {
 
 
 function currentCanvasBackground() {
-
-  const input = document.getElementById('ct-canvas-color');
-
-  const v = input instanceof HTMLInputElement ? input.value : '100';
-
-  return canvasColorAt(v);
-
+  return getCanvasBackgroundCss();
 }
 
 

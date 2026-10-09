@@ -1,6 +1,6 @@
 /** Color Time! — Eraser tool (Studio port). */
 
-import { CT_CANVAS_SIZE } from './ct-canvas.mjs';
+import { canvasStagePoint } from './ct-canvas.mjs';
 import { drawEraserStroke } from './draw/ct-eraser-stroke.mjs';
 import { brushSizeFromSlider } from './ct-draw-pencil.mjs';
 import { bindCtPaintTarget } from './ct-draw-paint-target.mjs';
@@ -59,11 +59,7 @@ export function attachCtEraser(canvas, opts) {
   let baseRaster = null;
 
   function stagePoint(e) {
-    const r = eventCanvas.getBoundingClientRect();
-    return {
-      x: ((e.clientX - r.left) / r.width) * CT_CANVAS_SIZE,
-      y: ((e.clientY - r.top) / r.height) * CT_CANVAS_SIZE,
-    };
+    return canvasStagePoint(eventCanvas, e);
   }
 
   function size() {
