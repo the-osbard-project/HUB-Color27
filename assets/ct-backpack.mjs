@@ -410,8 +410,8 @@ export async function openBackpackPage(bundleId, pageId, { clearDrawing = true, 
     await loadCtLineArtToLayer(targetLayer, page.src, CT_CANVAS_SIZE, {
       preserveShapes: preserveArt,
       preserveStrokes: preserveArt,
-      /* CBN: keep aspect so overlay numbers land in the right cells */
-      fit: page.cbn ? 'contain' : 'stretch',
+      /* Centered uniform fit — black line art on transparent, no stretch. */
+      fit: 'contain',
     });
     setActiveLayerIndex(targetLayer);
 

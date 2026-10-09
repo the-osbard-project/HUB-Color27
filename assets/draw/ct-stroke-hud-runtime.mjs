@@ -17,8 +17,9 @@ import {
 /** Simplify is opt-in (Studio). Default draw = smooth capture + Catmull / tracePathSmooth. */
 export const CT_DEFAULT_SIMPLIFY = 0;
 
-/** Catmull smooth for waxy line tools (pencil, crayon, pastel). */
-const PUBLISH_SMOOTH_AMOUNT = 52;
+/** Catmull smooth for waxy line tools (pencil, crayon, pastel) — baked 60%. */
+export const CT_BUILTIN_SMOOTHING = 60;
+const PUBLISH_SMOOTH_AMOUNT = CT_BUILTIN_SMOOTHING;
 
 /**
  * @param {{ x: number, y: number, t?: number, wf?: number }[]} rawPoints

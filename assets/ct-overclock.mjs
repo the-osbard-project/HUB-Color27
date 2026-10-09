@@ -134,20 +134,20 @@ export function getCtOverclockSnapConfig() {
   return { center: true, edge: true, grid: true };
 }
 
-/** CT27 — no Smoothing fader; baked high for clean kid lines. */
+/** CT27 — no Smoothing fader; baked 60% into every draw tool. */
 export function getCtOverclockSmoothing() {
   const input = overclockInput('ct-overclock-smoothing');
-  if (!input) return 72;
+  if (!input) return 60;
   const v = Number(input.value);
-  return Number.isFinite(v) ? Math.max(0, Math.min(100, Math.round(v))) : 72;
+  return Number.isFinite(v) ? Math.max(0, Math.min(100, Math.round(v))) : 60;
 }
 
-/** CT27 — no Simplify fader; mild bake. */
+/** CT27 — no Simplify fader; off by default (simplify was causing choppy segments). */
 export function getCtOverclockSimplify() {
   const input = overclockInput('ct-overclock-simplify');
-  if (!input) return 28;
+  if (!input) return 0;
   const v = Number(input.value);
-  return Number.isFinite(v) ? Math.max(0, Math.min(100, Math.round(v))) : 28;
+  return Number.isFinite(v) ? Math.max(0, Math.min(100, Math.round(v))) : 0;
 }
 
 export function getCtOverclockMix() {

@@ -18,7 +18,7 @@ export const CT_CLOCK_TRAYS = Object.freeze([
     trayId: 'crayon:default',
     colors: Object.freeze([
       '#EE204D', '#FF7538', '#F5C542', '#58b42d', '#1C99FF', '#0D4A85',
-      '#6c4ac8', '#FF6AD5', '#7a3044', '#3b495a', '#4E342E', '#000000',
+      '#6c4ac8', '#FF6AD5', '#7a3044', '#9E9E9E', '#4E342E', '#000000',
     ]),
   },
   {

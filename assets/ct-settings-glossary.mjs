@@ -61,7 +61,7 @@ export const CT_SETTINGS_GLOSSARY = [
   { type: 'term', term: 'Contrast', def: contrastGlossaryDef() },
   { type: 'term', term: 'Globe', def: 'Language / translator overlay.' },
   { type: 'term', term: 'Info', def: 'Keyboard shortcuts and Tool Guide (Info icon · Ctrl+,).' },
-  { type: 'term', term: '12 Color Wells', def: 'Toe trays on q400 and in the menu — twelve colors per active tool; tray swaps when you change tools.' },
+  { type: 'term', term: '12 Color Wells', def: 'Toe trays on q400 and in the menu — Crayon spectrum (pink + gray) for every draw tool. Clock and CBN can mount other trays.' },
 ];
 
 export function initCtSettingsGlossary() {

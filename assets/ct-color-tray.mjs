@@ -2,7 +2,7 @@
 
 import { getCtFillColor, getCtLineColor } from './ct-paint-bar.mjs';
 
-const DEFAULT_COLOR = '#ef233c';
+const DEFAULT_COLOR = '#EE204D';
 
 function wellHex(well) {
   if (!(well instanceof HTMLElement)) return '';

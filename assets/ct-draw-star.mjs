@@ -11,6 +11,7 @@ import { allocateCommitMs, prepareMarkerCommitPoints } from './draw/ct-marker-dr
 import { WET_WINDOW_SEC_DEFAULT } from './draw/ct-marker-wet.mjs';
 import { getCtOverclockMix, getCtOverclockSmudge } from './ct-overclock.mjs';
 import {
+  CT_BUILTIN_SMOOTHING,
   prepareHudStrokePoints,
   hudPointFromEvent,
   hudPointsFromPointerMove,
@@ -117,9 +118,7 @@ export function attachCtStar(canvas, opts) {
 
   function smoothingSetting() {
     if (typeof opts.getSmoothing === 'function') return opts.getSmoothing();
-    const hud = fxPreset();
-    if (Number.isFinite(hud.smoothing)) return hud.smoothing;
-    return 0;
+    return CT_BUILTIN_SMOOTHING;
   }
 
   function simplifySetting() {

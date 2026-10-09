@@ -357,6 +357,8 @@ export function initCtDraw() {
 
     getPressure: () => sliderValue('Pressure'),
 
+    getSimplify: getCtOverclockSimplify,
+
     isActive: () => isPencilActive() && !isCtOverclockWandActive() && !isCtSelectBoundingBoxEnabled(),
 
     onStrokeCommit: commit,

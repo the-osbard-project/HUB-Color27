@@ -12,7 +12,7 @@ import {
 } from './ct-cbn-overlay.mjs';
 
 /** Draw-desk tray (shared by all tools when not on a CBN page). */
-export const CT27_DRAW_TRAY_ID = 'pastel:chalky';
+export const CT27_DRAW_TRAY_ID = 'crayon:default';
 
 /** House CBN tray — same brand ten; wells show 1–10. */
 export const CT27_CBN_TRAY_ID = 'cbn:house';

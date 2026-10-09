@@ -12,6 +12,7 @@ import { beginLayerReplay, WET_WINDOW_SEC_DEFAULT } from './draw/ct-marker-wet.m
 import { fillStrokeCenterlinePolygon } from './draw/ct-stroke-fill.mjs';
 import { isTransparentColor } from './draw/ct-color-utils.mjs';
 import {
+  CT_BUILTIN_SMOOTHING,
   prepareHudStrokePoints,
   hudPointFromEvent,
   hudPointsFromPointerMove,
@@ -154,7 +155,7 @@ export function attachCtMarker(canvas, opts) {
 
   function smoothingSetting() {
     if (typeof opts.getSmoothing === 'function') return opts.getSmoothing();
-    return 0;
+    return CT_BUILTIN_SMOOTHING;
   }
 
   function markerDrawPoints(raw = points) {

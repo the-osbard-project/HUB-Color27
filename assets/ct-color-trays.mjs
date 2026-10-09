@@ -1,6 +1,6 @@
 /**
- * Color27 — single Pastel draw tray (house + pink/gray in hue order).
- * CBN pages use `cbn:house` with numbered wells. Clock still gyros house colors.
+ * Color27 — default draw tray is Crayon (pre-MediO red) with pink + gray.
+ * House/MediO stays on the clock + CBN only.
  */
 
 import { applyWellSurface } from './ct-well-surface.mjs';
@@ -13,7 +13,7 @@ export const CT_COLOR_TRAY_ROOT_IDS = Object.freeze(['ct-color-tray', 'ct-hub-co
 
 /** @typedef {{ id: string, strokeColor: string, wells: CtTrayWell[] }} CtColorTray */
 
-/** House brand ten — clock + CBN numbers 1–10. */
+/** House brand ten — clock + CBN numbers 1–10 (MediO stays here). */
 export const HOUSE_TRAY_WELLS = Object.freeze([
   { color: '#B8292B', label: 'MediO' },
   { color: '#E8891F', label: 'Pixer', light: true },
@@ -28,22 +28,22 @@ export const HOUSE_TRAY_WELLS = Object.freeze([
 ]);
 
 /**
- * Candy order — red (MediO) next to the paw, then spectrum; neutrals last.
- * Pink + gray sit in lineup (not tacked on as keepers).
+ * Default 12 — classic Crayon spectrum, pink kept, slate → gray.
+ * Red is pre-MediO crayon red (#EE204D), not MediO (#B8292B).
  */
-const PASTEL_WELLS = Object.freeze([
-  { color: '#B8292B', label: 'MediO' },
-  { color: '#FF4081', label: 'Pink' },
-  { color: '#E8891F', label: 'Pixer', light: true },
-  { color: '#BA9B22', label: 'Scoopy', light: true },
-  { color: '#006631', label: 'Arrt!!' },
-  { color: '#2664DA', label: 'Color' },
-  { color: '#5D3790', label: 'StudiO' },
-  { color: '#882C68', label: 'Scrippy' },
-  { color: '#9D431B', label: 'Mashy' },
+const CRAYON_WELLS = Object.freeze([
+  { color: '#EE204D', label: 'Red' },
+  { color: '#FF7538', label: 'Orange' },
+  { color: '#F5C542', label: 'Yellow', light: true },
+  { color: '#58b42d', label: 'Green' },
+  { color: '#1C99FF', label: 'Sky Blue' },
+  { color: '#0D4A85', label: 'Navy' },
+  { color: '#6c4ac8', label: 'Purple' },
+  { color: '#FF6AD5', label: 'Pink' },
+  { color: '#7a3044', label: 'Maroon' },
   { color: '#9E9E9E', label: 'Gray' },
-  { color: '#F5F2EB', label: 'Siar', light: true },
-  { color: '#1C1917', label: 'Osbard' },
+  { color: '#4E342E', label: 'Brown' },
+  { color: '#000000', label: 'Black' },
 ]);
 
 /** CBN house ten — red first by paw; numbers 1–10 follow this order. */
@@ -63,22 +63,22 @@ const CBN_HOUSE_WELLS = Object.freeze([
 /** @type {CtColorTray} */
 const PENCIL_TRAY = {
   id: 'pencil:default',
-  strokeColor: '#B8292B',
-  wells: PASTEL_WELLS,
+  strokeColor: '#EE204D',
+  wells: CRAYON_WELLS,
 };
 
 /** @type {CtColorTray} */
 const CRAYON_TRAY = {
   id: 'crayon:default',
-  strokeColor: '#B8292B',
-  wells: PASTEL_WELLS,
+  strokeColor: '#EE204D',
+  wells: CRAYON_WELLS,
 };
 
 /** @type {CtColorTray} */
 const PASTEL_TRAY = {
   id: 'pastel:chalky',
-  strokeColor: '#B8292B',
-  wells: PASTEL_WELLS,
+  strokeColor: '#EE204D',
+  wells: CRAYON_WELLS,
 };
 
 /** @type {CtColorTray} */
@@ -91,8 +91,21 @@ const CBN_HOUSE_TRAY = {
 /** @type {CtColorTray} */
 const MARKER_TRAY = {
   id: 'marker:watercolor',
-  strokeColor: '#2664DA',
-  wells: PASTEL_WELLS,
+  strokeColor: '#0087f9',
+  wells: [
+    { color: '#E53935', label: 'Poppy Red' },
+    { color: '#FF9220', label: 'Marigold' },
+    { color: '#FFC107', label: 'Golden Sun', light: true },
+    { color: '#66BB3A', label: 'Spring Green' },
+    { color: '#2E7D4F', label: 'Pine Green' },
+    { color: '#26C6DA', label: 'Pool Cyan' },
+    { color: '#0087f9', label: 'Skyline Blue' },
+    { color: '#5E35B1', label: 'Vivid Violet' },
+    { color: '#D81B9A', label: 'Raspberry' },
+    { color: '#FFA8D2', label: 'Blossom Pink', light: true },
+    { color: '#4E342E', label: 'Cocoa Brown' },
+    { color: '#141414', label: 'Ink Black' },
+  ],
 };
 
 /** @type {CtColorTray} */
@@ -262,16 +275,16 @@ const CT_COLOR_TRAYS = Object.freeze({
   'pastel:chalky': PASTEL_TRAY,
   'marker:watercolor': MARKER_TRAY,
   'cbn:house': CBN_HOUSE_TRAY,
-  'brush:brushy': PASTEL_TRAY,
-  'brush:dotty': PASTEL_TRAY,
-  'brush:starry': PASTEL_TRAY,
-  'brush:watery': PASTEL_TRAY,
-  'brush:washy': PASTEL_TRAY,
-  'brush:sunny': PASTEL_TRAY,
-  'brush:glittery': PASTEL_TRAY,
-  'brush:glowy': PASTEL_TRAY,
-  'brush:inky': PASTEL_TRAY,
-  'brush:furry': PASTEL_TRAY,
+  'brush:brushy': BRUSHY_TRAY,
+  'brush:dotty': BRUSHY_TRAY,
+  'brush:starry': STARRY_TRAY,
+  'brush:watery': WATERY_TRAY,
+  'brush:washy': WATERY_TRAY,
+  'brush:sunny': SUNNY_TRAY,
+  'brush:glittery': GLITTERY_TRAY,
+  'brush:glowy': GLOWY_TRAY,
+  'brush:inky': INKY_TRAY,
+  'brush:furry': FURRY_TRAY,
 });
 
 /** Bucket + Eraser keep whatever tray is showing (Studio inheritsColorTray). */
@@ -279,38 +292,16 @@ export function inheritsColorTray(toolKey) {
   return toolKey === 'bucket' || toolKey === 'eraser' || toolKey === 'osbard';
 }
 
-const STAR_BRUSH_FX = new Set([
-  'brushy', 'dotty', 'starry', 'watery', 'washy', 'sunny',
-  'furry', 'glittery', 'glowy', 'inky',
-]);
-
-/** @param {string | undefined} fx */
-function normalizeStarBrushFx(fx) {
-  const id = String(fx || 'starry').toLowerCase().trim();
-  if (id === 'fuzzy') return 'furry';
-  if (id === 'washy') return 'watery';
-  if (id === 'magical' || id === 'soft') return 'inky';
-  return id;
-}
-
 /**
- * CT27 — all draw tools share Pastel. CBN pages mount `cbn:house` via ct-cbn.mjs.
+ * All desk draw tools share the Crayon + pink + gray tray.
+ * Bucket / Eraser keep the live tray. CBN pages mount `cbn:house` via ct-cbn.mjs.
+ * Clock hour trays stay available via mountCtColorTray (not tool switches).
  * @param {string} toolKey
- * @param {{ brushFx?: string }} [variant]
+ * @param {{ brushFx?: string }} [_variant]
  */
-export function colorTrayIdForTool(toolKey, { brushFx } = {}) {
+export function colorTrayIdForTool(toolKey, _variant = {}) {
   if (inheritsColorTray(toolKey)) return null;
-  if (
-    toolKey === 'pencil'
-    || toolKey === 'crayon'
-    || toolKey === 'pastel'
-    || toolKey === 'marker'
-    || toolKey === 'star'
-  ) {
-    return 'pastel:chalky';
-  }
-  void brushFx;
-  return null;
+  return 'crayon:default';
 }
 
 /** @param {string} trayId */

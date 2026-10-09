@@ -1,11 +1,16 @@
 /**
  * Color Time! — Pencil (Studio graphite waxy port).
+ * Live + commit use baked Catmull smoothing (60%) so lines aren't choppy segments.
  */
 
 import { canvasStagePoint, ctCanvasScaleFactor } from './ct-canvas.mjs';
-import { drawWaxyStroke, GRAPHITE_WAXY_SPACING, polylineLength } from './draw/ct-waxy-stroke.mjs';
+import { drawWaxyStroke, GRAPHITE_WAXY_SPACING } from './draw/ct-waxy-stroke.mjs';
 import { bindCtPaintTarget } from './ct-draw-paint-target.mjs';
 import { isSubstantialStroke } from './draw/ct-stroke-commit.mjs';
+import {
+  CT_DEFAULT_SIMPLIFY,
+  preparePublishStrokePoints,
+} from './draw/ct-stroke-hud-runtime.mjs';
 
 const GRAPHITE_DEFAULT_WIDTH = 12;
 
@@ -39,15 +44,16 @@ function effectiveWidth(points, fallback) {
 }
 
 /**
- * Replay / bake — same raw path + grain density as live incremental draw (no publish resample).
  * @param {CanvasRenderingContext2D} ctx
- * @param {{ points: { x: number, y: number, w?: number }[], color: string, opacity?: number, width?: number }} stroke
+ * @param {{ points: { x: number, y: number, w?: number }[], color: string, opacity?: number, width?: number, simplify?: number }} stroke
  */
 export function renderPencilStroke(ctx, stroke) {
   if (!stroke.points || stroke.points.length < 2) return;
   const width = stroke.width ?? effectiveWidth(stroke.points, GRAPHITE_DEFAULT_WIDTH);
+  const simplify = Number.isFinite(Number(stroke.simplify)) ? Number(stroke.simplify) : CT_DEFAULT_SIMPLIFY;
+  const centerline = preparePublishStrokePoints(stroke.points, width, { simplify });
   const opacity = stroke.opacity ?? 0.95;
-  drawWaxyStroke(ctx, stroke.points, stroke.color, width, opacity, GRAPHITE_WAXY_SPACING);
+  drawWaxyStroke(ctx, centerline, stroke.color, width, opacity, GRAPHITE_WAXY_SPACING);
 }
 
 /**
@@ -57,6 +63,7 @@ export function renderPencilStroke(ctx, stroke) {
  *   getBrushSize: () => number,
  *   getOpacity: () => number,
  *   getPressure: () => number,
+ *   getSimplify?: () => number,
  *   getPaintContext?: () => CanvasRenderingContext2D | null,
  *   isActive: () => boolean,
  *   onStrokeCommit?: (stroke: object) => void,
@@ -74,9 +81,6 @@ export function attachCtPencil(canvas, opts) {
   let points = [];
   /** @type {ImageData | null} */
   let baseImage = null;
-  /** Arc length already stamped during live draw (incremental waxy — avoids grain reshuffle). */
-  let liveStampedThrough = 0;
-  /** Brush width locked at stroke start so grain spacing stays stable while drawing. */
   let livePreviewWidth = GRAPHITE_DEFAULT_WIDTH;
 
   function baseWidth() {
@@ -91,32 +95,25 @@ export function attachCtPencil(canvas, opts) {
     return Math.max(1, base * factor);
   }
 
+  function simplifyAmt() {
+    return opts.getSimplify?.() ?? CT_DEFAULT_SIMPLIFY;
+  }
+
   function paintLive() {
     const ctx = paintCtx();
     if (!ctx || !baseImage || points.length < 2) return;
-    const totalLen = polylineLength(points);
-    if (liveStampedThrough <= 0) {
-      ctx.putImageData(baseImage, 0, 0);
-    }
-    drawWaxyStroke(
-      ctx,
+    ctx.putImageData(baseImage, 0, 0);
+    renderPencilStroke(ctx, {
       points,
-      opts.getColor(),
-      livePreviewWidth,
-      opacityFromSlider(opts.getOpacity()),
-      GRAPHITE_WAXY_SPACING,
-      {
-        minDist: liveStampedThrough,
-        maxDist: totalLen,
-        skipBaseStroke: liveStampedThrough > 0,
-      },
-    );
-    liveStampedThrough = totalLen;
+      color: opts.getColor(),
+      width: livePreviewWidth,
+      opacity: opacityFromSlider(opts.getOpacity()),
+      simplify: simplifyAmt(),
+    });
   }
 
   function resetLivePreview() {
     points = [];
-    liveStampedThrough = 0;
     livePreviewWidth = GRAPHITE_DEFAULT_WIDTH;
     baseImage = null;
   }
@@ -127,7 +124,6 @@ export function attachCtPencil(canvas, opts) {
     if (!ctx) return;
     drawing = true;
     points = [];
-    liveStampedThrough = 0;
     livePreviewWidth = baseWidth();
     baseImage = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
     eventCanvas.setPointerCapture(e.pointerId);
@@ -158,7 +154,7 @@ export function attachCtPencil(canvas, opts) {
     if (!drawing) return;
     drawing = false;
     if (points.length >= 2 && isSubstantialStroke(points) && opts.onStrokeCommit) {
-      opts.onStrokeCommit({
+      const saved = {
         id: `stroke-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
         tool: 'pencil',
         points: [...points],
@@ -166,8 +162,14 @@ export function attachCtPencil(canvas, opts) {
         opacity: opacityFromSlider(opts.getOpacity()),
         width: livePreviewWidth,
         pressure: pressureFromSlider(opts.getPressure()),
-        skipCanvasReplay: true,
-      });
+        simplify: simplifyAmt(),
+      };
+      const ctx = paintCtx();
+      if (ctx && baseImage) {
+        ctx.putImageData(baseImage, 0, 0);
+        renderPencilStroke(ctx, saved);
+      }
+      opts.onStrokeCommit({ ...saved, skipCanvasReplay: true });
     } else if (baseImage) {
       const ctx = paintCtx();
       if (ctx) ctx.putImageData(baseImage, 0, 0);
